@@ -1,0 +1,412 @@
+@import "tailwindcss";
+
+:root {
+  /* ========================================
+     立霖國文 品牌色彩系統 v2.0
+     v1.0: 三色定調（Navy / Gold / Cream）
+     v2.0: 擴充人生導師暖色 × 親情橋樑連結色
+     ======================================== */
+
+  /* --- v1.0 主色（深海軍藍 / 晨曦金 / 紙莎草白） --- */
+  --navy: #1a365d;        /* 深海軍藍 - 學術 / 沉穩 / 古典 */
+  --navy-light: #2c5282;
+  --navy-dark: #0f2744;
+  --navy-hero: #0A1A35;   /* Hero 戲劇深色 */
+  --gold: #d69e2e;        /* 晨曦金 - CTA / 強調 / 珍貴 */
+  --gold-light: #ecc94b;
+  --gold-dark: #b7791f;
+  --cream: #faf5ef;       /* 紙莎草白 - 背景 / 留白 */
+  --cream-dark: #f5e6d3;
+  --cream-soft: #fdfaf5;  /* 比 cream 更柔軟，給長文閱讀用 */
+
+  /* --- v2.0 人生導師暖色（Mentor Warmth） --- */
+  /* 用於：導師旁白塊、心靈專欄、文宣家長端、體驗活動 */
+  --mentor-terracotta: #b86a4a;    /* 赤茶 - 人文關懷主色 */
+  --mentor-terracotta-soft: #d4886a;
+  --mentor-amber: #c98a3d;          /* 琥珀 - 燭光感 */
+  --mentor-clay: #e8d5c4;           /* 暖陶土 - 卡片底色 */
+  --mentor-sunrise: #f4e4d4;        /* 朝陽米 - 大面積背景 */
+
+  /* --- v2.0 親情橋樑連結色（Bridge Tone） --- */
+  /* 用於：親師生互動門戶、親子討論題、學生匿名信箱 */
+  --bridge-teal: #4a7c7e;           /* 湖青 - 連結 / 平靜 */
+  --bridge-teal-soft: #7fa5a6;
+  --bridge-sage: #9cae8e;           /* 苔綠 - 成長 / 自然 */
+  --bridge-mist: #e8eeec;           /* 霧白 - 卡片底色 */
+
+  /* --- v2.0 述情情緒詞彙色票（Emotion Lexicon） --- */
+  /* 用於：情緒詞彙擴充教材、心情標籤、匿名信箱情緒選擇 */
+  --emo-joy: #e6b85c;       /* 喜 - 暖黃 */
+  --emo-calm: #8aa9b5;      /* 安 - 霧藍 */
+  --emo-melancholy: #6b7a99; /* 鬱 - 鴿藍灰 */
+  --emo-anger: #a8624a;     /* 慍 - 磚紅（非鮮紅） */
+  --emo-anxiety: #b89968;   /* 焦 - 沙金棕 */
+  --emo-grief: #5d6878;     /* 哀 - 石青灰 */
+  --emo-hope: #9ab87c;      /* 望 - 春芽綠 */
+
+  /* --- v2.0 五感體驗主題色（Sensory Experience） --- */
+  /* 用於：自然輕觸之旅、親子律動工作坊活動卡 */
+  --sense-sight: #7e8c5c;   /* 視 - 山嵐綠 */
+  --sense-sound: #6e7d99;   /* 聽 - 流水青 */
+  --sense-smell: #c4a574;   /* 嗅 - 木質黃 */
+  --sense-taste: #b86a4a;   /* 味 - 焙茶赤 */
+  --sense-touch: #9c8579;   /* 觸 - 樹皮棕 */
+
+  /* --- 系統色 / 通訊 --- */
+  --line-green: #06C755;
+  --line-green-dark: #05b34d;
+
+  --background: var(--cream);
+  --foreground: var(--navy);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-navy-dark: var(--navy-dark);
+  --color-navy-hero: var(--navy-hero);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-cream: var(--cream);
+  --color-cream-dark: var(--cream-dark);
+  --color-cream-soft: var(--cream-soft);
+  --color-mentor-terracotta: var(--mentor-terracotta);
+  --color-mentor-amber: var(--mentor-amber);
+  --color-mentor-clay: var(--mentor-clay);
+  --color-mentor-sunrise: var(--mentor-sunrise);
+  --color-bridge-teal: var(--bridge-teal);
+  --color-bridge-sage: var(--bridge-sage);
+  --color-bridge-mist: var(--bridge-mist);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
+}
+
+/* 品牌按鈕樣式 */
+.btn-primary {
+  background: var(--gold);
+  color: var(--navy-dark);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: var(--gold-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(214, 158, 46, 0.4);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--navy);
+  color: var(--cream);
+}
+
+/* 卡片樣式 */
+.card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(26, 54, 93, 0.1);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(26, 54, 93, 0.15);
+}
+
+/* 區塊標題 */
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: var(--navy-light);
+  margin-bottom: 2rem;
+}
+
+/* ========================================
+   Oriental Luxury Hero Animations
+   ======================================== */
+
+/* Armillary Sphere (混天儀) Rotation Animations */
+@keyframes spin-very-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-slow-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes spin-medium {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-very-slow {
+  animation: spin-very-slow 60s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spin-slow-reverse 45s linear infinite;
+}
+
+.animate-spin-medium {
+  animation: spin-medium 30s linear infinite;
+}
+
+/* Floating Elements Animations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(3deg); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0) rotate(12deg); }
+  50% { transform: translateY(-10px) rotate(15deg); }
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 6s ease-in-out infinite;
+}
+
+/* Golden Particle Pulse Animations */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes pulse-medium {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-pulse-medium {
+  animation: pulse-medium 3s ease-in-out infinite;
+}
+
+/* Radial Gradient Support */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* ========================================
+   Unified Card Shadow System
+   ======================================== */
+
+.card-shadow-sm {
+  box-shadow: 0 2px 8px rgba(26, 54, 93, 0.08);
+}
+
+.card-shadow-md {
+  box-shadow: 0 4px 16px rgba(26, 54, 93, 0.1);
+}
+
+.card-shadow-lg {
+  box-shadow: 0 8px 24px rgba(26, 54, 93, 0.12);
+}
+
+.card-shadow-hover {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card-shadow-hover:hover {
+  box-shadow: 0 12px 32px rgba(26, 54, 93, 0.15);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   Mobile Responsive Improvements
+   ======================================== */
+
+@media (max-width: 639px) {
+  /* Adjust hero padding on mobile */
+  .hero-mobile-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* ========================================
+   Accessibility: Reduce motion for sensitive users
+   ======================================== */
+
+/* ========================================
+   v2.0 人生導師 / 親情橋樑 元件 utility
+   ======================================== */
+
+/* 導師旁白塊（Mentor Voice）— 用於講義側邊、文章插入、課程卡 */
+.mentor-voice {
+  position: relative;
+  background: linear-gradient(180deg, var(--mentor-sunrise) 0%, var(--mentor-clay) 100%);
+  border-left: 3px solid var(--mentor-terracotta);
+  border-radius: 0 0.75rem 0.75rem 0;
+  padding: 1.5rem 1.75rem;
+  color: var(--navy);
+}
+/* Note: label text is rendered by MentorVoice React component (supports custom `label` prop). */
+
+/* 親情橋樑卡（Family Bridge）— 用於親師生互動門戶 */
+.bridge-card {
+  background: var(--bridge-mist);
+  border: 1px solid color-mix(in srgb, var(--bridge-teal) 25%, transparent);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.bridge-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--bridge-teal), var(--bridge-sage));
+}
+
+/* 親子討論題卡（Dialogue Prompt） */
+.dialogue-prompt {
+  background: var(--cream-soft);
+  border: 1px dashed var(--mentor-terracotta);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  color: var(--navy);
+  position: relative;
+}
+
+.dialogue-prompt::before {
+  content: "「";
+  position: absolute;
+  top: -0.5rem;
+  left: 0.75rem;
+  font-size: 2.5rem;
+  color: var(--mentor-terracotta);
+  font-family: serif;
+  line-height: 1;
+}
+
+/* 情緒詞彙標籤 */
+.emotion-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: var(--cream-soft);
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+}
+.emotion-chip::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: currentColor;
+}
+
+/* 雙軌動線分流卡（Student / Parent） */
+.dual-track-card {
+  position: relative;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  overflow: hidden;
+}
+.dual-track-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(26, 54, 93, 0.12);
+}
+.dual-track-card--student {
+  background: linear-gradient(135deg, var(--bridge-mist) 0%, color-mix(in srgb, var(--bridge-teal) 12%, var(--cream)) 100%);
+  border: 1px solid color-mix(in srgb, var(--bridge-teal) 30%, transparent);
+}
+.dual-track-card--parent {
+  background: linear-gradient(135deg, var(--mentor-sunrise) 0%, var(--mentor-clay) 100%);
+  border: 1px solid color-mix(in srgb, var(--mentor-terracotta) 25%, transparent);
+}
+
+/* 體驗活動卡（Sensory Experience） */
+.experience-card {
+  background: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(26, 54, 93, 0.08);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.experience-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(26, 54, 93, 0.14);
+}
+
+/* 金色細線分隔（gold hairline） */
+.gold-hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 70%, transparent), transparent);
+  border: none;
+  margin: 2rem 0;
+}
+
+/* 設計系統 token swatch（給 /design-system 頁使用） */
+.token-swatch {
+  border-radius: 0.75rem;
+  height: 88px;
+  box-shadow: inset 0 0 0 1px rgba(15, 39, 68, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-spin-very-slow,
+  .animate-spin-slow-reverse,
+  .animate-spin-medium,
+  .animate-float-slow,
+  .animate-float-medium,
+  .animate-pulse-slow,
+  .animate-pulse-medium {
+    animation: none !important;
+  }
+}
