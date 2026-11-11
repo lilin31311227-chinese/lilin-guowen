@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>立霖國文 · 社群貼文範本</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1a365d;--navy-light:#2c5282;--navy-hero:#0A1A35;
+    --gold:#d69e2e;--gold-dark:#b7791f;--gold-glow:#fbbf24;--gold-warm:#fcd34d;
+    --cream:#faf5ef;--cream-soft:#fdfaf5;--cream-dark:#f5e6d3;
+    --mentor-terracotta:#b86a4a;--mentor-amber:#c98a3d;
+    --mentor-clay:#e8d5c4;--mentor-sunrise:#f4e4d4;
+    --bridge-teal:#4a7c7e;--bridge-sage:#9cae8e;--bridge-mist:#e8eeec;
+    --line-green:#06c755;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--cream);
+    color:var(--navy);
+    font-family:'Noto Sans TC','PingFang TC',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding:48px 32px 80px;
+  }
+
+  /* ====== Page header ====== */
+  .hdr{max-width:1320px;margin:0 auto 36px;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid rgba(26,54,93,.12);padding-bottom:22px}
+  .hdr .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dark);font-weight:600;margin-bottom:8px}
+  .hdr h1{font-family:'Noto Serif TC',serif;font-size:36px;color:var(--navy);font-weight:700;line-height:1.2}
+  .hdr .meta{font-size:12px;color:var(--navy-light);text-align:right;line-height:1.7}
+  .hdr .meta b{color:var(--navy);font-weight:600}
+
+  /* ====== Canvas grid ====== */
+  .canvas{max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:64px}
+
+  .section-title{display:flex;align-items:baseline;gap:14px;padding-bottom:6px;border-bottom:1px dashed rgba(26,54,93,.18);margin-bottom:8px}
+  .section-title .num{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--gold-dark);font-weight:600;letter-spacing:.1em}
+  .section-title h2{font-family:'Noto Serif TC',serif;font-size:22px;font-weight:700;color:var(--navy)}
+  .section-title .desc{font-size:12.5px;color:var(--navy-light);margin-left:auto}
+
+  .row{display:grid;gap:48px}
+  .row-3{grid-template-columns:repeat(3,1fr)}
+  .row-2{grid-template-columns:1fr 1fr;align-items:start}
+  .row-2-asym{grid-template-columns:1fr 540px;align-items:start}
+
+  /* ====== Post frame system ====== */
+  .frame{display:flex;flex-direction:column;align-items:center;gap:16px}
+  .frame__label{
+    width:100%;display:flex;justify-content:space-between;align-items:baseline;
+    font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--navy-light);
+  }
+  .frame__label .platform{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--navy)}
+  .frame__label .platform::before{content:"";width:6px;height:6px;border-radius:9999px;background:var(--gold)}
+  .frame__label .dims{letter-spacing:.05em;color:var(--gold-dark);font-weight:600}
+
+  .post{
+    position:relative;
+    background:#fff;
+    overflow:hidden;
+    box-shadow:0 12px 36px rgba(15,39,68,.14);
+    /* outer frame line */
+    border:1.5px solid var(--navy);
+  }
+  /* corner ticks (frame indicator) */
+  .post::before,.post::after,
+  .frame__ticks::before,.frame__ticks::after{
+    content:"";position:absolute;width:14px;height:14px;border:1.5px solid var(--gold);
+  }
+  .post::before{top:-1.5px;left:-1.5px;border-right:0;border-bottom:0}
+  .post::after{top:-1.5px;right:-1.5px;border-left:0;border-bottom:0}
+  .frame__ticks{position:absolute;inset:0;pointer-events:none}
+  .frame__ticks::before{bottom:-1.5px;left:-1.5px;border-right:0;border-top:0}
+  .frame__ticks::after{bottom:-1.5px;right:-1.5px;border-left:0;border-top:0}
+
+  /* Safe zone dashed inner outline */
+  .safe-zone{position:absolute;inset:6%;border:1px dashed rgba(26,54,93,.28);pointer-events:none;border-radius:2px}
+  .safe-zone::after{
+    content:"安全留白 8%";position:absolute;top:-9px;left:14px;background:#fff;
+    padding:0 6px;font-family:ui-monospace,Menlo,monospace;font-size:9px;color:var(--navy-light);
+    letter-spacing:.05em;
+  }
+
+  .frame__notes{width:100%;font-size:11.5px;color:var(--navy-light);line-height:1.65;display:flex;flex-direction:column;gap:4px}
+  .frame__notes .key{font-family:ui-monospace,Menlo,monospace;color:var(--gold-dark);font-weight:600;font-size:10.5px;letter-spacing:.05em}
+
+  /* ============================================================
+     POST 1 — IG Square / Navy Hero (Quote card — 跨用)
+     ============================================================ */
+  .post-1{width:380px;height:380px;background:linear-gradient(135deg,#0A1A35 0%,#0d2341 50%,#071428 100%);color:var(--cream);padding:42px 36px;display:flex;flex-direction:column;justify-content:space-between}
+  .post-1__glow1{position:absolute;top:-60px;right:-40px;width:240px;height:240px;border-radius:9999px;background:radial-gradient(circle,rgba(245,158,11,.16),transparent 60%);filter:blur(30px);pointer-events:none}
+  .post-1__cloud{position:absolute;color:var(--gold);opacity:.16;pointer-events:none}
+  .post-1__cloud.tl{top:18px;left:18px}
+  .post-1__cloud.br{bottom:18px;right:18px;transform:scaleX(-1)}
+  .post-1 .logo{height:18px;width:auto;filter:brightness(0) invert(1);position:relative;z-index:2}
+  .post-1 .quote{font-family:'Noto Serif TC',serif;font-weight:700;font-size:36px;line-height:1.3;color:#fff;letter-spacing:-.005em;position:relative;z-index:2}
+  .post-1 .quote .accent{background:linear-gradient(90deg,#fcd34d,#fbbf24,#f59e0b);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .post-1 .hairline{height:1px;background:linear-gradient(90deg,transparent,rgba(214,158,46,.7),transparent);margin:14px 0;width:60%}
+  .post-1 .attrib{font-size:11px;letter-spacing:.18em;color:#fcd34d;text-transform:uppercase;font-weight:600;position:relative;z-index:2}
+  .post-1 .foot{display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:2}
+  .post-1 .foot .seal{font-family:'Noto Serif TC',serif;font-size:13px;color:#fde68a;letter-spacing:.15em}
+
+  /* ============================================================
+     POST 2 — IG Square / Student track (Bridge teal)
+     ============================================================ */
+  .post-2{width:380px;height:380px;background:linear-gradient(135deg,var(--bridge-mist) 0%,#dde9e8 100%);padding:42px 36px;display:flex;flex-direction:column;justify-content:space-between;color:var(--navy)}
+  .post-2__hand{position:absolute;color:var(--bridge-teal);opacity:.10;pointer-events:none;font-size:120px;font-family:'Noto Serif TC',serif;font-weight:700;line-height:1;bottom:-20px;right:-10px;transform:rotate(-8deg)}
+  .post-2 .top{display:flex;justify-content:space-between;align-items:center}
+  .post-2 .pill{display:inline-flex;align-items:center;gap:6px;padding:.35rem .8rem;border-radius:9999px;background:rgba(255,255,255,.7);backdrop-filter:blur(4px);font-size:10.5px;font-weight:600;letter-spacing:.1em;color:var(--bridge-teal)}
+  .post-2 .pill::before{content:"";width:6px;height:6px;border-radius:9999px;background:var(--bridge-teal)}
+  .post-2 .logo{height:16px;opacity:.7}
+  .post-2 .body{position:relative;z-index:2}
+  .post-2 .label{font-size:11px;letter-spacing:.18em;color:var(--bridge-teal);font-weight:600;margin-bottom:14px}
+  .post-2 .headline{font-family:'Noto Serif TC',serif;font-weight:700;font-size:32px;line-height:1.35;color:var(--navy)}
+  .post-2 .hairline{width:48px;height:1.5px;background:linear-gradient(90deg,var(--bridge-teal),var(--bridge-sage));margin-top:18px}
+  .post-2 .foot{font-size:11px;color:var(--navy-light);letter-spacing:.05em;position:relative;z-index:2}
+
+  /* ============================================================
+     POST 3 — IG Square / Parent track (Mentor terracotta)
+     ============================================================ */
+  .post-3{width:380px;height:380px;background:linear-gradient(135deg,var(--mentor-sunrise) 0%,var(--mentor-clay) 100%);padding:42px 36px;display:flex;flex-direction:column;justify-content:space-between;color:var(--navy)}
+  .post-3__cloud{position:absolute;color:var(--mentor-terracotta);opacity:.14;pointer-events:none}
+  .post-3__cloud.tr{top:24px;right:24px;transform:scaleX(-1)}
+  .post-3 .top{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
+  .post-3 .pill{display:inline-flex;align-items:center;gap:6px;padding:.35rem .8rem;border-radius:9999px;background:rgba(255,255,255,.75);font-size:10.5px;font-weight:600;letter-spacing:.1em;color:var(--mentor-terracotta)}
+  .post-3 .pill::before{content:"";width:6px;height:6px;border-radius:9999px;background:var(--mentor-terracotta)}
+  .post-3 .logo{height:16px;opacity:.75}
+  .post-3 .body{position:relative;z-index:2}
+  .post-3 .label{font-size:11px;letter-spacing:.18em;color:var(--mentor-terracotta);font-weight:600;margin-bottom:14px}
+  .post-3 .headline{font-family:'Noto Serif TC',serif;font-weight:700;font-size:28px;line-height:1.4;color:var(--navy)}
+  .post-3 .headline .em{color:var(--mentor-terracotta)}
+  .post-3 .hairline{width:48px;height:1.5px;background:linear-gradient(90deg,var(--mentor-terracotta),var(--mentor-amber));margin-top:16px}
+  .post-3 .foot{display:flex;justify-content:space-between;align-items:flex-end;font-size:10.5px;color:var(--navy-light);letter-spacing:.05em;position:relative;z-index:2}
+  .post-3 .foot .source{font-style:italic;opacity:.8}
+
+  /* ============================================================
+     POST 4 — IG Story / Daily reflection poll (學生軌)
+     ============================================================ */
+  .post-4{width:280px;height:498px;background:linear-gradient(180deg,#0A1A35 0%,#0d2341 50%,var(--bridge-teal) 130%);padding:36px 26px;display:flex;flex-direction:column;color:var(--cream)}
+  .post-4__glow{position:absolute;top:0;left:0;right:0;height:200px;background:radial-gradient(ellipse at 50% 0%,rgba(245,158,11,.15),transparent 70%);pointer-events:none}
+  .post-4 .top{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:rgba(250,245,239,.6);letter-spacing:.1em;position:relative;z-index:2}
+  .post-4 .top .logo{height:14px;filter:brightness(0) invert(1);opacity:.6}
+  .post-4 .label{font-size:10px;letter-spacing:.22em;color:#fcd34d;font-weight:600;margin-top:42px;position:relative;z-index:2}
+  .post-4 .ask{font-family:'Noto Serif TC',serif;font-size:24px;font-weight:700;line-height:1.4;color:#fff;margin-top:14px;position:relative;z-index:2}
+  .post-4 .hairline{height:1px;background:linear-gradient(90deg,transparent,rgba(252,211,77,.6),transparent);margin:18px 0;position:relative;z-index:2}
+
+  .post-4 .poll{margin-top:auto;position:relative;z-index:2;display:grid;gap:8px}
+  .post-4 .poll__bar{
+    background:rgba(255,255,255,.92);backdrop-filter:blur(4px);
+    border-radius:14px;padding:11px 16px;
+    font-size:12.5px;font-weight:600;color:var(--navy);
+    display:flex;justify-content:space-between;align-items:center;
+    position:relative;overflow:hidden;
+  }
+  .post-4 .poll__bar.fill::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:62%;
+    background:rgba(74,124,126,.18);
+  }
+  .post-4 .poll__bar span{position:relative;z-index:2}
+  .post-4 .poll__bar .pct{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--bridge-teal)}
+  .post-4 .swipeup{margin-top:14px;text-align:center;font-size:10.5px;color:rgba(250,245,239,.7);letter-spacing:.12em;font-weight:500;position:relative;z-index:2}
+  .post-4 .swipeup .arrow{display:block;font-size:14px;margin-bottom:3px;color:#fcd34d;animation:bounce 1.4s ease-in-out infinite}
+  @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+  /* ============================================================
+     POST 5 — FB landscape (1200×630) / Long-form essay teaser (家長軌)
+     ============================================================ */
+  .post-5{width:600px;height:315px;background:linear-gradient(135deg,var(--mentor-sunrise) 0%,#ead9c4 100%);display:grid;grid-template-columns:1fr 220px;color:var(--navy)}
+  .post-5__cloud{position:absolute;color:var(--mentor-terracotta);opacity:.10;pointer-events:none;bottom:-20px;left:-20px}
+  .post-5 .body{padding:34px 32px;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:2}
+  .post-5 .label{font-size:10.5px;letter-spacing:.22em;color:var(--mentor-terracotta);font-weight:600}
+  .post-5 .headline{font-family:'Noto Serif TC',serif;font-weight:700;font-size:30px;line-height:1.3;color:var(--navy);margin-top:10px}
+  .post-5 .dek{font-size:12.5px;color:var(--navy-light);line-height:1.7;margin-top:10px;max-width:32ch}
+  .post-5 .meta{display:flex;justify-content:space-between;align-items:flex-end;font-size:10.5px;color:var(--navy-light)}
+  .post-5 .meta .logo{height:18px;opacity:.8}
+  .post-5 .meta b{color:var(--navy);font-weight:600}
+  .post-5 .visual{background:
+    radial-gradient(circle at 50% 60%,rgba(214,158,46,.22),transparent 65%),
+    linear-gradient(135deg,#0d2341,#0A1A35);
+    color:#fcd34d;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+  .post-5 .visual .glyph{font-family:'Noto Serif TC',serif;font-size:128px;font-weight:700;line-height:1;letter-spacing:-.04em;background:linear-gradient(180deg,#fcd34d,#b7791f);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 24px rgba(245,158,11,.25)}
+  .post-5 .visual::after{
+    content:"";position:absolute;inset:14px;border:1px solid rgba(214,158,46,.4);border-radius:4px;
+  }
+  .post-5 .visual .tag{position:absolute;top:14px;right:14px;font-size:9.5px;letter-spacing:.2em;color:#fcd34d;background:rgba(10,26,53,.6);padding:3px 8px;border-radius:9999px;font-weight:600}
+
+  /* ============================================================
+     POST 6 — LINE OA push (1040×520)
+     ============================================================ */
+  .post-6{width:540px;height:270px;background:var(--cream);display:grid;grid-template-columns:1fr 200px;color:var(--navy)}
+  .post-6 .body{padding:28px 26px;display:flex;flex-direction:column;justify-content:space-between}
+  .post-6 .top{display:flex;align-items:center;gap:10px}
+  .post-6 .top .linechip{display:inline-flex;align-items:center;gap:6px;background:var(--line-green);color:#fff;padding:.25rem .6rem;border-radius:9999px;font-size:10px;font-weight:600;letter-spacing:.05em}
+  .post-6 .top .linechip svg{width:11px;height:11px}
+  .post-6 .top .meta{font-size:10px;color:var(--navy-light);letter-spacing:.08em}
+  .post-6 .headline{font-family:'Noto Serif TC',serif;font-weight:700;font-size:26px;line-height:1.35;color:var(--navy);margin-top:14px}
+  .post-6 .dek{font-size:12px;color:var(--navy-light);line-height:1.7;margin-top:8px}
+  .post-6 .cta{margin-top:auto;display:inline-flex;align-self:flex-start;align-items:center;gap:6px;padding:.55rem .95rem;border-radius:8px;background:linear-gradient(90deg,#fbbf24,#f59e0b);color:#0A1A35;font-size:12px;font-weight:600;box-shadow:0 4px 12px rgba(214,158,46,.3)}
+  .post-6 .visual{background:linear-gradient(135deg,var(--bridge-mist) 0%,#d9e6e5 100%);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .post-6 .visual::after{content:"";position:absolute;inset:14px;border:1px solid rgba(74,124,126,.3);border-radius:4px}
+  .post-6 .visual .icon{font-family:'Noto Serif TC',serif;font-size:84px;color:var(--bridge-teal);opacity:.4;font-weight:700}
+
+  /* ====== Image-slot frame (空配圖框 — 給未來上稿用) ====== */
+  .slot-explainer{
+    grid-column:1/-1;
+    background:#fff;
+    border-radius:14px;
+    padding:24px 28px;
+    box-shadow:0 4px 14px rgba(26,54,93,.08);
+    display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:center;
+  }
+  .slot-explainer .demo{
+    position:relative;
+    width:180px;height:180px;
+    background:repeating-linear-gradient(45deg,rgba(26,54,93,.04) 0,rgba(26,54,93,.04) 8px,transparent 8px,transparent 18px);
+    border:2px dashed rgba(26,54,93,.3);
+    border-radius:8px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .slot-explainer .demo::before,.slot-explainer .demo::after{
+    content:"";position:absolute;width:16px;height:16px;border:2px solid var(--gold);
+  }
+  .slot-explainer .demo::before{top:-2px;left:-2px;border-right:0;border-bottom:0}
+  .slot-explainer .demo::after{bottom:-2px;right:-2px;border-left:0;border-top:0}
+  .slot-explainer .demo .x{position:absolute;width:100%;height:100%}
+  .slot-explainer .demo .x::before,.slot-explainer .demo .x::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(26,54,93,.18)}
+  .slot-explainer .demo .x::after{transform:rotate(90deg)}
+  .slot-explainer .demo .cap{position:relative;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--navy-light);background:#fff;padding:2px 6px}
+  .slot-explainer h3{font-family:'Noto Serif TC',serif;font-size:20px;color:var(--navy);margin-bottom:8px}
+  .slot-explainer p{font-size:13px;color:var(--navy-light);line-height:1.75}
+  .slot-explainer code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--gold-dark);background:var(--cream-soft);padding:1px 5px;border-radius:4px}
+
+  /* ====== Footer note ====== */
+  .endnote{max-width:1320px;margin:48px auto 0;padding:20px 24px;background:var(--navy);color:var(--cream);border-radius:14px;display:flex;gap:24px;align-items:flex-start}
+  .endnote svg{flex-shrink:0;color:var(--gold-glow)}
+  .endnote h4{font-size:14px;font-weight:700;color:var(--gold-glow);margin-bottom:6px;letter-spacing:.05em}
+  .endnote p{font-size:12.5px;line-height:1.75;color:rgba(250,245,239,.85)}
+  .endnote code{font-family:ui-monospace,Menlo,monospace;color:#fde68a;background:rgba(255,255,255,.06);padding:1px 5px;border-radius:4px}
+</style>
+</head>
+<body data-screen-label="社群貼文範本">
+
+  <header class="hdr">
+    <div>
+      <div class="eyebrow">SOCIAL TEMPLATE KIT · v2.0</div>
+      <h1>社群貼文範本</h1>
+    </div>
+    <div class="meta">
+      <b>適用平台</b>　IG 貼文 · IG 限動 · FB 長文 · LINE 推播<br>
+      <b>對應文件</b>　docs/templates/COPYWRITING_KIT.md · LINE_SOCIAL_PLAYBOOK.md
+    </div>
+  </header>
+
+  <div class="canvas">
+
+    <!-- ===== Section 01: IG 1:1 ===== -->
+    <section>
+      <div class="section-title">
+        <span class="num">01</span>
+        <h2>IG 貼文 · 1:1 方形圖卡</h2>
+        <span class="desc">每週 3 篇　·　左上 Logo　·　中央金句　·　右下落款</span>
+      </div>
+      <div class="row row-3" style="margin-top:24px">
+
+        <!-- POST 1 -->
+        <div class="frame">
+          <div class="frame__label"><span class="platform">IG 貼文 · 跨用金句</span><span class="dims">1080 × 1080 px</span></div>
+          <div class="post post-1">
+            <div class="frame__ticks"></div>
+            <div class="safe-zone"></div>
+            <div class="post-1__glow1"></div>
+            <svg class="post-1__cloud tl" width="46" height="22" viewBox="0 0 120 80" fill="none"><path d="M20 60C20 60 25 40 45 40C65 40 60 55 80 55C100 55 100 35 100 35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg class="post-1__cloud br" width="46" height="22" viewBox="0 0 120 80" fill="none"><path d="M20 60C20 60 25 40 45 40C65 40 60 55 80 55C100 55 100 35 100 35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <img src="assets/lilin-logo.png" alt="" class="logo">
+            <div>
+              <div class="attrib">本週金句</div>
+              <p class="quote" style="margin-top:10px">人生沒有 <span class="accent">Google</span>，<br>但有經典可循。</p>
+              <hr class="hairline">
+            </div>
+            <div class="foot">
+              <div class="seal">立霖國文</div>
+              <div style="font-size:10px;color:rgba(252,211,77,.7);letter-spacing:.15em">@lilin.guowen</div>
+            </div>
+          </div>
+          <div class="frame__notes">
+            <div><span class="key">背景</span>　Hero 三色漸層 #0A1A35 → #0d2341 → #071428</div>
+            <div><span class="key">標題</span>　Noto Serif TC 700 · 96 px @ 原稿（顯示 36px）</div>
+            <div><span class="key">用途</span>　主標語、跨用名言、共讀引子</div>
+          </div>
+        </div>
+
+        <!-- POST 2 -->
+        <div class="frame">
+          <div class="frame__label"><span class="platform">IG 貼文 · 學生軌</span><span class="dims">1080 × 1080 px</span></div>
+          <div class="post post-2">
+            <div class="frame__ticks"></div>
+            <div class="safe-zone"></div>
+            <div class="post-2__hand">徐</div>
+            <div class="top">
+              <span class="pill">學生軌</span>
+              <img src="assets/lilin-logo.png" alt="" class="logo">
+            </div>
+            <div class="body">
+              <div class="label">FOR YOU · 學長姐心聲</div>
+              <p class="headline">古人也會崩潰，<br>他們只是把崩潰<br>寫成了詩。</p>
+              <div class="hairline"></div>
+            </div>
+            <div class="foot">立霖國文　·　@lilin.guowen</div>
+          </div>
+          <div class="frame__notes">
+            <div><span class="key">背景</span>　Bridge mist → 湖青漸層　bridge-mist → 12% bridge-teal</div>
+            <div><span class="key">語氣</span>　平起平坐、不上對下</div>
+            <div><span class="key">文案出處</span>　COPYWRITING_KIT.md 4.1 學生用</div>
+          </div>
+        </div>
+
+        <!-- POST 3 -->
+        <div class="frame">
+          <div class="frame__label"><span class="platform">IG 貼文 · 家長軌</span><span class="dims">1080 × 1080 px</span></div>
+          <div class="post post-3">
+            <div class="frame__ticks"></div>
+            <div class="safe-zone"></div>
+            <svg class="post-3__cloud tr" width="60" height="30" viewBox="0 0 120 80" fill="none"><path d="M20 60C20 60 25 40 45 40C65 40 60 55 80 55C100 55 100 35 100 35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <div class="top">
+              <span class="pill">家長軌</span>
+              <img src="assets/lilin-logo.png" alt="" class="logo">
+            </div>
+            <div class="body">
+              <div class="label">FOR PARENTS · 心靈專欄摘句</div>
+              <p class="headline">您要的不是<br><span class="em">滿級分</span>，<br>是一個能<br>說真話的孩子。</p>
+              <div class="hairline"></div>
+            </div>
+            <div class="foot">
+              <span>立霖國文　·　@lilin.guowen</span>
+              <span class="source">摘自《不知如何開口的那句》</span>
+            </div>
+          </div>
+          <div class="frame__notes">
+            <div><span class="key">背景</span>　朝陽米 → 陶土漸層　mentor-sunrise → mentor-clay</div>
+            <div><span class="key">語氣</span>　理解、卸責、不焦慮綁架</div>
+            <div><span class="key">文案出處</span>　COPYWRITING_KIT.md 4.2 家長用</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== Section 02: IG Story + FB Landscape ===== -->
+    <section>
+      <div class="section-title">
+        <span class="num">02</span>
+        <h2>IG 限動 · FB 長文 · LINE 推播</h2>
+        <span class="desc">直式互動　·　橫式封圖　·　LINE OA 主視覺</span>
+      </div>
+
+      <div class="row row-2" style="margin-top:24px;grid-template-columns:auto 1fr;gap:64px;align-items:start">
+
+        <!-- POST 4 - Story -->
+        <div class="frame">
+          <div class="frame__label"><span class="platform">IG 限動 · 每日微反思</span><span class="dims">1080 × 1920 px</span></div>
+          <div class="post post-4">
+            <div class="frame__ticks"></div>
+            <div class="safe-zone"></div>
+            <div class="post-4__glow"></div>
+            <div class="top">
+              <img src="assets/lilin-logo.png" alt="" class="logo">
+              <span>WED · 微反思</span>
+            </div>
+            <div class="label">給今晚的你</div>
+            <p class="ask">你今天最想<br>用一個字形容<br>自己的感覺？</p>
+            <div class="hairline"></div>
+            <div class="poll">
+              <div class="poll__bar fill"><span>懸宕</span><span class="pct">62%</span></div>
+              <div class="poll__bar"><span>從容</span><span class="pct">14%</span></div>
+              <div class="poll__bar"><span>惆悵</span><span class="pct">18%</span></div>
+              <div class="poll__bar"><span>欣然</span><span class="pct">6%</span></div>
+            </div>
+            <div class="swipeup">
+              <span class="arrow">▲</span>
+              滑上看完整解讀
+            </div>
+          </div>
+          <div class="frame__notes" style="max-width:280px">
+            <div><span class="key">機制</span>　投票貼紙 · 連結轉導至匿名信箱</div>
+            <div><span class="key">情緒詞</span>　使用 v2.0 述情詞彙（懸宕／從容／惆悵／欣然）</div>
+            <div><span class="key">頻率</span>　每日一則，固定晚 21:00 推送</div>
+          </div>
+        </div>
+
+        <div style="display:grid;gap:48px">
+
+          <!-- POST 5 - FB landscape -->
+          <div class="frame">
+            <div class="frame__label"><span class="platform">FB 長文封圖 · 心靈專欄</span><span class="dims">1200 × 630 px</span></div>
+            <div class="post post-5">
+              <div class="frame__ticks"></div>
+              <div class="safe-zone"></div>
+              <svg class="post-5__cloud" width="160" height="80" viewBox="0 0 120 80" fill="none"><path d="M20 60C20 60 25 40 45 40C65 40 60 55 80 55C100 55 100 35 100 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 70C10 70 20 50 40 55C60 60 70 45 90 50" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".6"/></svg>
+              <div class="body">
+                <div class="label">VOL 06 · 親情橋樑專欄</div>
+                <div>
+                  <p class="headline">他不是不講話，<br>只是不知道從哪句開始。</p>
+                  <p class="dek">當孩子用「不爽 / 煩 / 不知道」概括一切，他需要的不是更多追問，而是更精確的詞——讓我們把「煩」翻譯成「惆悵」。</p>
+                </div>
+                <div class="meta">
+                  <img src="assets/lilin-logo.png" alt="" class="logo">
+                  <span><b>立霖老師</b>　·　5 分鐘讀完</span>
+                </div>
+              </div>
+              <div class="visual">
+                <span class="tag">FEATURED 字</span>
+                <div class="glyph">煩</div>
+              </div>
+            </div>
+            <div class="frame__notes">
+              <div><span class="key">用法</span>　FB 貼文封圖 + OG 卡 + Email 月報 hero</div>
+              <div><span class="key">主圖區</span>　深藍 hero 底色 + 金色「主題字」（書法感）</div>
+              <div><span class="key">公式</span>　左：暖色文字　右：深底字象——「冷暖對撞」</div>
+            </div>
+          </div>
+
+          <!-- POST 6 - LINE -->
+          <div class="frame">
+            <div class="frame__label"><span class="platform">LINE 推播 · 親師生互動</span><span class="dims">1040 × 520 px</span></div>
+            <div class="post post-6">
+              <div class="frame__ticks"></div>
+              <div class="safe-zone"></div>
+              <div class="body">
+                <div class="top">
+                  <span class="linechip">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 10.3c0-5.4-5.4-9.7-12-9.7S0 5 0 10.3c0 4.8 4.3 8.8 10 9.6.4.1.9.3 1.1.6.1.3.1.8.1 1.1l-.2 1c0 .3-.2 1.2 1 .6 1.3-.5 7-4.1 9.4-7C23.2 14.4 24 12.5 24 10.3z"/></svg>
+                    LINE OA 推播
+                  </span>
+                  <span class="meta">週五 16:30 · 家長軌</span>
+                </div>
+                <p class="headline">本週親子破冰話題：<br>看見「不曾被看見的付出」</p>
+                <p class="dek">這週的功課，留給飯桌——朱自清《背影》改寫版，三題討論引子。</p>
+                <a class="cta">收到第一份月報 →</a>
+              </div>
+              <div class="visual">
+                <div class="icon">橋</div>
+              </div>
+            </div>
+            <div class="frame__notes">
+              <div><span class="key">分流</span>　LINE 加好友自動分軌：學生軌 / 家長軌（按年級）</div>
+              <div><span class="key">頻率</span>　學生：週日 21:00 · 家長：週五 16:30 + 月初月報</div>
+              <div><span class="key">KPI</span>　封鎖率 ≤ 5%　·　訊息點擊率 ≥ 15%</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Section 03: Image slot specs ===== -->
+    <section>
+      <div class="section-title">
+        <span class="num">03</span>
+        <h2>配圖框線規範</h2>
+        <span class="desc">所有版型共用</span>
+      </div>
+      <div class="slot-explainer" style="margin-top:24px">
+        <div class="demo">
+          <div class="x"></div>
+          <div class="cap">圖片置中</div>
+        </div>
+        <div>
+          <h3>圖框安全留白與裁切規則</h3>
+          <p>
+            每張版型外圍的 <b>金色 L 型角標</b> 標示「實際裁切邊」（bleed line）—— 上稿時對齊此邊。<br>
+            內側的 <b>虛線框</b> 為「安全留白」，文字與 Logo 必須收在此線內，避免被 IG / FB 自動裁切。
+          </p>
+          <p style="margin-top:8px">
+            <b>實際稿件尺寸：</b> <code>IG 貼文 1080×1080</code>　 <code>IG 限動 1080×1920</code>　 <code>FB 封圖 1200×630</code>　 <code>LINE OA 1040×520</code><br>
+            <b>安全留白比例：</b> 上下左右各保留外邊 <code>8%</code>（IG 約 86 px / FB 約 50 px / LINE 約 40 px）<br>
+            <b>輸出建議：</b> 印刷 sRGB / 數位 sRGB · 72 dpi · PNG（含書法字時不壓縮）or JPEG q ≥ 90
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="endnote">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    <div>
+      <h4>使用提醒 · 文案三問</h4>
+      <p>
+        每張貼文發出前，回答品牌規範要求的審稿三問：<br>
+        ① 孩子讀到，他會覺得 <code>被尊重</code> 還是被擺布？　② 家長讀到，他會 <code>鬆一口氣</code> 還是被催促？　③ 把所有「！」和「保證」拿掉，這則文案還站得住嗎？<br>
+        三題任一題答案是負面的——<b style="color:var(--gold-warm)">重寫</b>。完整守則請見 <code>docs/templates/COPYWRITING_KIT.md §9</code>。
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>

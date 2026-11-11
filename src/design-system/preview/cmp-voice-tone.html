@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Voice & Tone Matrix</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:12.5px}
+  .hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .bar{width:4px;height:22px;border-radius:9999px;background:#b86a4a}
+  h3{font-size:16px;font-weight:700;color:#1a365d}
+  table{width:100%;border-collapse:collapse;border-radius:14px;overflow:hidden;border:1px solid rgba(26,54,93,.1)}
+  th{padding:10px 14px;text-align:left;font-weight:600;background:#f4e4d4;font-size:12px;color:#1a365d}
+  th.good{color:#b86a4a}
+  th.bad{color:#5d6878}
+  td{padding:10px 14px;border-top:1px solid rgba(26,54,93,.08);background:#fff;vertical-align:top;line-height:1.6}
+  td.scene{font-weight:600}
+  td.good{color:#1a365d}
+  td.bad{color:#2c5282;opacity:.6;text-decoration:line-through}
+</style>
+</head>
+<body>
+  <div class="hdr"><span class="bar"></span><h3>對家長：理解與卸責的支持者</h3></div>
+  <table>
+    <thead><tr><th style="width:22%">場景</th><th class="good">✅ 這樣寫</th><th class="bad">❌ 避免</th></tr></thead>
+    <tbody>
+      <tr><td class="scene">招生 CTA</td><td class="good">預約一份免費的課堂觀察月報</td><td class="bad">今天報名打 8 折！</td></tr>
+      <tr><td class="scene">溝通價值</td><td class="good">那些不知如何開口的關心，讓文學替您說</td><td class="bad">保證 3 個月孩子變得跟您講話</td></tr>
+      <tr><td class="scene">價格訴求</td><td class="good">高單價，是因為改變的不只是分數</td><td class="bad">一堂只要 $X，超划算！</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

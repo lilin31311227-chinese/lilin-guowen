@@ -1,0 +1,1248 @@
+/* ============================================================
+   立霖國文 · 講義系統共用樣式 (Handout shared styles)
+   皮膚：變體 B「墨韻簡雅」（2026-08-02 落地）
+   權威規格：src/design-system/templates/handout/樣式稿-2026-07/
+             變體B-墨韻簡雅-原版式.html（＋黑白版／賈伯斯示例／愛蓮說詳解）
+
+   本皮膚的六條硬規則（違反即回退）：
+     零圓角、零陰影、零漸層、零 emoji、零★星號、零色底卡。
+   層級改用：線（左細線／上下 hairline／四邊 2px 方框）＋ 字重 ＋ 字級 ＋ 五色票。
+
+   版面幾何與 class 接口一律保留：fit_print.py／check_layout.py 依賴
+   .ix-*、.note-box、.page、.pg 的尺寸假設，改皮膚不改幾何契約。
+
+   Used by: 定風波.html, 課文-*.html, 會考總複習-*.html, 課本講義模組/*（1500+ 檔）
+   ============================================================ */
+
+:root {
+  /* ---- 變體 B 五色票 ---- */
+  --paper:#faf5ef;                    /* 紙莎草白 */
+  --ink:#2d3436;                      /* 墨色正文（禁純黑）*/
+  --navy:#1a365d;                     /* 深海軍藍 · 結構色 */
+  --navy-soft:rgba(26,54,93,.68);
+  --navy-faint:rgba(26,54,93,.16);
+  --gold:#d69e2e;                     /* 晨曦金 · 點綴 */
+  --terracotta:#b86a4a;               /* 赤茶 · 家長軌 */
+
+  /* ---- 線框 token（2026-08-01 定案：色相不變只降亮度，供方框／虛線用）----
+     多欄頂線版式一律四邊 2px 等粗方框；1.5px 會被 Chromium 向下取整、渲染同 1px，勿用小數框線寬。*/
+  --gold-line:#9c7318;
+  --terracotta-line:#8f4e33;
+  --line-dash:rgba(26,54,93,.60);
+
+  /* ---- 舊變數名相容層 ----
+     1500+ 個既有講義的頁內 <style> 與 inline style 直接引用這些名稱，不能刪。
+     值一律收斂到上方五色票內，只作別名。
+     刻意寫「字面值」而非 var(--base)：`--alias:var(--base)` 在 :root 宣告時就會把
+     彩色算死，handout-print.css 於 body 層改 --navy 也帶不動別名（2026-07-31 教訓）。 */
+  --navy-light:#1a365d; --navy-dark:#1a365d; --navy-hero:#1a365d;
+  --gold-light:#d69e2e; --gold-dark:#d69e2e; --gold-glow:#d69e2e;
+  --cream:#faf5ef; --cream-dark:#faf5ef; --cream-soft:#faf5ef;
+  --mentor-terracotta:#b86a4a; --mentor-amber:#b86a4a;
+  --mentor-clay:#faf5ef; --mentor-sunrise:#faf5ef;
+  --bridge-teal:#1a365d; --bridge-sage:#1a365d; --bridge-mist:#faf5ef;
+  /* 七情原為七色彩虹（AI 味來源），收斂為墨色一色；差異改由 border-style 表現，與黑白版同一套語彙 */
+  --emo-joy:#2d3436; --emo-calm:#2d3436; --emo-melancholy:#2d3436;
+  --emo-anger:#2d3436; --emo-anxiety:#2d3436; --emo-grief:#2d3436; --emo-hope:#2d3436;
+  /* 學科色原為藍/綠/紫/橘（非品牌色），收斂為海軍藍 */
+  --subj-reading:#1a365d; --subj-writing:#1a365d; --subj-classic:#1a365d; --subj-strategy:#1a365d;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  background:#eceae6;
+  font-family:'Noto Sans TC','PingFang TC',sans-serif;
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.doc {
+  padding:32px 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:28px;
+}
+
+/* ---- 全域中和層 ----
+   1500+ 個舊檔的頁內覆寫 <style> 與 inline style 仍寫著圓角、陰影、漸層底。
+   逐檔改動風險高且緩慢，這裡一次歸零，讓皮膚立即生效；殘留標記由階段 3 逐檔清除。
+   刻意不含偽元素的 background-image：.page::before（浮水印）與 .note-box__lines（橫線簿）
+   靠它成立。.note-box__lines 另行豁免。 */
+.doc, .doc *, .doc *::before, .doc *::after {
+  border-radius:0 !important;
+  box-shadow:none !important;
+  filter:none !important;
+  backdrop-filter:none !important;
+  text-shadow:none !important;
+}
+.doc *:not(.note-box__lines) { background-image:none !important; }
+
+/* A4 portrait, 210 × 297 mm → 794 × 1123 px @ 96dpi */
+.page {
+  width:794px;
+  min-height:1123px;            /* A4 高度為下限，內容多時頁面長高，不裁切、不壓字 */
+  background:var(--paper);
+  position:relative;
+  z-index:0;                    /* 建立獨立堆疊上下文，使浮水印 z-index:-1 只墊在「本頁背景之上、本頁內容之下」 */
+  overflow:visible;             /* 內頁不裁切；封面 .cover 仍 overflow:hidden */
+  page-break-after:always;
+  padding-bottom:64px;          /* 預留頁尾頁碼空間，避免內容貼底壓到 page__num */
+  border:1px solid rgba(0,0,0,.14);   /* 螢幕上的紙緣（原為 box-shadow，變體B 零陰影）*/
+}
+/* 品牌浮水印：純 CSS ::before，不佔版面、不影響幾何與分頁（out-of-flow + z-index:-1）。
+   素材為圓形「立」字商標，已裁邊去背並染深海軍藍；寬約頁寬 77%、濃度 0.10。 */
+.page::before {
+  content:"";
+  position:absolute;
+  top:50%; left:50%;
+  width:615px; height:315px;
+  transform:translate(-50%,-50%);
+  background-image:url('../../assets/watermark-navy.png');
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:contain;
+  opacity:.10;
+  z-index:-1;
+  pointer-events:none;
+  print-color-adjust:exact; -webkit-print-color-adjust:exact;
+}
+.page--soft  { background:var(--paper); }
+.page--white { background:var(--paper); }
+
+/* 舊檔頁內 <style> 把 .examq／.flow__step 寫成白卡或色卡，會蓋住浮水印；一律透明化。
+   （本皮膚各區塊皆已個別設為 transparent，此規則專為舊檔覆寫而留。）*/
+.examq, .flow__step { background:transparent !important; }
+
+.page__num {
+  position:absolute;
+  bottom:24px;
+  right:32px;
+  font-family:'Noto Serif TC',serif;
+  font-size:14.22px;
+  color:var(--navy-soft);
+  letter-spacing:.15em;
+}
+.page__num b { color:var(--gold); font-weight:600; }
+.page__brand {
+  position:absolute;
+  bottom:24px;
+  left:32px;
+  font-size:14.22px;
+  letter-spacing:.15em;
+  color:var(--navy-soft);
+  opacity:.75;
+  text-transform:uppercase;
+}
+
+.gold-hairline {
+  height:1px;
+  background:var(--gold);     /* 原為三段漸層，變體B 零漸層 → 純色細線 */
+  border:0;
+  opacity:.5;
+}
+
+/* ==================== COVER ==================== */
+/* 深藍滿版＋光暈＋印章 → 紙白底、序號雙線標題、底部一道 navy 粗線收邊 */
+.cover {
+  background:var(--paper);
+  color:var(--ink);
+  overflow:hidden;
+  border-bottom:3px solid var(--navy);
+}
+.cover__bg, .cover__glow1, .cover__glow2, .cover__xiangyun { display:none; }
+.cover__hdr {
+  position:absolute; top:48px; left:64px; right:64px;
+  display:flex; align-items:center; justify-content:space-between;
+  z-index:5;
+}
+.cover__hdr .logo { height:34px; opacity:.92; }
+.cover__hdr .series {
+  font-size:14.22px; letter-spacing:.18em; color:var(--navy); font-weight:500;
+  border-bottom:1px solid var(--navy);
+  padding:4px 2px 5px;
+  background:none;
+  white-space:nowrap;
+}
+.cover__center {
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  text-align:center;
+  z-index:5;
+  width:88%;
+}
+.cover__seal { display:none; }        /* 印章與頁面浮水印重複，取消 */
+.cover__eyebrow {
+  font-size:14.22px; letter-spacing:.4em; color:var(--terracotta); font-weight:500;
+  margin-bottom:24px;
+}
+.cover__title {
+  font-family:'Noto Serif TC',serif;
+  font-size:72px; font-weight:900;
+  line-height:1.1;
+  letter-spacing:.06em;
+  color:var(--navy);
+  margin-bottom:18px;
+  border-top:3px solid var(--navy);
+  border-bottom:.5px solid var(--navy);   /* 上粗下細雙線 */
+  display:inline-block;
+  padding:14px 6px;
+}
+.cover__quote {
+  font-family:'Noto Serif TC',serif;
+  font-size:19.44px;
+  line-height:1.85;
+  color:var(--ink);
+  margin-bottom:8px;
+  letter-spacing:.04em;
+}
+.cover__poet {
+  font-size:15.12px; color:var(--navy-soft); letter-spacing:.15em;
+}
+.cover__divider {
+  width:60px; height:1px;
+  background:var(--navy);
+  opacity:.4;
+  margin:34px auto;
+}
+.cover__sub {
+  font-size:16.92px; color:var(--ink);
+  line-height:1.8;
+  max-width:420px; margin:0 auto;
+}
+.cover__sub b { color:var(--terracotta) !important; }   /* 舊檔 inline 寫死 #fde68a，需覆蓋 */
+.cover__foot {
+  position:absolute;
+  bottom:54px; left:64px; right:64px;
+  display:flex; justify-content:space-between; align-items:flex-end;
+  z-index:5;
+}
+.cover__meta {
+  font-size:14.22px;
+  letter-spacing:.03em;
+  color:var(--navy-soft);
+  line-height:1.8;
+  white-space:nowrap;
+}
+.cover__meta b { color:var(--terracotta); font-weight:600; }
+.cover__teacher { text-align:right; }
+.cover__teacher .name {
+  font-family:'Noto Serif TC',serif;
+  font-size:18.36px; color:var(--navy); font-weight:700;
+  letter-spacing:.1em;
+}
+.cover__teacher .role {
+  font-size:14.22px; color:var(--navy-soft);
+  letter-spacing:.15em; margin-top:4px;
+}
+
+/* ==================== INNER PAGES ==================== */
+.pg { padding:52px 60px 60px; }
+.pg__head {
+  display:flex; align-items:flex-end; justify-content:space-between;
+  border-bottom:1px solid var(--navy-faint);
+  padding-bottom:14px;
+  margin-bottom:22px;
+}
+.pg__head .logo { height:30px; }
+.pg__crumbs {
+  font-size:14.22px;
+  letter-spacing:.18em;
+  color:var(--navy-soft);
+  text-transform:uppercase;
+  font-weight:500;
+}
+.pg__h1 {
+  font-family:'Noto Serif TC',serif;
+  font-size:30px; font-weight:700;
+  color:var(--navy);
+  letter-spacing:.02em;
+  margin-bottom:6px;
+}
+.pg__h1 small {
+  font-size:15.12px;
+  color:var(--navy-soft);
+  letter-spacing:.1em;
+  font-weight:400;
+  margin-left:10px;
+}
+.pg__h2 {
+  font-family:'Noto Serif TC',serif;
+  font-size:24px; font-weight:700;
+  color:var(--navy);
+  letter-spacing:.04em;
+}
+.pg__h2 small {
+  font-size:14.22px; letter-spacing:.2em;
+  color:var(--terracotta); display:block;
+  margin-bottom:4px;
+  font-family:'Noto Sans TC',sans-serif;
+  font-weight:600;
+  text-transform:uppercase;
+}
+.pg__lead {
+  font-size:15.3px;
+  color:var(--ink);
+  line-height:1.75;
+  max-width:600px;
+  margin-bottom:20px;
+}
+
+/* ==================== 課文原文（.original）==================== */
+/* 圓角卡＋印章浮水印 → 上下 hairline 夾住，底透明讓頁面浮水印透出 */
+.original {
+  background:transparent;
+  border-top:1px solid var(--navy-faint);
+  border-bottom:1px solid var(--navy-faint);
+  padding:22px 4px;
+  margin-bottom:18px;
+  position:relative;
+}
+.original::before { display:none; }     /* 區塊級印章與頁面浮水印重複 */
+.original__label {
+  font-size:14.22px; letter-spacing:.25em;
+  color:var(--terracotta); font-weight:600;
+  text-transform:uppercase;
+  margin-bottom:12px;
+  text-align:right;
+}
+.original__text {
+  font-family:'Noto Serif TC',serif;
+  font-size:16.74px;
+  line-height:2.0;
+  color:var(--ink);
+  letter-spacing:.06em;
+  text-align:justify;
+}
+.original__text .pause { color:var(--gold); margin:0 2px; }
+.original__attrib {
+  margin-top:12px;
+  text-align:right;
+  font-family:'Noto Serif TC',serif;
+  font-size:14.22px;
+  color:var(--terracotta);
+  letter-spacing:.1em;
+}
+
+/* ==================== 重點分析 ==================== */
+.analysis-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:18px;
+}
+.anablock {
+  background:transparent;
+  padding:6px 0 6px 16px;
+  border-left:3px solid var(--gold);
+}
+.anablock h4 {
+  font-size:14.22px; letter-spacing:.2em;
+  color:var(--terracotta); font-weight:600;
+  margin-bottom:6px; text-transform:uppercase;
+}
+.anablock h3 {
+  font-size:15.12px; font-weight:700;
+  color:var(--navy);
+  margin-bottom:6px;
+}
+.anablock p {
+  font-size:14.22px; line-height:1.7;
+  color:var(--ink);
+}
+
+/* ==================== 重點條列（.keypoints）==================== */
+.keypoints {
+  background:transparent;
+  border-top:1px solid var(--navy-faint);
+  padding:16px 2px 6px;
+}
+.keypoints h4 {
+  font-size:14.22px; letter-spacing:.2em;
+  color:var(--terracotta); font-weight:600;
+  margin-bottom:10px;
+  display:flex; align-items:center; gap:8px;
+}
+.keypoints h4::before {
+  content:""; width:18px; height:1px;
+  background:var(--terracotta);
+}
+.keypoints ol {
+  list-style:none; counter-reset:kp;
+  display:grid; gap:8px;
+}
+.keypoints li {
+  counter-increment:kp;
+  position:relative;            /* 序號用絕對定位標記，內文正常流動，避免 <b> 等行內元素被拆成獨立 grid item 擠成窄欄 */
+  padding-left:40px;
+  min-height:24px;
+  font-size:14.22px; line-height:1.65;
+  color:var(--ink);
+}
+.keypoints li::before {
+  content:counter(kp, decimal-leading-zero);
+  position:absolute; left:0; top:0;
+  font-family:'Noto Serif TC',serif;
+  font-size:14.22px;
+  font-weight:700;
+  color:var(--navy);
+  border:1px solid var(--navy-faint);   /* 原為金色圓章，變體B 零圓角 → 方框 */
+  width:24px; height:24px;
+  display:flex; align-items:center; justify-content:center;
+  letter-spacing:0;
+}
+.keypoints li b { color:var(--terracotta); font-weight:600; }
+.keypoints li em {
+  font-style:normal;
+  color:var(--terracotta);
+  font-weight:600;
+}
+
+/* ==================== 人生導師語 ==================== */
+.mentor-voice {
+  position:relative;
+  background:transparent;       /* 原為 sunrise→clay 漸層底 */
+  border-left:3px solid var(--terracotta);
+  padding:22px 0 22px 22px;
+  margin-bottom:28px;
+}
+.mentor-voice::before {
+  content:"「";
+  position:absolute;
+  top:2px; right:10px;
+  font-family:'Noto Serif TC',serif;
+  font-size:56px;
+  color:var(--terracotta);
+  opacity:.14;
+  line-height:1;
+}
+.mentor-voice .lbl {
+  font-size:14.22px; letter-spacing:.2em;
+  color:var(--terracotta);
+  font-weight:600;
+  margin-bottom:10px;
+}
+.mentor-voice .body {
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:16.92px;
+  line-height:1.95;
+  color:var(--ink);
+}
+.mentor-voice .body em {
+  font-style:normal;
+  color:var(--terracotta);
+  font-weight:600;
+}
+.mentor-voice .refline {
+  margin-top:16px;
+  padding-top:12px;
+  border-top:1px solid var(--navy-faint);
+  font-size:14.22px;
+  color:var(--navy-soft);
+  letter-spacing:.05em;
+}
+
+/* ==================== 情緒標籤 ==================== */
+/* 原為七色彩虹膠囊（AI 味最重的一處）：改為墨色文字 ＋ border-style 分辨七情，
+   與 handout-print.css 黑白版同一套語彙，彩色／黑白不再各說各話。 */
+.emotion-section {
+  background:transparent;
+  border-top:1px solid var(--navy-faint);
+  padding:16px 2px 6px;
+}
+.emotion-section h4 {
+  font-size:14.22px; letter-spacing:.2em;
+  color:var(--terracotta); font-weight:600;
+  margin-bottom:14px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.chips {
+  display:flex; flex-wrap:wrap; gap:9px;
+  margin-bottom:18px;
+}
+.chip {
+  display:inline-flex; align-items:center; gap:6px;
+  padding:3px 10px;
+  background:transparent;
+  border:1px solid var(--ink);
+  color:var(--ink);
+  font-size:14.22px; font-weight:500;
+}
+.chip::before {
+  content:""; width:10px; height:1px;    /* 原為實心圓點，改短橫線 */
+  background:currentColor;
+}
+.chip b { font-weight:700; }
+.chip .cl { font-size:14.22px; opacity:.78; }
+.joy        { border-style:solid; }
+.calm       { border-style:solid; border-width:2px; }
+.melancholy { border-style:dashed; }
+.anger      { border-style:dotted; }
+.anxiety    { border-style:double; border-width:3px; }
+.grief      { border-style:dashed; border-width:2px; }
+.hope       { border-style:dotted; border-width:2px; }
+
+/* ==================== 對話題（.dialogue）==================== */
+.dialogue {
+  background:transparent;
+  border-left:3px solid var(--terracotta);
+  padding:22px 0 20px 22px;
+  margin-bottom:28px;
+  position:relative;
+}
+.dialogue::before {
+  content:"「";
+  position:absolute;
+  top:0; right:10px;
+  font-family:'Noto Serif TC',serif;
+  font-size:54px;
+  color:var(--terracotta);
+  opacity:.14;
+  line-height:1;
+  background:none;
+  padding:0;
+}
+.dialogue .week {
+  font-size:14.22px; letter-spacing:.2em;
+  color:var(--terracotta);
+  font-weight:600;
+  margin-bottom:6px;
+}
+.dialogue .topic {
+  font-family:'Noto Serif TC',serif;
+  font-size:20.52px; font-weight:700;
+  color:var(--navy);
+  line-height:1.5;
+  margin-bottom:18px;
+}
+.dialogue .prompt-body {
+  font-size:15.3px; line-height:2;
+  color:var(--ink);
+  margin-bottom:18px;
+}
+.dialogue .prompt-body em {
+  font-style:normal;
+  color:var(--terracotta);
+  font-weight:600;
+}
+.dialogue .tip {
+  background:transparent;
+  border-left:2px solid var(--gold);
+  padding:8px 0 8px 14px;
+  font-size:14.22px;
+  color:var(--ink);
+  line-height:1.75;
+}
+.dialogue .tip b { color:var(--terracotta); font-weight:600; }
+
+/* ==================== 原文帶注（.gloss-*）==================== */
+.gloss-text {
+  background:transparent;
+  border-top:1px solid var(--navy-faint);
+  border-bottom:1px solid var(--navy-faint);
+  padding:22px 4px;
+  margin-bottom:16px;
+}
+.gloss-text__lbl {
+  font-size:14.22px; letter-spacing:.25em;
+  color:var(--terracotta); font-weight:600;
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+.gloss-text__body {
+  font-family:'Noto Serif TC',serif;
+  font-size:16.74px;
+  line-height:2.0;            /* 由 2.2 收斂，長文課文頁更貼近 A4，仍維持帶注易讀 */
+  color:var(--ink);
+  letter-spacing:.05em;
+  text-align:justify;
+}
+.gloss-text__body .pause { color:var(--gold); margin:0 2px; }
+.gloss-text__body .gloss {
+  display:inline;
+  color:var(--terracotta);
+  font-weight:600;
+  cursor:help;
+}
+/* 注號原為赤茶實心圓底反白，變體B 零圓角 → 純文字上標 */
+.gloss-text__body .gloss .marker {
+  display:inline-block;
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:14.22px;
+  font-weight:700;
+  color:var(--terracotta);
+  background:none;
+  vertical-align:super;
+  margin-left:1px;
+  letter-spacing:0;
+}
+.gloss-list {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px 18px;
+  background:transparent;
+  border-top:1px solid var(--navy-faint);
+  padding:16px 2px;
+  margin-bottom:18px;
+}
+.gloss-list__item {
+  display:grid;
+  grid-template-columns:18px 1fr;
+  gap:8px;
+  font-size:14.22px;
+  line-height:1.65;
+  color:var(--ink);
+  align-items:start;
+}
+.gloss-list__item .n {
+  display:inline-block;
+  font-family:'Noto Serif TC',serif;
+  font-size:14.22px;
+  font-weight:700;
+  color:var(--terracotta);
+  background:none;
+  text-align:left;
+  margin-top:1px;
+}
+.gloss-list__item b {
+  color:var(--navy);
+  font-weight:600;
+  margin-right:4px;
+}
+
+/* ==================== 作者卡 ==================== */
+.author-card {
+  background:transparent;
+  border-left:3px solid var(--terracotta);
+  padding:10px 0 10px 18px;
+  margin-bottom:16px;
+  display:grid; grid-template-columns:50px 1fr; gap:16px;
+  align-items:center;
+}
+.author-card .avatar {
+  width:50px; height:50px;
+  background:transparent;
+  border:1px solid var(--navy);
+  color:var(--navy);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Noto Serif TC',serif;
+  font-size:23.76px; font-weight:700;
+}
+.author-card .meta { font-size:14.22px; line-height:1.7; color:var(--ink); }
+.author-card .meta b { color:var(--terracotta); font-weight:600; }
+.author-card .meta .name {
+  font-size:16.2px; font-weight:700; color:var(--navy);
+  display:block; margin-bottom:2px; letter-spacing:.05em;
+}
+
+/* ==================== 考點卡 ==================== */
+.exam-points {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:18px;
+}
+.exam-points--single { grid-template-columns:1fr; }
+.exam-points--three  { grid-template-columns:repeat(3, 1fr); }
+.exam-point {
+  background:transparent;
+  border-left:2px solid var(--navy-faint);
+  padding:10px 0 10px 14px;
+}
+/* 六類標籤原為六色膠囊底，改為底線式小標；分類差異在黑白版由 border-style 承擔 */
+.exam-point__tag {
+  display:inline-block;
+  font-size:14.22px; letter-spacing:.14em; font-weight:700;
+  color:var(--navy);
+  background:none;
+  border-bottom:1px solid var(--navy);
+  padding-bottom:2px;
+  margin-bottom:8px;
+  text-transform:uppercase;
+}
+.exam-point__tag::before { content:none; }
+.tag-pronounce, .tag-form, .tag-rhetoric,
+.tag-meaning, .tag-context, .tag-virtual {
+  color:var(--navy); background:none;
+}
+.exam-point__title {
+  font-size:15.12px; font-weight:700;
+  color:var(--navy);
+  margin-bottom:6px;
+}
+.exam-point__example {
+  font-family:'Noto Serif TC',serif;
+  font-size:14.22px;
+  color:var(--ink);
+  background:transparent;
+  border-left:2px solid var(--gold);
+  padding:4px 0 4px 10px;
+  margin-bottom:6px;
+  letter-spacing:.04em;
+  line-height:1.7;
+}
+.exam-point__desc {
+  font-size:14.22px;
+  line-height:1.7;
+  color:var(--ink);
+}
+.exam-point__desc b {
+  color:var(--terracotta);
+  font-weight:600;
+}
+.exam-point__mn {
+  display:inline-block;
+  margin-top:6px;
+  font-size:14.22px;
+  background:none;
+  color:var(--navy);
+  border-bottom:1px dotted var(--navy);
+  padding-bottom:1px;
+  font-weight:600;
+  letter-spacing:.03em;
+}
+.exam-point__mn::before { content:"速記 · "; opacity:.7; font-weight:500; }
+
+/* ==================== 練習題 ==================== */
+.practice {
+  background:transparent;
+  border-top:1px solid var(--navy-faint);
+  margin-bottom:14px;
+  padding:14px 0 0;
+}
+.practice__hdr {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:10px;
+  padding-bottom:8px;
+  border-bottom:1px dashed var(--line-dash);
+}
+.practice__num {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:14.22px; font-weight:700;
+  color:var(--navy);
+}
+.practice__num .qn {                    /* 原為 navy 實心圓角章，改空心方框 */
+  display:inline-flex; align-items:center; justify-content:center;
+  width:24px; height:24px;
+  background:none;
+  border:1px solid var(--navy);
+  color:var(--navy);
+  font-family:'Noto Serif TC',serif;
+  font-size:14.22px;
+  font-weight:700;
+  letter-spacing:0;
+}
+/* 難度：★★☆ → 【基礎】【進階】【挑戰】文字標籤。
+   組件層（_blocks/practice/template.html）已輸出文字；舊檔仍是 ★ 標記，
+   過渡期先讓星號轉為墨色細字並隱藏空心星，實際換字在階段 3 批次改寫。 */
+.practice__diff {
+  font-size:14.22px;
+  letter-spacing:.1em;
+  color:var(--navy);
+  font-weight:600;
+  border:1px solid var(--navy-faint);
+  padding:2px 8px;
+}
+.practice__diff .full  { color:var(--navy); }
+.practice__diff .empty { display:none; }
+.practice__type {
+  display:inline-block;
+  font-size:14.22px; letter-spacing:.1em;
+  background:none;
+  color:var(--ink);
+  padding:0;
+}
+
+.practice__q {
+  font-size:14.76px;              /* 題幹 +0.5pt（13 → 13.67）*/
+  line-height:1.85;
+  color:var(--ink);
+  margin-bottom:10px;
+}
+.practice__q .blank {
+  display:inline-block;
+  min-width:60px;
+  border-bottom:1px solid var(--navy-soft);
+  margin:0 4px;
+}
+.practice__q em {
+  font-style:normal;
+  font-weight:600;
+  color:var(--terracotta);
+  border-bottom:1px solid var(--terracotta);
+  padding:0 2px;
+}
+.practice__excerpt {
+  font-family:'Noto Serif TC',serif;
+  font-size:14.22px;
+  line-height:1.9;
+  color:var(--ink);
+  background:transparent;
+  border-left:2px solid var(--navy-soft);
+  padding:8px 0 8px 14px;
+  margin:8px 0;
+  letter-spacing:.04em;
+}
+.practice__options {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px 14px;
+  font-size:14.22px;              /* 選項 +0.5pt（12.5 → 13.17）*/
+  color:var(--ink);
+  line-height:1.65;
+}
+.practice__options > div {
+  display:grid; grid-template-columns:20px 1fr; gap:6px;
+}
+.practice__options .opt-letter {   /* 原為圓形，改方框 */
+  display:inline-flex; align-items:center; justify-content:center;
+  width:17px; height:17px;
+  border:1px solid var(--navy);
+  font-size:14.22px;
+  font-weight:600;
+  color:var(--navy);
+}
+.practice__options .opt-text { padding-top:1px; }
+
+/* 混合題非選（practice-open）的學生作答線。末行虛線＝提示「可續寫」，與 issue-box 一致。 */
+.practice__lines { margin-top:6px; }
+.practice__lines > div {
+  height:18px;
+  border-bottom:1px solid var(--navy-faint);
+  margin-top:9px;
+}
+.practice__lines > div:last-child { border-bottom-style:dashed; }
+
+.practice__answer {
+  margin-top:10px;
+  font-size:14.22px;
+  color:var(--navy-soft);
+  display:flex; gap:14px;
+}
+.practice__answer span {
+  display:inline-flex; align-items:center; gap:4px;
+}
+.practice__answer .blank-line {
+  display:inline-block;
+  width:32px;
+  border-bottom:1px solid var(--navy-soft);
+}
+
+/* 作答線 */
+.practice__write { margin-top:8px; }
+.practice__write > div {
+  height:18px;
+  border-bottom:1px solid var(--navy-faint);
+  margin-bottom:9px;
+}
+.practice__write > div:last-child { border-bottom-style:dashed; }
+
+/* ==================== 真題與題組 ==================== */
+/* 以下六類原本只存在於各課頁內 <style>（1500+ 檔各寫一份）。
+   在此建立共用權威定義，階段 3 逐檔刪除頁內覆寫後即由本檔接手。 */
+.examq {
+  background:transparent;
+  border-left:2px solid var(--navy);
+  padding:12px 0 14px 16px;
+  margin-bottom:14px;
+}
+.examq__tag {
+  display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+  margin-bottom:8px;
+}
+.examq__tag .yr { font-family:'Noto Serif TC',serif; font-weight:700; font-size:14.22px; color:var(--navy); }
+.examq__tag .venue { font-size:14.22px; color:var(--navy); font-weight:600; border-bottom:1px solid var(--navy); }
+.examq__tag .rate { font-size:14.22px; color:var(--terracotta); font-weight:700; }
+.examq__tag .src { font-size:14.22px; color:var(--ink); margin-left:auto; }
+.passage {
+  background:transparent;
+  border-left:2px solid var(--navy-soft);
+  padding:14px 0 14px 18px;
+  margin-bottom:10px;
+  font-family:'Noto Serif TC',serif;
+  font-size:15.3px;
+  line-height:1.95;
+  color:var(--ink);
+  letter-spacing:.03em;
+  text-align:justify;
+}
+.passage .src {
+  display:block;
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:14.22px;
+  color:var(--terracotta);
+  margin-top:6px;
+  letter-spacing:.06em;
+}
+.group-lead {
+  background:transparent;
+  color:var(--navy);
+  border-left:3px solid var(--navy);
+  padding:9px 0 9px 14px;
+  font-size:14.22px;
+  font-weight:600;
+  letter-spacing:.04em;
+  margin-bottom:10px;
+}
+.group-lead b { color:var(--terracotta); }
+.qsrc { font-size:14.22px; color:var(--ink); letter-spacing:.05em; margin-bottom:6px; }
+.qsrc b { color:var(--terracotta); }
+.teacher-detail {
+  background:transparent;
+  border-left:2px solid var(--navy);
+  padding:9px 0 9px 14px;
+  margin-top:8px;
+  font-size:14.22px;
+  line-height:1.65;
+  color:var(--ink);
+}
+.teacher-detail .ans { font-weight:700; color:var(--navy); }
+.teacher-detail .why b { color:var(--terracotta); }
+
+.dist-table, .ratetable {
+  width:100%;
+  border-collapse:collapse;
+  font-size:14.22px;
+  margin-bottom:10px;
+}
+.dist-table th, .ratetable th {
+  text-align:left;
+  color:var(--navy);
+  font-weight:700;
+  border-top:1px solid var(--navy);
+  border-bottom:1px solid var(--navy);
+  padding:5px 6px;
+  background:none;
+}
+.dist-table td, .ratetable td {
+  padding:4px 6px;
+  border-bottom:1px dashed var(--line-dash);
+  color:var(--ink);
+  vertical-align:top;
+}
+.dist-table .qnums { color:var(--terracotta); font-weight:600; }
+
+/* ==================== 多欄對照版式 ==================== */
+/* 四邊 2px 等粗方框（1.5px 會被 Chromium 向下取整、渲染同 1px，勿用小數）*/
+.quad-themes { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+.quad-theme  { background:transparent; padding:10px 12px; border:2px solid var(--gold-line); }
+.quad-theme .n    { font-family:'Noto Serif TC',serif; font-size:14.22px; font-weight:700; color:var(--terracotta); letter-spacing:.1em; }
+.quad-theme .ttl  { font-size:14.58px; font-weight:700; color:var(--navy); margin:4px 0 6px; }
+.quad-theme .desc { font-size:14.22px; line-height:1.65; color:var(--ink); }
+
+.flower-row  { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-bottom:16px; }
+.flower-card { background:transparent; padding:12px 14px 12px 16px; border-left:3px solid var(--gold); }
+.flower-card.contrast { border-left-color:var(--terracotta); }
+.flower-card.hero     { border-left-color:var(--navy); }
+.flower-card .flabel { font-size:14.22px; letter-spacing:.2em; font-weight:700; color:var(--gold); margin-bottom:4px; text-transform:uppercase; }
+.flower-card.contrast .flabel { color:var(--terracotta); }
+.flower-card.hero .flabel     { color:var(--navy); }
+.flower-card .fname { font-family:'Noto Serif TC',serif; font-size:19.44px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.flower-card .ftype { font-size:14.22px; font-weight:700; color:var(--ink); margin-bottom:6px; }
+.flower-card .fbody { font-size:14.22px; line-height:1.7; color:var(--ink); }
+.flower-card .fbody b { color:var(--terracotta); }
+
+.metaphor-row { display:grid; grid-template-columns:1fr 36px 1fr; gap:0; margin-bottom:16px; align-items:center; }
+.metaphor-row .side { background:transparent; padding:12px 16px; border:2px solid var(--terracotta-line); }
+.metaphor-row .side.right { border-color:var(--navy); }
+.metaphor-row .side .tag  { font-size:14.22px; letter-spacing:.2em; color:var(--terracotta); font-weight:700; margin-bottom:6px; text-transform:uppercase; }
+.metaphor-row .side.right .tag { color:var(--navy); }
+.metaphor-row .side .ttl  { font-family:'Noto Serif TC',serif; font-size:16.2px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.metaphor-row .side .body { font-size:14.22px; line-height:1.7; color:var(--ink); }
+.metaphor-row .arrow { display:flex; align-items:center; justify-content:center; font-family:'Noto Serif TC',serif; font-size:23.76px; color:var(--gold); }
+
+.exam-strip { background:transparent; border-left:3px solid var(--navy); padding:12px 0 12px 16px; margin-bottom:16px; }
+.exam-strip .lbl { font-size:14.22px; letter-spacing:.2em; color:var(--navy); font-weight:700; margin-bottom:8px; text-transform:uppercase; }
+.exam-strip ul { list-style:none; display:grid; gap:5px; }
+.exam-strip li { font-size:14.22px; line-height:1.7; color:var(--ink); padding-left:14px; position:relative; }
+.exam-strip li::before { content:"—"; position:absolute; left:0; color:var(--navy); font-size:14.22px; top:1px; }
+.exam-strip li b { color:var(--terracotta); font-weight:600; }
+
+.compare-block { background:transparent; padding:8px 0 8px 14px; border-left:2px solid var(--gold); margin-bottom:12px; }
+.compare-block .cb-title { font-size:14.22px; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.compare-block .cb-title b { color:var(--terracotta); }
+.compare-block .cb-body { font-size:14.22px; line-height:1.7; color:var(--ink); }
+
+/* ==================== 概念網 / 用法卡 ==================== */
+.concept-web {
+  background:transparent;
+  border-top:1px solid var(--navy-faint);
+  padding:16px 2px 6px;
+  margin-bottom:16px;
+}
+.concept-web__hdr {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:14px;
+}
+.concept-web__title { font-size:15.12px; font-weight:700; color:var(--navy); }
+.concept-web__title small {
+  font-size:14.22px; letter-spacing:.2em;
+  color:var(--terracotta); font-weight:600;
+  display:block; margin-bottom:2px;
+  text-transform:uppercase;
+}
+
+.usage-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; }
+.usage-card {
+  background:transparent;
+  padding:12px 14px;
+  border:2px solid var(--gold-line);    /* 多欄版式 → 四邊 2px 等粗方框 */
+  position:relative;
+}
+.usage-card .num {                      /* 原為金色膠囊懸掛在框外，改為框內序號 */
+  position:static;
+  display:block;
+  font-family:'Noto Serif TC',serif;
+  font-size:14.22px; font-weight:700;
+  background:none;
+  color:var(--terracotta);
+  letter-spacing:.1em;
+  margin-bottom:2px;
+}
+.usage-card .role {
+  font-size:14.22px; letter-spacing:.1em;
+  color:var(--terracotta); font-weight:600;
+  margin-bottom:4px;
+}
+.usage-card .meaning { font-size:14.58px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+.usage-card .quote {
+  font-family:'Noto Serif TC',serif;
+  font-size:14.22px;
+  line-height:1.7;
+  color:var(--ink);
+  letter-spacing:.04em;
+  margin-bottom:4px;
+}
+.usage-card .quote em {
+  font-style:normal; font-weight:700;
+  color:var(--terracotta);
+  font-size:15.12px; margin:0 1px;
+}
+.usage-card .source { font-size:14.22px; color:var(--navy-soft); letter-spacing:.05em; }
+
+/* 互見引用 */
+.crossref {
+  background:transparent;
+  border-left:3px solid var(--navy);
+  padding:12px 0 12px 16px;
+  margin-bottom:16px;
+}
+.crossref h4 {
+  font-size:14.22px; letter-spacing:.2em;
+  color:var(--navy); font-weight:600;
+  margin-bottom:10px;
+  display:flex; align-items:center; gap:8px;
+}
+.crossref h4::before { content:""; width:18px; height:1px; background:var(--navy); }
+.crossref__items { display:flex; flex-wrap:wrap; gap:8px; }
+.crossref__chip {
+  display:inline-flex; align-items:center; gap:6px;
+  background:transparent;
+  border:1px solid var(--navy-faint);
+  padding:4px 10px;
+  font-size:14.22px;
+  color:var(--ink);
+}
+.crossref__chip .ref {
+  font-family:'Noto Serif TC',serif;
+  color:var(--navy);
+  font-weight:700;
+  letter-spacing:.03em;
+}
+.crossref__chip .ref::before { content:"《"; color:var(--navy); opacity:.6; }
+.crossref__chip .ref::after  { content:"》"; color:var(--navy); opacity:.6; }
+
+/* ==================== 解答條 ==================== */
+/* 原為深藍漸層滿底反白（最重的色底卡），改為 2px 方框＋墨色字，順帶省墨 */
+.answer-strip {
+  background:transparent;
+  color:var(--ink);
+  border:2px solid var(--navy);
+  padding:16px 18px;
+  margin-bottom:16px;
+}
+.answer-strip h4 {
+  font-size:14.22px; letter-spacing:.2em;
+  color:var(--navy); font-weight:700;
+  margin-bottom:10px;
+  display:flex; align-items:center; gap:8px;
+  text-transform:uppercase;
+}
+.answer-strip h4::before { content:""; width:18px; height:1px; background:var(--navy); }
+.answer-strip__row {
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:10px;
+  margin-bottom:10px;
+}
+.answer-strip__cell {
+  background:transparent;
+  border:1px solid var(--navy-faint);
+  padding:8px;
+  text-align:center;
+}
+.answer-strip__cell .qn { font-size:14.22px; color:var(--navy-soft); letter-spacing:.1em; }
+.answer-strip__cell .ans {
+  font-family:'Noto Serif TC',serif;
+  font-size:19.44px; font-weight:700;
+  color:var(--navy);
+  margin-top:2px;
+}
+.answer-strip__note {
+  font-size:14.22px;
+  color:var(--ink);
+  line-height:1.7;
+  border-top:1px solid var(--navy-faint);
+  padding-top:10px;
+}
+.answer-strip__note b { color:var(--terracotta); }
+
+/* ==================== 互動學習層 Interaction Layer ====================
+   依學習理論的五頁學習循環：
+   喚醒先備(warmup) → 邊讀生成(think) → 自我解釋(explain)
+   → 提取自測(recall) → 同儕應用(peer) → 後設認知自評(metacog)
+   變體B：一律無底色，左側細線＋橫排小標籤區分階段。 */
+.ix {
+  background:transparent;
+  border-left:3px solid var(--navy);
+  padding:11px 0 11px 16px;
+  margin-bottom:14px;
+  font-size:14.22px; line-height:1.7; color:var(--ink);
+}
+.ix__lbl {
+  font-size:14.22px; letter-spacing:.18em; font-weight:700; text-transform:uppercase;
+  display:flex; align-items:center; gap:7px; margin-bottom:5px;
+  color:var(--navy);
+}
+.ix__lbl::before { content:""; width:14px; height:1px; background:currentColor; }
+.ix__q em { font-style:normal; font-weight:600; color:var(--terracotta); }
+.ix__line { border-bottom:1px dashed var(--line-dash); height:15px; margin-top:7px; }
+
+.ix-warmup  { border-left-color:var(--terracotta); }
+.ix-warmup  .ix__lbl, .ix-warmup .ix__q em { color:var(--terracotta); }
+.ix-think   { border-left:3px solid var(--gold); }
+.ix-think   .ix__lbl, .ix-think .ix__q em { color:var(--gold); }
+.ix-explain { border-left-color:var(--terracotta); }
+.ix-explain .ix__lbl, .ix-explain .ix__q em { color:var(--terracotta); }
+.ix-peer    { border-left-color:var(--navy); }
+.ix-peer    .ix__lbl, .ix-peer .ix__q em { color:var(--navy); }
+
+/* 後設認知自評條 */
+.ix-metacog {
+  background:transparent;
+  border:1px solid var(--navy-faint);
+  padding:10px 16px; margin-bottom:14px;
+  display:flex; align-items:center; gap:10px 16px; flex-wrap:wrap;
+}
+.ix-metacog .mc-title { font-size:14.22px; letter-spacing:.18em; font-weight:700; color:var(--navy-soft); text-transform:uppercase; }
+.ix-metacog .mc { display:inline-flex; align-items:center; gap:6px; font-size:14.22px; color:var(--ink); }
+.ix-metacog .mc::before { content:""; width:12px; height:12px; border:1px solid var(--navy-soft); }
+.ix-metacog .mc.lv1::before { border-color:var(--navy); }
+.ix-metacog .mc.lv2::before { border-color:var(--gold-line); }
+.ix-metacog .mc.lv3::before { border-color:var(--terracotta-line); }
+
+/* 筆記欄：列印時填補頁面下方大片空白（由 fit_print 量測後插入並設定高度），避免浪費 */
+.note-box {
+  border:1px solid var(--navy-faint);
+  padding:11px 16px 8px; margin-top:14px; box-sizing:border-box;
+  display:flex; flex-direction:column;
+  /* 原子塊：黏在前一區塊、不可分割。放不下就與前一區塊一起移到下頁，
+     既不單獨成頁(break-before)、也不把橫線尾端溢到下一頁(break-inside) */
+  break-before:avoid; page-break-before:avoid;
+  break-inside:avoid; page-break-inside:avoid;
+}
+.note-box__hd {
+  font:600 14.22px/1 'Noto Sans TC',sans-serif;
+  letter-spacing:2px; color:var(--navy-soft); margin-bottom:10px;
+}
+.note-box__hd::before { content:"筆記"; }     /* 原為「筆記 · NOTES」，標籤純中文化 */
+.note-box__lines {
+  flex:1 1 auto; min-height:28px;
+  /* 橫線簿：repeating-linear-gradient 純色細線，是本皮膚唯一允許的漸層用途 */
+  background-image:repeating-linear-gradient(to bottom,
+    var(--navy-faint) 0, var(--navy-faint) 1px, transparent 1px, transparent 34px);
+}
+
+/* print —— 封面滿版一張 + 每個 .page 自成一張（標頭頁首）+ 量測微縮/筆記欄填補空白 */
+@media print {
+  @page { size:A4; margin:0; }                 /* 滿版：@page 零邊界，讓 .page 紙白底鋪滿到紙緣；頁內 12.7mm 內縮改由 .pg padding 提供 */
+  @page :first { margin:0; }                   /* 封面滿版（首頁無邊界）*/
+  html, body { background:var(--paper) !important; margin:0 !important; padding:0 !important; }  /* 滿版基底 */
+  /* 滿版保證：Chromium 列印時 html/body 底色對「短頁」不會 paint 到紙緣（露白）；改用固定定位偽元素鋪滿每一張實體紙（fixed 元素於 page.pdf 每頁重複）。*/
+  body::before { content:""; position:fixed; top:0; left:0; right:0; bottom:0; background:var(--paper) !important; z-index:-1; }
+  body.bw-print { background:#fff !important; }                                                  /* 黑白版維持白底 */
+  html:has(body.bw-print) { background:#fff !important; }                                        /* 黑白版：html 層底色一併轉白 */
+  body.bw-print::before { background:#fff !important; }                                          /* 黑白版：滿版層亦白 → 無底色 */
+  .doc { display:block !important; padding:0 !important; gap:0 !important; }
+  .page {                                      /* 每個 .page = 一張紙：標頭固定頁首，章節標頭絕不出現在頁面中間 */
+    width:auto !important; height:auto !important; min-height:0 !important;
+    overflow:visible !important; border:none !important;
+    margin:0 !important; padding:0 !important;
+    break-before:page !important; page-break-before:always !important;
+    break-after:auto !important; page-break-after:auto !important;
+  }
+  .doc > .page:first-child, .page.cover { break-before:auto !important; page-break-before:auto !important; } /* 封面為首頁，不重複分頁 */
+  .page.cover {                                /* 封面：自成一張、滿版；最樸素 block 流式（page.pdf 分頁下 flex/絕對/transform 不渲染文字）*/
+    width:210mm !important; height:297mm !important; min-height:297mm !important;
+    overflow:hidden !important; display:block !important; padding:0 !important; text-align:center;
+    break-before:auto !important; page-break-before:auto !important;
+    break-after:auto !important; page-break-after:auto !important;  /* 不強制 after，由次節 break-before 接手，避免雙重分頁產生空白頁 */
+  }
+  .cover__bg, .cover__glow1, .cover__glow2, .cover__xiangyun { display:none !important; }
+  .cover__hdr, .cover__center, .cover__foot {
+    position:static !important; top:auto !important; left:auto !important; right:auto !important; bottom:auto !important;
+    transform:none !important; width:auto !important; margin:0 !important;
+  }
+  .cover__hdr { display:flex !important; justify-content:space-between !important; align-items:center !important; padding:16mm 16mm 0 !important; }
+  .cover__center { padding:46mm 16mm 0 !important; }   /* 以 padding 推到上中段，避免 flex/絕對置中 */
+  .cover__foot { display:flex !important; justify-content:space-between !important; align-items:flex-end !important; padding:40mm 16mm 0 !important; }
+  .page__brand, .page__num { display:none !important; }  /* 頁碼改由匯出 PDF 頁尾呈現 */
+  /* 區塊「整塊保留」不跨頁斷裂：放不下就整塊移到下一頁（含人生導師語），不被切開或硬擠 */
+  .practice, .examq, .passage, .exam-point, .anablock, .gloss-list,
+  .author-card, .source-card, .ratetable, table, .group-lead, .teacher-detail,
+  .map2, .struct-bar, .rh-card, .quad-theme, .flow__step, .ix-metacog,
+  .mentor-voice, .ix, .ix-warmup, .ix-explain, .ix-think, .ix-peer, .writing-box, .keypoints,
+  .practice__options, .flower-card, .metaphor-row .side, .compare-block, .exam-strip,
+  .note-box { break-inside:avoid; page-break-inside:avoid; }
+  .pg__head, h3, h4, .pg__h1, .pg__h2 { break-after:avoid; page-break-after:avoid; }
+  /* 列印：@page 改零邊界（滿版），故 12.7mm 頁內縮由 .pg padding 補回；文字落點與原本 @page 12.7mm+原內距一致，不觸發 reflow */
+  .pg { padding:calc(12.7mm + 6px) calc(12.7mm + 10px) calc(12.7mm + 14px) !important; }
+  /* 左細線版式的列印內距（樣稿權威值）：無色底，故內距只需護住文字與線的距離 */
+  .exam-point { padding:10px 0 10px 16px !important; }
+  .anablock { padding:10px 0 10px 18px !important; }
+  .ix, .ix-warmup, .ix-explain, .ix-think, .ix-peer, .ix-metacog { padding:13px 0 13px 18px !important; }
+  .author-card, .source-card { padding:10px 0 10px 18px !important; }
+  .keypoints { padding:16px 2px 6px !important; }
+  .practice { padding:14px 0 0 !important; }
+  .quad-theme, .group-lead { padding:12px 14px !important; }
+  .half, .subst-card, .rh-card, .struct-bar, .map2 { padding:12px 14px !important; }
+  /* 僅收斂「區塊之間」的間距，讓微超頁的節容於一張 */
+  .anablock, .exam-point, .ix, .ix-warmup, .ix-explain, .ix-think, .ix-peer, .ix-metacog,
+  .author-card, .source-card, .practice, .examq, .keypoints, .struct-bar, .map2,
+  .rh-card, .quad-theme, .group-lead, .mentor-voice, .gloss-list, .analysis-grid { margin-top:0 !important; margin-bottom:12px !important; }
+  .pg__lead, .pg__head { margin-bottom:12px !important; }
+  .exam-grid, .practice__grid, .subst-grid, .struct-grid, .couplet-row, .metaphor-row { gap:13px !important; }
+}
+
+/* ==================== 題目詳解 專屬：新增區塊（不改動既有規則，僅新增） ====================
+   規格權威＝ src/design-system/templates/handout/樣式稿-2026-07/變體B-墨韻簡雅-愛蓮說題目詳解.html
+   （樣稿為單檔自足、CSS 全內嵌；2026-08-05 依階段4 制度「皮膚一律由 handout.css 供給」抽出，值逐字照抄）
+   使用者＝ tools/build_lesson.py 的「題目詳解」產出型態。 */
+.qd-head { text-align:center; padding:44px 0 34px; }
+.qd-head__eyebrow { font-size:14.22px; letter-spacing:.3em; color:var(--terracotta); margin-bottom:16px; }
+.qd-head__title { font-family:'Noto Serif TC',serif; font-weight:900; font-size:48px; color:var(--navy); display:inline-block; border-top:3px solid var(--navy); border-bottom:.5px solid var(--navy); padding:14px 34px; letter-spacing:.1em; }
+.qd-head__title small { display:block; font-size:16.2px; font-weight:400; letter-spacing:.25em; color:var(--navy-soft); margin-top:10px; }
+.qd-head__note { margin-top:20px; font-size:14.22px; color:var(--navy-soft); letter-spacing:.05em; }
+
+.qd-item { border-top:1px solid var(--navy-faint); padding-top:16px; margin-bottom:18px; }
+.qd-item .practice { border-top:none; padding-top:0; margin-bottom:10px; }
+
+.qd-sec { margin:8px 0 0 2px; padding:6px 0 6px 14px; border-left:2px solid var(--navy-faint); font-size:14.22px; line-height:1.75; color:var(--ink); }
+.qd-sec__lbl { display:block; font-size:14.22px; letter-spacing:.2em; font-weight:700; margin-bottom:4px; }
+.qd-sec--think { border-left-color:var(--gold); }
+.qd-sec--think .qd-sec__lbl { color:var(--gold); }
+.qd-sec--ans { border-left-color:var(--navy); font-weight:700; }
+.qd-sec--ans .qd-sec__lbl { color:var(--navy); }
+.qd-sec--exp { border-left-color:var(--terracotta); }
+.qd-sec--exp .qd-sec__lbl { color:var(--terracotta); }

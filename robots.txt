@@ -1,0 +1,22 @@
+# 立霖國文 LILIN GUOWEN · robots.txt
+#
+# 部署說明：本檔由 cp -r 落在站台根（_site/robots.txt）。
+# 注意：GitHub Pages 專案頁（github.io/lilin-guowen）僅讀取網域根 robots.txt，
+#       故本檔需待「自訂網域」上線、站台服務於網域根後才完全生效。
+#       下列 Disallow 路徑為根相對路徑（對應自訂網域的目標狀態）。
+
+User-agent: *
+Allow: /
+
+# 未定稿原型／預覽頁與內部入口——避免被當正式內容索引、稀釋品牌實體
+# 註：/網站/ 於部署時已移除（見 workflow rm -rf），故不需 Disallow。
+Disallow: /portal.html
+Disallow: /src/website/website-extended-index.html
+Disallow: /src/design-system/preview/
+Disallow: /src/design-system/ui_kits/
+Disallow: /.design-source/
+Disallow: /_research_extracts/
+
+# 允許爬蟲存取渲染所需的樣式與圖片資產（請勿封鎖 /src 下的 css/圖檔）
+
+Sitemap: https://lilin31311227-chinese.github.io/lilin-guowen/sitemap.xml

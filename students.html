@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>學生入口｜立霖國文</title>
+<meta name="description" content="每週一小時，陪你讀懂文章，也讀懂自己。立霖國文學生專區。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+/* 僅補少量頁面專屬樣式，沿用 :root 變數，勿引入新色 */
+
+/* 古典引言卡（導師旁白 / 心靈專欄）——用 path-card 底色，補左邊金線 */
+.mentor-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  padding: 32px 34px;
+  border: 1px solid rgba(74,124,126,.26);
+  background: linear-gradient(150deg, var(--mist), color-mix(in srgb, var(--teal) 7%, var(--paper-soft)));
+  border-left: 3px solid var(--teal);
+}
+.mentor-card__kicker {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: .24em;
+  color: var(--teal);
+  margin: 0 0 12px;
+}
+.mentor-card__body {
+  font-family: var(--serif);
+  font-size: 16.5px;
+  line-height: 1.95;
+  letter-spacing: .03em;
+  color: var(--ink);
+  margin: 0 0 16px;
+}
+.mentor-card__cite {
+  padding-top: 12px;
+  border-top: 1px solid rgba(74,124,126,.22);
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: .16em;
+  color: var(--teal-soft);
+}
+
+/* 情緒詞彙標籤群 */
+.emo-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* 學生流程步驟（簡版，不重複 phase class 的大格） */
+.step-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: step;
+  display: grid;
+  gap: 0;
+}
+.step-list__item {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 26px 0;
+  border-top: 1px solid var(--hairline);
+}
+.step-list__item:last-child {
+  border-bottom: 1px solid var(--hairline);
+}
+.step-list__num {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--teal);
+  line-height: 1;
+  letter-spacing: .04em;
+  padding-top: 2px;
+}
+.step-list__body h3 {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.step-list__body p {
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: rgba(26,54,93,.76);
+  margin: 0;
+}
+
+/* 探索預覽帶（深底，僅此區，克制使用） */
+.preview-band {
+  background: linear-gradient(160deg, var(--navy-hero), var(--navy-deep));
+  padding: 80px 0;
+  text-align: center;
+}
+.preview-band__eyebrow {
+  font-family: var(--serif);
+  font-size: 12.5px;
+  letter-spacing: .42em;
+  text-indent: .42em;
+  color: var(--gold);
+  margin: 0 0 22px;
+}
+.preview-band__title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4.2vw, 42px);
+  font-weight: 700;
+  letter-spacing: .04em;
+  line-height: 1.45;
+  color: var(--paper);
+  margin: 0 0 18px;
+}
+.preview-band__title .accent-teal {
+  color: var(--teal-soft);
+}
+.preview-band__lead {
+  font-size: 16px;
+  line-height: 1.9;
+  color: rgba(250,245,239,.8);
+  max-width: 38em;
+  margin: 0 auto 36px;
+}
+
+@media (max-width: 860px) {
+  .step-list__item { grid-template-columns: 42px 1fr; gap: 14px; }
+  .step-list__num { font-size: 22px; }
+  .mentor-card { padding: 24px 22px; }
+  .preview-band { padding: 56px 0; }
+}
+</style>
+</head>
+<body data-page="students">
+
+<div id="site-header"></div>
+
+<!-- ================= 頁首 ================= -->
+<header class="page-head ink-wash ink-wash--student">
+  <div class="page-head__inner">
+    <p class="page-head__eyebrow">學生入口 · STUDENT TRACK</p>
+    <h1 class="page-head__title">分數會結束，<br><span class="accent-teal">你不會。</span></h1>
+    <p class="page-head__lead">
+      每週一小時，我們陪你讀懂文章，也讀懂自己。<br>
+      在標準答案到來之前，先給自己一個版本。
+    </p>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 導師旁白 × 心靈專欄 ================= -->
+<section class="section ink-wash ink-wash--student" id="mentor">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">古典對話</p>
+      <h2 class="section__title">每週一帖，一首詩的距離。</h2>
+      <p class="section__sub">
+        課堂文本不只是考題。每首詩都曾被真實的人，在真實的處境下寫下來。
+        我們試著把那個人的心，跟你現在的心，擺在一起聊聊。
+      </p>
+    </div>
+    <div class="grid grid--2">
+      <article class="mentor-card reveal">
+        <p class="mentor-card__kicker">導師的旁白</p>
+        <p class="mentor-card__body">
+          「莫聽穿林打葉聲，何妨吟嘯且徐行。」<br>
+          蘇軾被貶謫黃州那年，他選擇用「徐行」回應風雨。
+          你今天的風雨，你想用什麼姿態走過？
+        </p>
+        <p class="mentor-card__cite">—— 蘇軾《定風波》</p>
+      </article>
+      <article class="mentor-card reveal">
+        <p class="mentor-card__kicker">心靈專欄</p>
+        <p class="mentor-card__body">
+          「歸去來兮，田園將蕪胡不歸？」<br>
+          陶淵明說的不是辭職，是回到自己。
+          你今天最想回去的，是哪個自己？
+        </p>
+        <p class="mentor-card__cite">—— 陶淵明《歸去來辭》</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 情緒詞彙 ================= -->
+<section class="section section--alt" id="vocabulary">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">情緒詞彙</p>
+      <h2 class="section__title">把「煩」翻譯成更精確的詞。</h2>
+      <p class="section__sub">
+        青少年很常用「不爽、煩、不知道」概括一切。
+        我們把這些字，擴充為文學裡那些細膩又精準的詞彙——
+        說得出來的情緒，才能真正被自己看見。
+      </p>
+    </div>
+    <div class="emo-cluster reveal">
+      <button class="chip emo-chip" data-emo="喜" style="color:var(--emo-joy);">
+        <span class="dot-sm" style="background:var(--emo-joy);"></span>喜 · 欣然
+      </button>
+      <button class="chip emo-chip" data-emo="安" style="color:var(--emo-calm);">
+        <span class="dot-sm" style="background:var(--emo-calm);"></span>安 · 從容
+      </button>
+      <button class="chip emo-chip" data-emo="望" style="color:var(--emo-hope);">
+        <span class="dot-sm" style="background:var(--emo-hope);"></span>望 · 懷想
+      </button>
+      <button class="chip emo-chip" data-emo="哀" style="color:var(--emo-grief);">
+        <span class="dot-sm" style="background:var(--emo-grief);"></span>哀 · 黯然
+      </button>
+      <button class="chip emo-chip" data-emo="慍" style="color:var(--emo-anger);">
+        <span class="dot-sm" style="background:var(--emo-anger);"></span>慍 · 不平
+      </button>
+      <button class="chip emo-chip" data-emo="焦" style="color:var(--emo-anxiety);">
+        <span class="dot-sm" style="background:var(--emo-anxiety);"></span>焦 · 懸宕
+      </button>
+      <button class="chip emo-chip" data-emo="鬱" style="color:var(--emo-melancholy);">
+        <span class="dot-sm" style="background:var(--emo-melancholy);"></span>鬱 · 惆悵
+      </button>
+    </div>
+    <p class="section__sub reveal" style="margin-top:28px;font-size:14px;">
+      點選一個詞，感受看看它跟你此刻的距離有多近。
+    </p>
+  </div>
+</section>
+
+<!-- ================= 引言 pullquote ================= -->
+<section class="section section--paper-soft" id="quote">
+  <div class="container container--narrow">
+    <div class="pullquote reveal" style="margin:0 auto;">
+      <p>給每位在分數之上、宇宙之內的你</p>
+      <cite>立霖國文 · 學生入口</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 我們一起做什麼（四個環節） ================= -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">課堂節奏</p>
+      <h2 class="section__title">一小時的四個段落。</h2>
+      <p class="section__sub">
+        不只講課、不只做題。每一節課都有它自己的呼吸節奏。
+      </p>
+    </div>
+    <ol class="step-list">
+      <li class="step-list__item reveal">
+        <span class="step-list__num">壹</span>
+        <div class="step-list__body">
+          <h3>讀懂一篇文章</h3>
+          <p>從訊息檢索到觀點評析，一步步建立拿得走的閱讀方法。文章可以是古典詩詞，也可以是當代散文。</p>
+        </div>
+      </li>
+      <li class="step-list__item reveal">
+        <span class="step-list__num">貳</span>
+        <div class="step-list__body">
+          <h3>說出自己的版本</h3>
+          <p>在標準答案到達之前，先讓自己有一個立場。我們練習的，是把想法說清楚，而不是猜老師要的答案。</p>
+        </div>
+      </li>
+      <li class="step-list__item reveal">
+        <span class="step-list__num">參</span>
+        <div class="step-list__body">
+          <h3>一帖古典對話</h3>
+          <p>每週選一首詩、一段文，跟現代生活擺在一起。古人的困境，常常跟你的困境長得很像。</p>
+        </div>
+      </li>
+      <li class="step-list__item reveal">
+        <span class="step-list__num">肆</span>
+        <div class="step-list__body">
+          <h3>一個可以留著的句子</h3>
+          <p>每節課的末尾，我們會找出一個值得記在心裡的字句——不是為了考試，是為了你以後用得到。</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= 見證：學生心聲 ================= -->
+<section class="section section--alt" id="voices">
+  <div class="container">
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">學生心聲</p>
+      <h2 class="section__title">他們說的。</h2>
+    </div>
+    <div class="grid grid--3">
+      <article class="quote-card quote-card--student reveal">
+        <span class="quote-card__mark" aria-hidden="true">"</span>
+        <p class="quote-card__body">
+          以前覺得寫作文是在猜老師要什麼。現在是真的有話想說，才動筆。
+        </p>
+        <footer class="quote-card__source">
+          <span>九年級 · 新竹</span>
+          <span>學習第二年</span>
+        </footer>
+      </article>
+      <article class="quote-card quote-card--student reveal">
+        <span class="quote-card__mark" aria-hidden="true">"</span>
+        <p class="quote-card__body">
+          讀到《定風波》那天，我突然覺得蘇軾跟我好像。我那陣子也是被一件事壓著走。
+        </p>
+        <footer class="quote-card__source">
+          <span>八年級 · 竹北</span>
+          <span>學習第一年</span>
+        </footer>
+      </article>
+      <article class="quote-card quote-card--student reveal">
+        <span class="quote-card__mark" aria-hidden="true">"</span>
+        <p class="quote-card__body">
+          這裡可以說不懂。說不懂不會被白眼，老師還會覺得你問得好。
+        </p>
+        <footer class="quote-card__source">
+          <span>七年級 · 新竹市</span>
+          <span>學習第一年</span>
+        </footer>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 學生專區探索（深底帶） ================= -->
+<div class="preview-band" id="explore">
+  <div class="container container--narrow">
+    <p class="preview-band__eyebrow">學生專區</p>
+    <h2 class="preview-band__title">
+      要不要先<span class="accent-teal">悄悄</span>看一下？
+    </h2>
+    <p class="preview-band__lead">
+      匿名信箱、學長姐心聲、文學現代改寫——<br>
+      完全不需要先報名，先看就好。
+    </p>
+    <div class="closing__actions">
+      <a class="btn btn--teal" href="diagnosis.html">探索學生專區</a>
+      <a class="btn btn--ghost" style="color:var(--paper);border-color:rgba(250,245,239,.4);" href="diagnosis.html">先做一次自我診斷</a>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FAQ ================= -->
+<section class="section" id="faq">
+  <div class="container container--narrow">
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">常見問題</p>
+      <h2 class="section__title">你可能想問的事。</h2>
+    </div>
+    <div class="accordion reveal">
+      <div class="accordion__item">
+        <button class="accordion__q">我國文成績還不錯，來這裡還有幫助嗎？</button>
+        <div class="accordion__a">
+          成績不錯，代表你的基本功已經到位。我們做的事不是「補弱」，而是協助你把理解力再往深處走——從「看懂」到「有感」，從「有感」到「能表達」。這個過程，成績好的孩子反而走得更快。
+        </div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__q">不喜歡國文，但家長叫我來，怎麼辦？</button>
+        <div class="accordion__a">
+          這裡不強迫你喜歡。第一件事是弄清楚你「不喜歡」的是什麼——是背誦、是寫作、還是那些離生活太遠的課文。搞清楚之後，我們再來調整。不需要裝喜歡，坦白說反而好溝通。
+        </div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__q">上課形式是一對一，還是小班？</button>
+        <div class="accordion__a">
+          目前以小班制（四至六人）為主，也提供一對一課程。小班的好處是能聽到同學不同的解讀角度；一對一則完全依你的節奏調整。可以先來試聽，感受看看哪一種比較適合你。
+        </div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__q">寫作很弱，這裡能幫到我嗎？</button>
+        <div class="accordion__a">
+          寫作弱，通常不是因為不會寫，而是因為「不知道自己有什麼可以說」。我們先從找到自己的觀點開始，再慢慢練習把觀點說清楚。大多數孩子都在這個過程中重新找到寫作的出口。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA 收束 ================= -->
+<section class="closing ink-wash ink-wash--student" id="cta">
+  <div class="container">
+    <h2 class="closing__title">先來坐坐，<br>聊聊你現在的樣子。</h2>
+    <p class="closing__lead">
+      不需要先準備什麼。帶著你現在的問題，或者什麼都不帶也行。<br>
+      我們先聽你說，再一起看看可以怎麼開始。
+    </p>
+    <div class="closing__actions">
+      <a class="btn btn--teal" data-line href="#">加 LINE 來聊聊</a>
+      <a class="btn btn--ghost" href="diagnosis.html">先做一次自我診斷</a>
+    </div>
+    <p class="closing__note">不催促，不推銷。我們先聽。</p>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+<script src="assets/sumi-site.js"></script>
+</body>
+</html>

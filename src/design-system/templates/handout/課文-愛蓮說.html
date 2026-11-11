@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>立霖國文 · 課文講義範本 · 愛蓮說</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="handout.css">
+<style>
+  /* 愛蓮說 — local tweaks only */
+  .quad-themes { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+  .quad-theme { background:#fff; border-radius:10px; padding:14px 16px; border-bottom:3px solid var(--gold); box-shadow:0 2px 8px rgba(26,54,93,.05); }
+  .quad-theme .n { font-family:'Noto Serif TC',serif; font-size:11px; font-weight:700; color:var(--gold-dark); letter-spacing:.1em; }
+  .quad-theme .ttl { font-size:13.5px; font-weight:700; color:var(--navy); margin:4px 0 6px; }
+  .quad-theme .desc { font-size:11.5px; line-height:1.65; color:var(--navy-light); }
+
+  .author-card {
+    background:linear-gradient(135deg, var(--mentor-sunrise) 0%, var(--mentor-clay) 100%);
+    border-radius:14px; padding:16px 20px; margin-bottom:16px;
+    display:grid; grid-template-columns:50px 1fr; gap:16px; align-items:center;
+  }
+  .author-card .avatar {
+    width:50px; height:50px; border-radius:50%;
+    background:var(--navy); color:var(--cream);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Noto Serif TC',serif; font-size:22px; font-weight:700;
+  }
+  .author-card .meta { font-size:12px; line-height:1.7; color:var(--navy); }
+  .author-card .meta b { color:var(--mentor-terracotta); font-weight:600; }
+  .author-card .meta .name { font-size:15px; font-weight:700; color:var(--navy); display:block; margin-bottom:2px; letter-spacing:.05em; }
+
+  .signoff-bottom {
+    text-align:center;
+    margin-top:18px;
+    padding-top:18px;
+    border-top:1px solid rgba(26,54,93,.08);
+    font-family:'Noto Serif TC',serif;
+    font-size:14px;
+    color:var(--navy);
+    line-height:1.85;
+    letter-spacing:.04em;
+  }
+  .signoff-bottom cite {
+    display:block;
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:11px; letter-spacing:.15em;
+    color:var(--mentor-terracotta); font-style:normal;
+    margin-top:8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="doc" data-screen-label="01 課文講義 · 愛蓮說">
+
+  <!-- ============== PAGE 1 · COVER ============== -->
+  <div class="page cover" data-screen-label="01 封面">
+    <div class="cover__bg"></div>
+    <div class="cover__glow1"></div>
+    <div class="cover__glow2"></div>
+
+    <svg class="cover__xiangyun" style="top:120px; left:40px; width:160px;" viewBox="0 0 160 80" fill="none">
+      <path d="M20 60C20 60 30 30 55 40C80 50 75 60 100 55C125 50 130 35 145 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M10 70C10 70 25 50 50 55C75 60 85 45 115 50" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+    </svg>
+    <svg class="cover__xiangyun" style="bottom:140px; right:40px; width:160px;" viewBox="0 0 160 80" fill="none">
+      <path d="M20 50C40 50 50 20 80 35C110 50 120 25 145 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+
+    <header class="cover__hdr">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="立霖國文">
+      <span class="series">課文講義 · 國二上</span>
+    </header>
+
+    <div class="cover__center">
+      <img class="cover__seal" src="../../assets/lilin-icon.png" alt="">
+      <div class="cover__eyebrow">第 十一 課 · LESSON 11</div>
+      <h1 class="cover__title">愛蓮說</h1>
+      <p class="cover__quote">「出淤泥而不染 ，<br>濯清漣而不妖。」</p>
+      <p class="cover__poet">—— 周敦頤 ， 北宋 . 一〇六三</p>
+      <div class="cover__divider"></div>
+      <p class="cover__sub">
+        在這個鼓勵你被沾染、被擺布的時代，<br>
+        愛蓮說教你一件最古老的事：<br>
+        <b style="color:#fde68a">先把自己活成一個樣子。</b>
+      </p>
+    </div>
+
+    <footer class="cover__foot">
+      <div class="cover__meta">
+        授課對象 ／ <b>國二 · 國三</b><br>
+        建議課時 ／ <b>2 堂 × 50 分鐘</b><br>
+        發行日期 ／ 2026 . 05 . 13
+      </div>
+      <div class="cover__teacher">
+        <div class="name">立霖 老師</div>
+        <div class="role">課文講義 · TEXT LESSON</div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ============== PAGE 2 · 課文文本講解 ============== -->
+  <div class="page pg" data-screen-label="02 課文文本講解">
+    <header class="pg__head">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="">
+      <div class="pg__crumbs">第十一課 · 課文文本講解 · p.02</div>
+    </header>
+
+    <h2 class="pg__h1">愛蓮說<small>周敦頤 · 說體散文</small></h2>
+    <p class="pg__lead">
+      「說」是一種以議論為主的文體，與「論」「辯」近似但更口語、更帶情味。周敦頤借三種花表達三種人生姿態：菊（隱）、牡丹（俗）、蓮（君子）—— 全篇 119 字，卻把宋代理學家「以物明志」的功夫示範到極致。
+    </p>
+
+    <div class="ix ix-warmup">
+      <div class="ix__lbl">開始前 · 喚醒</div>
+      <div class="ix__q">先別看課文：在容易被周圍影響的環境裡，<em>你想守住自己的什麼</em>？可以是一個習慣、一種態度，或一件你不想妥協的事——先寫下來，讀完再看蓮花給你的答案。</div>
+      <div class="ix__line"></div>
+    </div>
+
+    <div class="author-card">
+      <div class="avatar">周</div>
+      <div class="meta">
+        <span class="name">周敦頤 · 字茂叔（1017–1073）</span>
+        北宋理學家，<b>程顥、程頤之師</b>，後世尊稱「濂溪先生」。曾任南安軍司理參軍、虔州通判，為官以清廉著稱。著作《太極圖說》《通書》，是宋明理學的奠基者之一。
+      </div>
+    </div>
+
+    <div class="gloss-text">
+      <div class="gloss-text__lbl">原文 · 帶注本 · GLOSS</div>
+      <div class="gloss-text__body">
+        水陸草木之花<span class="pause">，</span>可愛者甚<span class="gloss">蕃<span class="marker">1</span></span><span class="pause">。</span>晉陶淵明獨愛菊<span class="pause">；</span>自李唐來<span class="pause">，</span>世人盛愛牡丹<span class="pause">；</span>予獨愛蓮之出<span class="gloss">淤泥<span class="marker">2</span></span>而不染<span class="pause">，</span>濯清<span class="gloss">漣<span class="marker">3</span></span>而不<span class="gloss">妖<span class="marker">4</span></span><span class="pause">，</span>中通外直<span class="pause">，</span>不蔓不枝<span class="pause">，</span>香遠益清<span class="pause">，</span>亭亭淨植<span class="pause">，</span>可遠觀而不可<span class="gloss">褻<span class="marker">5</span></span>玩焉<span class="pause">。</span><br><br>
+        予謂菊<span class="pause">，</span>花之<span class="gloss">隱逸<span class="marker">6</span></span>者也<span class="pause">；</span>牡丹<span class="pause">，</span>花之富貴者也<span class="pause">；</span>蓮<span class="pause">，</span>花之<span class="gloss">君子<span class="marker">7</span></span>者也<span class="pause">。</span><span class="gloss">噫<span class="marker">8</span></span><span class="pause">！</span>菊之愛<span class="pause">，</span>陶後鮮有聞<span class="pause">；</span>蓮之愛<span class="pause">，</span>同予者何人<span class="pause">？</span>牡丹之愛<span class="pause">，</span><span class="gloss">宜<span class="marker">9</span></span>乎眾矣<span class="pause">！</span>
+      </div>
+      <p class="original__attrib">—— 周敦頤《愛蓮說》</p>
+    </div>
+
+    <div class="gloss-list">
+      <div class="gloss-list__item"><span class="n">1</span><span><b>蕃 ㄈㄢˊ</b>多。同「繁」。</span></div>
+      <div class="gloss-list__item"><span class="n">2</span><span><b>淤泥</b>沉積於水底的污泥。</span></div>
+      <div class="gloss-list__item"><span class="n">3</span><span><b>漣</b>水面波紋；此指清水。</span></div>
+      <div class="gloss-list__item"><span class="n">4</span><span><b>妖</b>豔麗而不正派。</span></div>
+      <div class="gloss-list__item"><span class="n">5</span><span><b>褻 ㄒㄧㄝˋ</b>輕慢、玩弄。</span></div>
+      <div class="gloss-list__item"><span class="n">6</span><span><b>隱逸</b>隱居山林，遠避塵世。</span></div>
+      <div class="gloss-list__item"><span class="n">7</span><span><b>君子</b>有德行的人。</span></div>
+      <div class="gloss-list__item"><span class="n">8</span><span><b>噫 ㄧ</b>嘆詞，相當於今之「唉」。</span></div>
+      <div class="gloss-list__item"><span class="n">9</span><span><b>宜</b>應該、當然。</span></div>
+    </div>
+
+    <div class="page__brand">立霖國文 · LILIN GUOWEN</div>
+    <div class="page__num"><b>02</b> · 05</div>
+  </div>
+
+  <!-- ============== PAGE 3 · 重點整理 ============== -->
+  <div class="page pg" data-screen-label="03 重點整理">
+    <header class="pg__head">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="">
+      <div class="pg__crumbs">第十一課 · 重點整理 · p.03</div>
+    </header>
+
+    <h2 class="pg__h2"><small>Key Points · 03</small>重點整理</h2>
+    <p class="pg__lead" style="margin-top:6px;">三花三人，一句立意 ── 周敦頤用最少的字，把「君子」的標準寫成一張可以掛在書房牆上的圖。</p>
+
+    <div class="analysis-grid">
+      <div class="anablock">
+        <h4>主旨</h4>
+        <h3>君子的自處之道</h3>
+        <p>以蓮喻君子，提出三項標準：「不染、不蔓不枝、香遠益清」── 在污濁環境中保持自己、不依附、用品德影響他人。</p>
+      </div>
+      <div class="anablock">
+        <h4>結構</h4>
+        <h3>三花並列 → 三人對應</h3>
+        <p>第一段先寫菊／牡丹／蓮三花，第二段用「予謂」轉入比擬，菊＝隱逸者、牡丹＝富貴者、蓮＝君子。對仗精確。</p>
+      </div>
+      <div class="anablock">
+        <h4>寫法</h4>
+        <h3>以物明志 · 託物言志</h3>
+        <p>不直接說「人該怎麼活」，而是先把蓮的性狀寫透；讀者自己會從物的特徵推想到人的特徵。</p>
+      </div>
+      <div class="anablock">
+        <h4>情感</h4>
+        <h3>「同予者何人」之嘆</h3>
+        <p>表面上贊蓮，內裡藏作者孤獨：愛富貴的人多、愛隱逸的人少、與我一樣愛蓮的更是寥寥。一聲「噫」道盡時代清濁。</p>
+      </div>
+    </div>
+
+    <h4 style="font-size:12px; letter-spacing:.15em; color:var(--gold-dark); font-weight:600; margin-bottom:10px; text-transform:uppercase;">三花四象 · 對照表</h4>
+    <div class="quad-themes">
+      <div class="quad-theme">
+        <div class="n">01</div>
+        <div class="ttl">出淤泥而不染</div>
+        <div class="desc">處污濁環境，不被同化</div>
+      </div>
+      <div class="quad-theme">
+        <div class="n">02</div>
+        <div class="ttl">濯清漣而不妖</div>
+        <div class="desc">受清廉洗禮，不誇張矯飾</div>
+      </div>
+      <div class="quad-theme">
+        <div class="n">03</div>
+        <div class="ttl">中通外直 不蔓不枝</div>
+        <div class="desc">內心通達、外表正直；不攀附、不旁逸</div>
+      </div>
+      <div class="quad-theme">
+        <div class="n">04</div>
+        <div class="ttl">香遠益清 可遠觀</div>
+        <div class="desc">品德越遠越芬芳；可被仰慕，不可被輕褻</div>
+      </div>
+    </div>
+
+    <div class="ix ix-explain">
+      <div class="ix__lbl">我來說說看 · 同儕</div>
+      <div class="ix__q">轉頭向旁邊的同學，用<em>一句話</em>說明：周敦頤為什麼不直接說「人要有品德」，卻要繞一大圈寫蓮花？（先自己想 30 秒，再說給對方聽。）</div>
+    </div>
+
+    <aside class="mentor-voice" style="margin-bottom:0;">
+      <div class="lbl">人生導師 · LIFE MENTOR</div>
+      <p class="body">
+        現代世界很少教你「<em>遠觀</em>」這件事。<br>
+        IG 教你被點讚，TikTok 教你被瀏覽，每一個演算法都在說：<em>讓自己更容易被觸碰</em>。<br>
+        但周敦頤一千年前就告訴你：有些東西，<em>越被輕易碰到，越貶值</em>。<br>
+        什麼是你願意被遠遠看著、但不被隨便玩弄的部分？
+      </p>
+    </aside>
+
+    <div class="page__brand">立霖國文 · LILIN GUOWEN</div>
+    <div class="page__num"><b>03</b> · 05</div>
+  </div>
+
+  <!-- ============== PAGE 4 · 重要考點補充 ============== -->
+  <div class="page pg" data-screen-label="04 重要考點">
+    <header class="pg__head">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="">
+      <div class="pg__crumbs">第十一課 · 重要考點 · p.04</div>
+    </header>
+
+    <h2 class="pg__h2"><small>Exam Points · 04</small>重要考點補充</h2>
+    <p class="pg__lead" style="margin-top:6px;">會考必考六大題型：字音、字形、修辭、文意、文常、虛詞，逐項拆解，附口訣。</p>
+
+    <div class="ix ix-think">
+      <div class="ix__lbl">先自測 · 提取</div>
+      <div class="ix__q">挑戰：<em>先遮住下方注音與解析</em>，自己默想「蕃、褻、淤泥」的字音字義，再想「不蔓不枝」是什麼意思、「說」這個文體和「論」有何不同——回想得越用力，記得越牢。</div>
+    </div>
+
+    <div class="exam-points">
+
+      <div class="exam-point">
+        <span class="exam-point__tag tag-pronounce">字音</span>
+        <div class="exam-point__title">「蕃」字三讀辨析</div>
+        <div class="exam-point__example">可愛者甚<b>蕃</b>。</div>
+        <p class="exam-point__desc">本課讀 <b>ㄈㄢˊ</b>（同「繁」，多也）；當「蕃籬、吐蕃」時讀 <b>ㄈㄢ</b>；姓氏讀 <b>ㄆㄛˊ</b>。</p>
+        <span class="exam-point__mn">蕃多繁、籬車番、姓氏婆</span>
+      </div>
+
+      <div class="exam-point">
+        <span class="exam-point__tag tag-pronounce">字音</span>
+        <div class="exam-point__title">「褻」與「亵」皆讀 ㄒㄧㄝˋ</div>
+        <div class="exam-point__example">可遠觀而不可<b>褻</b>玩焉。</div>
+        <p class="exam-point__desc">「褻」會考常考字。同類字：「褓」<b>ㄅㄠˇ</b>、「裾」<b>ㄐㄩ</b>、「襤」<b>ㄌㄢˊ</b>。皆「衣」部，多與服裝、行為有關。</p>
+        <span class="exam-point__mn">衣字底，行為輕</span>
+      </div>
+
+      <div class="exam-point">
+        <span class="exam-point__tag tag-rhetoric">修辭</span>
+        <div class="exam-point__title">映襯 · 三花對比</div>
+        <div class="exam-point__example">菊／牡丹／蓮 → 隱逸／富貴／君子</div>
+        <p class="exam-point__desc">本課最重要的修辭。透過「眾人之愛」與「予獨愛」的對比，突顯蓮（君子）的可貴。<b>映襯</b> ≠ 對比，前者強調烘托主體，後者強調差異本身。</p>
+      </div>
+
+      <div class="exam-point">
+        <span class="exam-point__tag tag-rhetoric">修辭</span>
+        <div class="exam-point__title">層遞 · 由淺入深</div>
+        <div class="exam-point__example">出淤泥 → 濯清漣 → 中通外直 → 香遠益清</div>
+        <p class="exam-point__desc">蓮的描述由<b>外在環境</b>（淤泥／清漣）寫到<b>外在形貌</b>（中通／不蔓），再到<b>內在德性</b>（香遠／淨植）。層遞由表及裡。</p>
+      </div>
+
+      <div class="exam-point">
+        <span class="exam-point__tag tag-meaning">文意</span>
+        <div class="exam-point__title">「同予者何人」的反問之嘆</div>
+        <div class="exam-point__example">蓮之愛，<b>同予者何人</b>？</div>
+        <p class="exam-point__desc">看似問句，實為感嘆。屬「設問」中的<b>激問</b>（答在其中）。作者明知答案是「鮮有」，仍故意發問，加深孤獨之感。</p>
+      </div>
+
+      <div class="exam-point">
+        <span class="exam-point__tag tag-context">文常</span>
+        <div class="exam-point__title">「說」的文體特徵</div>
+        <div class="exam-point__example">愛蓮<b>說</b> · 師<b>說</b> · 雜<b>說</b></div>
+        <p class="exam-point__desc">「說」與「論」皆議論文，但<b>說</b>多帶情感、語氣口語；<b>論</b>較嚴謹、莊重。比較：韓愈〈師說〉、柳宗元〈捕蛇者說〉。</p>
+        <span class="exam-point__mn">說帶情、論帶理</span>
+      </div>
+
+    </div>
+
+    <div class="page__brand">立霖國文 · LILIN GUOWEN</div>
+    <div class="page__num"><b>04</b> · 05</div>
+  </div>
+
+  <!-- ============== PAGE 5 · 習題演練 ============== -->
+  <div class="page page--soft pg" data-screen-label="05 習題演練">
+    <header class="pg__head">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="">
+      <div class="pg__crumbs">第十一課 · 習題演練 · p.05</div>
+    </header>
+
+    <h2 class="pg__h2"><small>Practice · 05</small>習題演練</h2>
+    <p class="pg__lead" style="margin-top:6px;">每題標示難度：★ 基礎 ／ ★★ 中等 ／ ★★★ 進階。前三題為單選，第四題為短答。</p>
+
+    <div class="practice" style="padding:14px 20px;">
+      <div class="practice__hdr">
+        <div class="practice__num"><span class="qn">01</span><span class="practice__type">單選 · 字音</span></div>
+        <div class="practice__diff"><span class="full">★</span><span class="empty">★★</span></div>
+      </div>
+      <p class="practice__q">下列「<em>　</em>」中的字音，何者正確？</p>
+      <div class="practice__options">
+        <div><span class="opt-letter">A</span><span class="opt-text">可愛者甚「蕃」：ㄆㄛˊ</span></div>
+        <div><span class="opt-letter">B</span><span class="opt-text">不可「褻」玩焉：ㄒㄧㄝˋ</span></div>
+        <div><span class="opt-letter">C</span><span class="opt-text">濯清「漣」而不妖：ㄐㄧㄢ</span></div>
+        <div><span class="opt-letter">D</span><span class="opt-text">「噫」！菊之愛：ㄞ</span></div>
+      </div>
+      <div class="practice__answer"><span>答 ：<span class="blank-line"></span></span><span>解析 ：A.蕃ㄈㄢˊ／C.漣ㄌㄧㄢˊ／D.噫ㄧ</span></div>
+    </div>
+
+    <div class="practice" style="padding:14px 20px;">
+      <div class="practice__hdr">
+        <div class="practice__num"><span class="qn">02</span><span class="practice__type">單選 · 文意</span></div>
+        <div class="practice__diff"><span class="full">★★</span><span class="empty">★</span></div>
+      </div>
+      <p class="practice__q">「予獨愛蓮之出淤泥而不染，濯清漣而不妖」最能表達何種人格特質？</p>
+      <div class="practice__options">
+        <div><span class="opt-letter">A</span><span class="opt-text">遠離塵世，淡泊名利</span></div>
+        <div><span class="opt-letter">B</span><span class="opt-text">不受環境影響，潔身自好</span></div>
+        <div><span class="opt-letter">C</span><span class="opt-text">追求富貴，安於享受</span></div>
+        <div><span class="opt-letter">D</span><span class="opt-text">同流合污，與世推移</span></div>
+      </div>
+      <div class="practice__answer"><span>答 ：<span class="blank-line"></span></span><span>解析 ：蓮處淤泥而不被染（不受負面環境同化），遇清漣而不妖（不因受寵而張揚）。</span></div>
+    </div>
+
+    <div class="practice" style="padding:14px 20px;">
+      <div class="practice__hdr">
+        <div class="practice__num"><span class="qn">03</span><span class="practice__type">單選 · 文常</span></div>
+        <div class="practice__diff"><span class="full">★★★</span></div>
+      </div>
+      <p class="practice__q">下列關於「說」這個文體的敘述，何者錯誤？</p>
+      <div class="practice__options">
+        <div><span class="opt-letter">A</span><span class="opt-text">屬於議論性散文，與「論」相近</span></div>
+        <div><span class="opt-letter">B</span><span class="opt-text">較「論」更帶情感與口語色彩</span></div>
+        <div><span class="opt-letter">C</span><span class="opt-text">韓愈〈師說〉、柳宗元〈捕蛇者說〉同此文體</span></div>
+        <div><span class="opt-letter">D</span><span class="opt-text">「說」為韻文，須講究平仄對仗</span></div>
+      </div>
+      <div class="practice__answer"><span>答 ：<span class="blank-line"></span></span><span>解析 ：D.「說」為散文，非韻文。</span></div>
+    </div>
+
+    <div class="practice" style="padding:14px 20px;">
+      <div class="practice__hdr">
+        <div class="practice__num"><span class="qn">04</span><span class="practice__type">短答 · 應用</span></div>
+        <div class="practice__diff"><span class="full">★★</span><span class="empty">★</span></div>
+      </div>
+      <p class="practice__q">作者以「菊／牡丹／蓮」比擬三種人。請用<em>現代生活中的角色或情境</em>，重新詮釋這三種人各自代表的是什麼樣的選擇？</p>
+      <div class="practice__write">
+        <div></div><div></div><div></div>
+      </div>
+    </div>
+
+    <div class="ix-metacog">
+      <span class="mc-title">學完自評</span>
+      <span class="mc lv1">我能教別人這一課</span>
+      <span class="mc lv2">我大致懂了</span>
+      <span class="mc lv3">我想再看一次</span>
+    </div>
+
+    <p class="signoff-bottom" style="margin-top:10px; padding-top:12px; font-size:13px;">
+      「香遠益清 ， 亭亭淨植。」　願這一週，你的好被遠處的人聞到。
+      <cite>—— 立霖老師</cite>
+    </p>
+
+    <div class="page__brand">立霖國文 · LILIN GUOWEN</div>
+    <div class="page__num"><b>05</b> · 05 · 完</div>
+  </div>
+
+</div>
+
+</body>
+</html>

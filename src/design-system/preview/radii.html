@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Radii</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:12px}
+  .label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.6;font-weight:600;margin-bottom:14px}
+  .row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;align-items:end}
+  .item{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .box{width:84px;height:64px;background:linear-gradient(135deg,#1a365d 0%,#2c5282 100%)}
+  .name{font-family:ui-monospace,Menlo,monospace;font-weight:600;color:#b7791f;font-size:11px}
+  .val{font-family:ui-monospace,Menlo,monospace;color:#2c5282;font-size:10.5px;opacity:.8}
+  .use{font-size:10.5px;color:#2c5282;text-align:center;line-height:1.4;opacity:.85}
+</style>
+</head>
+<body>
+  <div class="label">圓角系統 Radii</div>
+  <div class="row">
+    <div class="item"><div class="box" style="border-radius:8px"></div><div class="name">sm</div><div class="val">0.5rem</div><div class="use">按鈕、徽章</div></div>
+    <div class="item"><div class="box" style="border-radius:12px"></div><div class="name">md</div><div class="val">0.75rem</div><div class="use">旁白塊</div></div>
+    <div class="item"><div class="box" style="border-radius:16px"></div><div class="name">lg</div><div class="val">1rem</div><div class="use">卡片<br>（最常用）</div></div>
+    <div class="item"><div class="box" style="border-radius:20px"></div><div class="name">xl</div><div class="val">1.25rem</div><div class="use">雙軌動線卡</div></div>
+    <div class="item"><div class="box" style="border-radius:24px"></div><div class="name">2xl</div><div class="val">1.5rem</div><div class="use">大區塊</div></div>
+    <div class="item"><div class="box" style="border-radius:9999px;width:64px"></div><div class="name">full</div><div class="val">9999px</div><div class="use">標籤、人像</div></div>
+  </div>
+</body>
+</html>

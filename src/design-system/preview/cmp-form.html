@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Form Elements</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:13px}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.55;font-weight:600;margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+  .field{display:grid;gap:6px}
+  .field label{font-size:12.5px;font-weight:600;color:#1a365d}
+  .field input, .field select, .field textarea{padding:.75rem 1rem;border-radius:12px;border:1px solid rgba(26,54,93,.15);background:#fff;font-size:14px;font-family:inherit;color:#1a365d;outline:0;transition:all 150ms}
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:#d69e2e;box-shadow:0 0 0 3px rgba(214,158,46,.18)}
+  .field .help{font-size:11.5px;color:#2c5282;opacity:.7}
+  .radio-row{display:flex;gap:8px;flex-wrap:wrap}
+  .radio{display:inline-flex;align-items:center;gap:6px;padding:.5rem .9rem;border-radius:9999px;border:1px solid rgba(26,54,93,.2);background:#fff;font-size:12.5px;font-weight:500;cursor:pointer}
+  .radio.active{background:rgba(214,158,46,.12);border-color:#d69e2e;color:#b7791f;font-weight:600}
+  .radio.active::before{content:"●";color:#d69e2e}
+</style>
+</head>
+<body>
+  <div class="lbl">表單元件 · Form Inputs（診斷表單 / 報名）</div>
+  <div class="grid">
+    <div class="field">
+      <label for="name">姓名</label>
+      <input id="name" placeholder="您的全名" value="">
+    </div>
+    <div class="field">
+      <label for="grade">學生年級</label>
+      <select id="grade"><option>國中三年級</option><option>國中二年級</option><option>高中一年級</option></select>
+    </div>
+    <div class="field" style="grid-column:1/-1">
+      <label>諮詢身分</label>
+      <div class="radio-row">
+        <span class="radio active">學生</span>
+        <span class="radio">家長</span>
+        <span class="radio">其他</span>
+      </div>
+      <div class="help">分眾後將收到對應軌道的資訊。</div>
+    </div>
+    <div class="field" style="grid-column:1/-1">
+      <label for="msg">想聊的事</label>
+      <textarea id="msg" rows="3" placeholder="任何閱讀、寫作、升學壓力的困擾…"></textarea>
+    </div>
+  </div>
+</body>
+</html>

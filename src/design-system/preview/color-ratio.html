@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>70/20/10 Ratio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:13px}
+  .label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.6;font-weight:600;margin-bottom:14px}
+  .bar{display:flex;height:60px;border-radius:14px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(26,54,93,.08)}
+  .seg{display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;letter-spacing:.05em;flex-direction:column;gap:2px;padding:0 8px;text-align:center}
+  .seg small{font-size:10.5px;font-weight:500;opacity:.75;letter-spacing:0}
+  .v70{flex:7;background:#faf5ef;color:#1a365d;border-right:1px dashed rgba(26,54,93,.15)}
+  .v20{flex:2;background:#d69e2e;color:#1a365d}
+  .v10{flex:1;background:#b86a4a;color:#fff}
+  .rows{display:grid;gap:10px;margin-top:14px}
+  .row{display:grid;grid-template-columns:80px 1fr;gap:14px;align-items:center}
+  .pct{font-weight:700;font-size:13px;color:#1a365d}
+  .pct small{display:block;font-size:10px;font-weight:500;color:#2c5282;opacity:.7}
+  .desc{font-size:12px;color:#2c5282;line-height:1.55}
+  .swatch{width:14px;height:14px;border-radius:4px;display:inline-block;vertical-align:middle;margin-right:4px;box-shadow:inset 0 0 0 1px rgba(26,54,93,.1)}
+</style>
+</head>
+<body>
+  <div class="label">配色比例 · 70 / 20 / 10 法則</div>
+  <div class="bar">
+    <div class="seg v70">70%<small>cream / navy</small></div>
+    <div class="seg v20">20%<small>gold</small></div>
+    <div class="seg v10">10%<small>accent</small></div>
+  </div>
+  <div class="rows">
+    <div class="row"><div class="pct">70%<small>主結構</small></div><div class="desc"><span class="swatch" style="background:#faf5ef"></span>紙莎草白／<span class="swatch" style="background:#1a365d"></span>深海軍藍 — 背景、大面積區塊、主文字</div></div>
+    <div class="row"><div class="pct">20%<small>強調</small></div><div class="desc"><span class="swatch" style="background:#d69e2e"></span>晨曦金 — CTA、徽章、金色細線分隔</div></div>
+    <div class="row"><div class="pct">10%<small>分眾</small></div><div class="desc"><span class="swatch" style="background:#b86a4a"></span>赤茶（家長軌）／<span class="swatch" style="background:#4a7c7e"></span>湖青（學生軌）— 軌道識別</div></div>
+  </div>
+</body>
+</html>

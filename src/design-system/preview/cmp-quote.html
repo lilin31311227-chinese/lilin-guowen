@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Blockquote</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#1a365d;color:#faf5ef;padding:32px 28px;font-size:13px}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#fbbf24;opacity:.85;font-weight:600;margin-bottom:14px}
+  blockquote{position:relative;padding-left:28px}
+  blockquote::before{content:"「";position:absolute;left:-6px;top:-22px;font-size:64px;color:rgba(214,158,46,.45);font-family:'Noto Serif TC',serif;line-height:1}
+  .q{font-family:'Noto Serif TC',serif;font-size:24px;font-weight:500;line-height:1.55;color:#faf5ef;max-width:560px}
+  .cite{display:block;text-align:right;font-size:13px;color:#fcd34d;margin-top:16px;font-style:normal}
+  hr{height:1px;background:linear-gradient(90deg,transparent,rgba(214,158,46,.6),transparent);border:0;margin:20px 0 0}
+</style>
+</head>
+<body>
+  <div class="lbl">引言區 Blockquote + Gold Hairline</div>
+  <blockquote>
+    <p class="q">人生沒有 Google，但有經典可循。</p>
+    <cite class="cite">—— 立霖國文</cite>
+  </blockquote>
+  <hr>
+</body>
+</html>

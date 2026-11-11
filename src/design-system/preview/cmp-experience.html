@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Experience Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:13px}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.55;font-weight:600;margin-bottom:14px}
+  .card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(26,54,93,.08);max-width:480px}
+  .top{background:linear-gradient(135deg,#f4e4d4 0%,#e8d5c4 50%,#e8eeec 100%);padding:24px 24px 18px}
+  .senses{display:flex;gap:6px;margin-bottom:14px}
+  .sense{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:.2rem .55rem;border-radius:9999px;background:rgba(255,255,255,.7);backdrop-filter:blur(4px)}
+  .ttl{font-size:22px;font-weight:700;color:#1a365d;line-height:1.2}
+  .sub{font-size:13px;color:#2c5282;margin-top:4px}
+  .body{padding:20px 24px}
+  .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+  .stat{background:#fdfaf5;border-radius:10px;padding:8px;text-align:center}
+  .stat .l{font-size:10.5px;color:#2c5282;letter-spacing:.05em}
+  .stat .v{font-size:13.5px;font-weight:700;margin-top:2px}
+  .desc{font-size:13px;line-height:1.75}
+  .quote{margin-top:14px;padding-top:14px;border-top:1px solid rgba(214,158,46,.3);font-size:12.5px;color:#2c5282;font-style:italic}
+  .quote cite{display:block;font-size:11.5px;color:#b86a4a;margin-top:4px;font-style:normal}
+</style>
+</head>
+<body>
+  <div class="lbl">體驗活動卡 · ExperienceCard</div>
+  <div class="card">
+    <div class="top">
+      <div class="senses">
+        <span class="sense" style="color:#7e8c5c">◐ 視</span>
+        <span class="sense" style="color:#6e7d99">◑ 聽</span>
+        <span class="sense" style="color:#9c8579">○ 觸</span>
+      </div>
+      <h3 class="ttl">自然 · 輕觸之旅</h3>
+      <p class="sub">親子五感體驗日</p>
+    </div>
+    <div class="body">
+      <div class="meta">
+        <div class="stat"><div class="l">時長</div><div class="v">4 小時</div></div>
+        <div class="stat"><div class="l">名額</div><div class="v">≤20 人</div></div>
+        <div class="stat"><div class="l">費用</div><div class="v">$150/位</div></div>
+      </div>
+      <p class="desc">靜觀漫步、自然書寫、藝術共創、共食共備。讓親子在不必說話的時段裡，重新感覺到彼此。</p>
+      <blockquote class="quote">「采菊東籬下，悠然見南山。」<cite>—— 陶淵明</cite></blockquote>
+    </div>
+  </div>
+</body>
+</html>

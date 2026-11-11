@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Layout Spacing in Use</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:12px}
+  .label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.6;font-weight:600;margin-bottom:14px}
+  .frame{position:relative;background:#fff;border-radius:18px;padding:24px;box-shadow:0 2px 8px rgba(26,54,93,.08);overflow:hidden}
+  h2{font-size:24px;font-weight:700;color:#1a365d;letter-spacing:-.01em}
+  .lead{font-size:14px;color:#2c5282;margin-top:8px;line-height:1.6}
+  .row{display:flex;gap:12px;margin-top:18px}
+  .card{flex:1;padding:18px;border-radius:14px;background:#faf5ef;border:1px solid rgba(26,54,93,.06)}
+  .card h3{font-size:14px;font-weight:700;margin-bottom:4px}
+  .card p{font-size:12px;color:#2c5282;line-height:1.6}
+  .anno{position:absolute;font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#b7791f;font-weight:600;background:rgba(214,158,46,.1);padding:2px 6px;border-radius:4px}
+  .a1{top:6px;left:8px}
+  .a2{bottom:30px;left:178px}
+  .a3{top:46px;right:8px}
+</style>
+</head>
+<body>
+  <div class="label">間距實際應用 · Spacing in Use</div>
+  <div class="frame">
+    <span class="anno a1">padding 24px (space-4)</span>
+    <span class="anno a3">card radius lg (16px)</span>
+    <h2>三大引擎 × 閱破系統</h2>
+    <p class="lead">科學化的國文學習方法論</p>
+    <div class="row">
+      <span class="anno a2">gap 12px (space-3)</span>
+      <div class="card"><h3>閱讀策略</h3><p>邏輯解構文本</p></div>
+      <div class="card"><h3>寫作輸出</h3><p>邏輯→感性表達</p></div>
+      <div class="card"><h3>文化基底</h3><p>古文今用</p></div>
+    </div>
+  </div>
+</body>
+</html>

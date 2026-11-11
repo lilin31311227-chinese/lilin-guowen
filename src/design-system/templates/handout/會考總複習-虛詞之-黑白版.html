@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>立霖國文 · 會考總複習 · 文言虛詞「之」（黑白列印版）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="handout.css">
+<style>
+  /* 會考總複習 — local */
+  .review-banner {
+    background:linear-gradient(135deg, var(--bridge-mist) 0%, color-mix(in srgb, var(--bridge-teal) 8%, var(--cream)) 100%);
+    border:1px solid rgba(74,124,126,.25);
+    border-radius:14px;
+    padding:18px 22px;
+    margin-bottom:16px;
+    display:grid;
+    grid-template-columns:48px 1fr auto;
+    gap:16px;
+    align-items:center;
+  }
+  .review-banner .icon {
+    width:48px; height:48px;
+    background:linear-gradient(135deg, var(--bridge-teal), var(--bridge-sage));
+    color:#fff;
+    border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Noto Serif TC',serif;
+    font-size:26px;
+    font-weight:700;
+  }
+  .review-banner .meta { font-size:12.5px; line-height:1.65; color:var(--navy); }
+  .review-banner .meta b { color:var(--bridge-teal); font-weight:700; }
+  .review-banner .meta .ttl {
+    font-size:15px; font-weight:700; color:var(--navy);
+    margin-bottom:2px; letter-spacing:.04em;
+  }
+  .review-banner .freq {
+    text-align:center;
+    padding:0 14px;
+    border-left:1px dashed rgba(74,124,126,.3);
+  }
+  .review-banner .freq .num {
+    font-family:'Noto Serif TC',serif;
+    font-size:28px;
+    color:var(--gold-dark);
+    font-weight:700;
+    line-height:1;
+  }
+  .review-banner .freq .lbl {
+    font-size:10px; letter-spacing:.1em;
+    color:var(--navy-light); margin-top:4px;
+  }
+
+  /* Pitfalls box */
+  .pitfalls {
+    background:#fff;
+    border-radius:12px;
+    padding:16px 20px;
+    box-shadow:0 2px 8px rgba(26,54,93,.05);
+    border-left:3px solid var(--mentor-terracotta);
+    margin-bottom:16px;
+  }
+  .pitfalls h4 {
+    font-size:11px; letter-spacing:.2em;
+    color:var(--mentor-terracotta); font-weight:600;
+    margin-bottom:10px;
+    text-transform:uppercase;
+  }
+  .pitfalls ul {
+    list-style:none; display:grid; gap:6px;
+  }
+  .pitfalls li {
+    font-size:12.5px; line-height:1.7;
+    color:var(--navy);
+    padding-left:18px;
+    position:relative;
+  }
+  .pitfalls li::before {
+    content:"！"; position:absolute; left:0; top:0;
+    color:var(--mentor-terracotta);
+    font-weight:700;
+  }
+  .pitfalls li b { color:var(--mentor-terracotta); font-weight:600; }
+  .pitfalls li em {
+    font-family:'Noto Serif TC',serif;
+    font-style:normal;
+    background:var(--cream-soft);
+    padding:1px 4px;
+    border-radius:3px;
+    color:var(--navy-dark);
+  }
+</style>
+<link rel="stylesheet" href="handout-print.css">
+</head>
+<body class="bw-print">
+
+<div class="doc" data-screen-label="01 會考總複習 · 文言虛詞之">
+
+  <!-- ============== PAGE 1 · COVER ============== -->
+  <div class="page cover" data-screen-label="01 封面">
+    <div class="cover__bg"></div>
+    <div class="cover__glow1"></div>
+    <div class="cover__glow2"></div>
+
+    <svg class="cover__xiangyun" style="top:120px; left:40px; width:160px;" viewBox="0 0 160 80" fill="none">
+      <path d="M20 60C20 60 30 30 55 40C80 50 75 60 100 55C125 50 130 35 145 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M10 70C10 70 25 50 50 55C75 60 85 45 115 50" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+    </svg>
+    <svg class="cover__xiangyun" style="bottom:140px; right:40px; width:160px;" viewBox="0 0 160 80" fill="none">
+      <path d="M20 50C40 50 50 20 80 35C110 50 120 25 145 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+
+    <header class="cover__hdr">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="立霖國文">
+      <span class="series">會考總複習 · 文言虛詞篇</span>
+    </header>
+
+    <div class="cover__center">
+      <img class="cover__seal" src="../../assets/lilin-icon.png" alt="">
+      <div class="cover__eyebrow">主題 #03 · TOPIC 03</div>
+      <h1 class="cover__title" style="font-size:148px; letter-spacing:.02em;">之</h1>
+      <p class="cover__quote">一字七用法 ，<br>九年國文都在這裡。</p>
+      <p class="cover__poet">—— 會考必考 . 連續 10 年命題</p>
+      <div class="cover__divider"></div>
+      <p class="cover__sub">
+        把「之」徹底拆開、攤平、連起來——<br>
+        <b style="color:#fde68a">看完這份講義，你會發現它從來不難。</b>
+      </p>
+    </div>
+
+    <footer class="cover__foot">
+      <div class="cover__meta">
+        授課對象 ／ <b>國三衝刺 · 高一複習</b><br>
+        建議課時 ／ <b>1 堂 × 80 分鐘</b><br>
+        發行日期 ／ 2026 . 05 . 13
+      </div>
+      <div class="cover__teacher">
+        <div class="name">立霖 老師</div>
+        <div class="role">會考總複習 · COMPREHENSIVE REVIEW</div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ============== PAGE 2 · 重要考點地圖 ============== -->
+  <div class="page pg" data-screen-label="02 七大用法">
+    <header class="pg__head">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="">
+      <div class="pg__crumbs">主題三 · 重要考點 · p.02</div>
+    </header>
+
+    <h2 class="pg__h2"><small>Exam Map · 02</small>「之」字七大用法</h2>
+    <p class="pg__lead" style="margin-top:6px;">
+      會考的「之」幾乎涵蓋所有文言虛詞題型。先用一張地圖看全局——七種用法各自連到哪些課文，背一張表勝過刷三十題。
+    </p>
+
+    <div class="review-banner">
+      <div class="icon">之</div>
+      <div class="meta">
+        <div class="ttl">文言虛詞 · 高頻 NO.1</div>
+        2014–2024 十年會考共出現 <b>17 次</b>，其中代名詞、所有格、賓語提前用法佔 <b>七成以上</b>。
+      </div>
+      <div class="freq">
+        <div class="num">17</div>
+        <div class="lbl">十年出題次數</div>
+      </div>
+    </div>
+
+    <div class="concept-web">
+      <div class="concept-web__hdr">
+        <div class="concept-web__title">
+          <small>Seven Usages · 七大用法</small>
+          每種用法附一句經典例句 + 對應課文
+        </div>
+      </div>
+      <div class="usage-grid">
+
+        <div class="usage-card">
+          <div class="num">01</div>
+          <div class="role">代名詞 · pronoun</div>
+          <div class="meaning">「他／她／它／這件事」</div>
+          <div class="quote">人皆有<em>之</em>，賢者能勿喪耳。</div>
+          <div class="source">《孟子 · 告子上》</div>
+        </div>
+
+        <div class="usage-card">
+          <div class="num">02</div>
+          <div class="role">所有格助詞 · possessive</div>
+          <div class="meaning">「的」</div>
+          <div class="quote">水陸草木<em>之</em>花。</div>
+          <div class="source">周敦頤《愛蓮說》</div>
+        </div>
+
+        <div class="usage-card">
+          <div class="num">03</div>
+          <div class="role">主謂之間 · subj-pred</div>
+          <div class="meaning">取消句子獨立性，不譯</div>
+          <div class="quote">予獨愛蓮<em>之</em>出淤泥而不染。</div>
+          <div class="source">周敦頤《愛蓮說》</div>
+        </div>
+
+        <div class="usage-card">
+          <div class="num">04</div>
+          <div class="role">賓語提前 · obj-fronting</div>
+          <div class="meaning">調序用，本身不譯</div>
+          <div class="quote">何陋<em>之</em>有？</div>
+          <div class="source">劉禹錫《陋室銘》</div>
+        </div>
+
+        <div class="usage-card">
+          <div class="num">05</div>
+          <div class="role">動詞 · verb</div>
+          <div class="meaning">「往、去、到」</div>
+          <div class="quote">輟耕<em>之</em>壟上。</div>
+          <div class="source">《史記 · 陳涉世家》</div>
+        </div>
+
+        <div class="usage-card">
+          <div class="num">06</div>
+          <div class="role">音節助詞 · particle</div>
+          <div class="meaning">補足音節，不譯</div>
+          <div class="quote">悵恨久<em>之</em>。</div>
+          <div class="source">《史記 · 陳涉世家》</div>
+        </div>
+
+        <div class="usage-card" style="grid-column:span 2; background:linear-gradient(135deg, var(--mentor-sunrise), var(--mentor-clay)); border-top-color:var(--mentor-terracotta);">
+          <div class="num" style="background:var(--mentor-terracotta); color:#fff;">07</div>
+          <div class="role" style="color:var(--mentor-terracotta);">指示代詞 · demonstrative</div>
+          <div class="meaning">「這、此」</div>
+          <div class="quote"><em>之</em>二蟲又何知！　／　均<em>之</em>二策。</div>
+          <div class="source">《莊子 · 逍遙遊》／《史記 · 廉頗藺相如列傳》</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="page__brand">立霖國文 · LILIN GUOWEN</div>
+    <div class="page__num"><b>02</b> · 04</div>
+  </div>
+
+  <!-- ============== PAGE 3 · 延伸連結 ============== -->
+  <div class="page pg" data-screen-label="03 延伸連結與陷阱">
+    <header class="pg__head">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="">
+      <div class="pg__crumbs">主題三 · 延伸連結 · p.03</div>
+    </header>
+
+    <h2 class="pg__h2"><small>Connections · 03</small>延伸連結與辨析</h2>
+    <p class="pg__lead" style="margin-top:6px;">把「之」放回會考的真實題型，看它如何與其他考點交織。</p>
+
+    <div class="crossref">
+      <h4>橫向連結 · 同屬「結構助詞」家族</h4>
+      <div class="crossref__items">
+        <span class="crossref__chip"><span style="font-weight:700;color:var(--bridge-teal);">之</span>　所有格／主謂間／賓語提前</span>
+        <span class="crossref__chip"><span style="font-weight:700;color:var(--bridge-teal);">其</span>　代名詞／加強語氣</span>
+        <span class="crossref__chip"><span style="font-weight:700;color:var(--bridge-teal);">而</span>　順承／轉折／修飾</span>
+        <span class="crossref__chip"><span style="font-weight:700;color:var(--bridge-teal);">於</span>　介詞「在、向、被」</span>
+        <span class="crossref__chip"><span style="font-weight:700;color:var(--bridge-teal);">以</span>　介詞「用、因為」</span>
+      </div>
+    </div>
+
+    <div class="crossref">
+      <h4>縱向連結 · 與「之」相關的會考課文</h4>
+      <div class="crossref__items">
+        <span class="crossref__chip">國二 <span class="ref">愛蓮說</span></span>
+        <span class="crossref__chip">國二 <span class="ref">陋室銘</span></span>
+        <span class="crossref__chip">國三 <span class="ref">岳陽樓記</span></span>
+        <span class="crossref__chip">國三 <span class="ref">記承天夜遊</span></span>
+        <span class="crossref__chip">國三 <span class="ref">五柳先生傳</span></span>
+        <span class="crossref__chip">高一 <span class="ref">師說</span></span>
+        <span class="crossref__chip">高一 <span class="ref">廉頗藺相如列傳</span></span>
+      </div>
+    </div>
+
+    <h4 style="font-size:12px; letter-spacing:.15em; color:var(--gold-dark); font-weight:600; margin:18px 0 10px; text-transform:uppercase;">辨析練習 · 「之」常被誤判的三種情境</h4>
+
+    <div class="exam-points exam-points--three">
+      <div class="exam-point">
+        <span class="exam-point__tag tag-virtual">辨析</span>
+        <div class="exam-point__title">代名詞 vs 所有格</div>
+        <div class="exam-point__example">A. 願借<b>之</b>。<br>B. 借書<b>之</b>樂。</div>
+        <p class="exam-point__desc">A：「之」獨立指代「物」（代名詞）；B：「之」連接名詞與名詞，作「的」（所有格）。<b>看後面有沒有名詞</b>。</p>
+        <span class="exam-point__mn">後接名詞 → 的</span>
+      </div>
+
+      <div class="exam-point">
+        <span class="exam-point__tag tag-virtual">辨析</span>
+        <div class="exam-point__title">主謂間 vs 所有格</div>
+        <div class="exam-point__example">A. 蓮<b>之</b>出淤泥。<br>B. 蓮<b>之</b>君子。</div>
+        <p class="exam-point__desc">A：「蓮出淤泥」本可獨立成句，加之取消其獨立性（變短語）；B：「蓮的君子」明顯是「的」。<b>看後面是動詞還是名詞</b>。</p>
+        <span class="exam-point__mn">後接動詞 → 不譯</span>
+      </div>
+
+      <div class="exam-point">
+        <span class="exam-point__tag tag-virtual">辨析</span>
+        <div class="exam-point__title">賓語提前的標誌</div>
+        <div class="exam-point__example">何陋<b>之</b>有 ＝ 有何陋</div>
+        <p class="exam-point__desc">凡疑問句中「何…之有」「何…之 V」結構，<b>之</b>就是把賓語提前的標記。本身無意義，僅作結構標誌。</p>
+        <span class="exam-point__mn">何…之有，必倒裝</span>
+      </div>
+    </div>
+
+    <aside class="pitfalls">
+      <h4>會考陷阱 · 高頻錯誤 TOP 3</h4>
+      <ul>
+        <li><b>陷阱一：</b>看到「之」就翻譯為「的」。<em>悵恨久之</em> 中的「之」是音節助詞，不譯。</li>
+        <li><b>陷阱二：</b>誤把動詞「之」當代名詞。<em>輟耕之壟上</em> 中「之＝往」，是動詞。前後有方位／地點名詞時優先考慮動詞用法。</li>
+        <li><b>陷阱三：</b>主謂間「之」誤譯為「的」。<em>予獨愛蓮之出淤泥而不染</em>，後面「出淤泥」為動詞短語，「之」不譯。若硬翻譯成「蓮的出淤泥」邏輯不通。</li>
+      </ul>
+    </aside>
+
+    <div class="page__brand">立霖國文 · LILIN GUOWEN</div>
+    <div class="page__num"><b>03</b> · 04</div>
+  </div>
+
+  <!-- ============== PAGE 4 · 習題演練 + 答案 ============== -->
+  <div class="page page--soft pg" data-screen-label="04 習題與答案">
+    <header class="pg__head">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="">
+      <div class="pg__crumbs">主題三 · 習題演練 · p.04</div>
+    </header>
+
+    <h2 class="pg__h2"><small>Practice · 04</small>習題演練 + 解答</h2>
+    <p class="pg__lead" style="margin-top:6px;">四題會考題型，難度遞增。完成後核對答題卡並閱讀解析。</p>
+
+    <div class="practice" style="padding:14px 20px; margin-bottom:10px;">
+      <div class="practice__hdr">
+        <div class="practice__num"><span class="qn">01</span><span class="practice__type">單選 · 字義</span></div>
+        <div class="practice__diff"><span class="full">★</span><span class="empty">★★</span></div>
+      </div>
+      <p class="practice__q">下列「<em>之</em>」字用法相同的是：</p>
+      <div class="practice__options">
+        <div><span class="opt-letter">A</span><span class="opt-text">水陸草木<em>之</em>花　／　予獨愛蓮<em>之</em>出淤泥</span></div>
+        <div><span class="opt-letter">B</span><span class="opt-text">何陋<em>之</em>有　／　均<em>之</em>二策</span></div>
+        <div><span class="opt-letter">C</span><span class="opt-text">輟耕<em>之</em>壟上　／　悵恨久<em>之</em></span></div>
+        <div><span class="opt-letter">D</span><span class="opt-text">人皆有<em>之</em>　／　不能名其一處<em>之</em></span></div>
+      </div>
+    </div>
+
+    <div class="practice" style="padding:14px 20px; margin-bottom:10px;">
+      <div class="practice__hdr">
+        <div class="practice__num"><span class="qn">02</span><span class="practice__type">單選 · 文意</span></div>
+        <div class="practice__diff"><span class="full">★★</span><span class="empty">★</span></div>
+      </div>
+      <p class="practice__q">「予獨愛蓮<em>之</em>出淤泥而不染」中的「之」字，其用法相當於下列何者？</p>
+      <div class="practice__options">
+        <div><span class="opt-letter">A</span><span class="opt-text">水陸草木「之」花</span></div>
+        <div><span class="opt-letter">B</span><span class="opt-text">何陋「之」有</span></div>
+        <div><span class="opt-letter">C</span><span class="opt-text">大道「之」行也，天下為公</span></div>
+        <div><span class="opt-letter">D</span><span class="opt-text">輟耕「之」壟上</span></div>
+      </div>
+    </div>
+
+    <div class="practice" style="padding:14px 20px; margin-bottom:10px;">
+      <div class="practice__hdr">
+        <div class="practice__num"><span class="qn">03</span><span class="practice__type">單選 · 辨析</span></div>
+        <div class="practice__diff"><span class="full">★★</span><span class="empty">★</span></div>
+      </div>
+      <p class="practice__q">下列「<em>之</em>」字何者為「動詞」？</p>
+      <div class="practice__options">
+        <div><span class="opt-letter">A</span><span class="opt-text">何陋<em>之</em>有</span></div>
+        <div><span class="opt-letter">B</span><span class="opt-text">輟耕<em>之</em>壟上</span></div>
+        <div><span class="opt-letter">C</span><span class="opt-text">水陸草木<em>之</em>花</span></div>
+        <div><span class="opt-letter">D</span><span class="opt-text">人皆有<em>之</em></span></div>
+      </div>
+    </div>
+
+    <div class="practice" style="padding:14px 20px; margin-bottom:10px;">
+      <div class="practice__hdr">
+        <div class="practice__num"><span class="qn">04</span><span class="practice__type">單選 · 跨課比較</span></div>
+        <div class="practice__diff"><span class="full">★★★</span></div>
+      </div>
+      <p class="practice__q">下列各句「之」的用法，與「予獨愛蓮<em>之</em>出淤泥而不染」相同的是：</p>
+      <div class="practice__options">
+        <div><span class="opt-letter">A</span><span class="opt-text">大道<em>之</em>行也，天下為公</span></div>
+        <div><span class="opt-letter">B</span><span class="opt-text">何陋<em>之</em>有</span></div>
+        <div><span class="opt-letter">C</span><span class="opt-text">岳陽樓<em>之</em>大觀也</span></div>
+        <div><span class="opt-letter">D</span><span class="opt-text">輟耕<em>之</em>壟上</span></div>
+      </div>
+    </div>
+
+    <div class="answer-strip" style="padding:14px 20px;">
+      <h4>答題卡 · ANSWER KEY</h4>
+      <div class="answer-strip__row" style="grid-template-columns:repeat(4, 1fr); margin-bottom:8px;">
+        <div class="answer-strip__cell"><div class="qn">01</div><div class="ans">A</div></div>
+        <div class="answer-strip__cell"><div class="qn">02</div><div class="ans">C</div></div>
+        <div class="answer-strip__cell"><div class="qn">03</div><div class="ans">B</div></div>
+        <div class="answer-strip__cell"><div class="qn">04</div><div class="ans">A</div></div>
+      </div>
+      <p class="answer-strip__note">
+        <b>解析重點：</b>第 2、4 題皆考「主謂間」的「之」，需識別「之」後接的是動詞短語（非名詞）。第 3 題唯一動詞用法是 B「輟耕之壟上」（之＝往）。看到「之」後是動詞，先排除「的」翻譯。
+      </p>
+    </div>
+
+    <div class="page__brand">立霖國文 · LILIN GUOWEN</div>
+    <div class="page__num"><b>04</b> · 04 · 完</div>
+  </div>
+
+</div>
+
+</body>
+</html>

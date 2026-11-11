@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Primary Colors</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:13px}
+  .row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .swatch{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(26,54,93,.08)}
+  .chip{height:74px;display:flex;align-items:flex-end;padding:10px 12px;color:rgba(255,255,255,.85);font-size:11px;font-weight:600;letter-spacing:.05em}
+  .meta{padding:10px 12px 12px}
+  .name{font-size:13px;font-weight:700;color:#1a365d}
+  .hex{font-size:11px;color:#2c5282;font-family:ui-monospace,Menlo,monospace;margin-top:2px}
+  .var{font-size:10.5px;color:#b7791f;font-family:ui-monospace,Menlo,monospace}
+  .use{font-size:10.5px;color:#2c5282;margin-top:4px}
+</style>
+</head>
+<body>
+  <div class="row">
+    <div class="swatch">
+      <div class="chip" style="background:#1a365d">Navy</div>
+      <div class="meta"><div class="name">深海軍藍</div><div class="hex">#1a365d</div><div class="var">--navy</div><div class="use">標題、主文字</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background:#d69e2e;color:#1a365d">Gold</div>
+      <div class="meta"><div class="name">晨曦金</div><div class="hex">#d69e2e</div><div class="var">--gold</div><div class="use">CTA、強調</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background:#faf5ef;color:#1a365d;border-bottom:1px solid rgba(26,54,93,.08)">Cream</div>
+      <div class="meta"><div class="name">紙莎草白</div><div class="hex">#faf5ef</div><div class="var">--cream</div><div class="use">背景、留白</div></div>
+    </div>
+    <div class="swatch">
+      <div class="chip" style="background:#0A1A35">Hero</div>
+      <div class="meta"><div class="name">子夜藍</div><div class="hex">#0A1A35</div><div class="var">--navy-hero</div><div class="use">Hero 戲劇深底</div></div>
+    </div>
+  </div>
+</body>
+</html>

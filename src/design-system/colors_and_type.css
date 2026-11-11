@@ -1,0 +1,416 @@
+/* ============================================================
+   立霖國文 — Colors & Typography
+   Source of truth: docs/BRAND_DESIGN_SYSTEM_v2.md
+   Mirrors src/app/globals.css from the live Next.js codebase.
+   ============================================================ */
+
+/* Font — Noto Sans TC (primary). Use this @import in any HTML
+   that uses tokens below. Calligraphic chinese is delivered as
+   an image asset (assets/lilin-logo.png), not as a font.
+
+   OFFLINE FALLBACK: src/design-system/assets/fonts/ ships with
+   a one-click downloader + local @font-face manifest. To switch
+   to offline mode, run that folder's download-chunks.ps1 once,
+   then replace the URL below with:
+     @import url("./assets/fonts/noto-fonts.css");
+   See src/design-system/assets/fonts/README.md for details. */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;700&display=swap");
+
+:root {
+  /* ============== v1.0 三色定調 Primary ============== */
+  --navy:        #1a365d;   /* 深海軍藍 · 標題、主文字、學科專業底氣 */
+  --navy-light:  #2c5282;
+  --navy-dark:   #0f2744;
+  --navy-hero:   #0A1A35;   /* 子夜藍 · Hero 戲劇深底 */
+  --gold:        #d69e2e;   /* 晨曦金 · CTA、強調、珍貴 */
+  --gold-light:  #ecc94b;
+  --gold-dark:   #b7791f;
+  --gold-amber:  #f59e0b;   /* Hero 暖光 */
+  --gold-glow:   #fbbf24;
+  --gold-warm:   #fcd34d;
+  --cream:       #faf5ef;   /* 紙莎草白 · 全站背景 */
+  --cream-dark:  #f5e6d3;
+  --cream-soft:  #fdfaf5;   /* 長文閱讀更柔軟 */
+
+  /* ============== v2.0 人生導師暖色 Mentor Warmth ============== */
+  /* 家長端、心靈專欄、體驗活動主色 */
+  --mentor-terracotta:      #b86a4a;   /* 赤茶 · 家長端主色 */
+  --mentor-terracotta-soft: #d4886a;
+  --mentor-amber:           #c98a3d;   /* 琥珀 · 燭光感 */
+  --mentor-clay:            #e8d5c4;   /* 暖陶土 · 卡片底 */
+  --mentor-sunrise:         #f4e4d4;   /* 朝陽米 · 大面積背景 */
+
+  /* ============== v2.0 親情橋樑連結色 Bridge Tone ============== */
+  /* 學生端、親師生互動門戶、匿名信箱 */
+  --bridge-teal:      #4a7c7e;   /* 湖青 · 學生端主色 */
+  --bridge-teal-soft: #7fa5a6;
+  --bridge-sage:      #9cae8e;   /* 苔綠 · 成長 */
+  --bridge-mist:      #e8eeec;   /* 霧白 · 卡片底 */
+
+  /* ============== v2.0 述情詞彙色票 Emotion Lexicon ============== */
+  /* 文人色系，刻意避開鮮紅／螢光 */
+  --emo-joy:        #e6b85c;   /* 喜 · 欣然 */
+  --emo-calm:       #8aa9b5;   /* 安 · 從容 */
+  --emo-melancholy: #6b7a99;   /* 鬱 · 惆悵 */
+  --emo-anger:      #a8624a;   /* 慍 · 不平（磚紅，非鮮紅）*/
+  --emo-anxiety:    #b89968;   /* 焦 · 懸宕 */
+  --emo-grief:      #5d6878;   /* 哀 · 黯然 */
+  --emo-hope:       #9ab87c;   /* 望 · 懷想 */
+
+  /* ============== v2.0 五感體驗 Sensory Experience ============== */
+  --sense-sight: #7e8c5c;   /* 視 · 山嵐 */
+  --sense-sound: #6e7d99;   /* 聽 · 流水 */
+  --sense-smell: #c4a574;   /* 嗅 · 木質 */
+  --sense-taste: #b86a4a;   /* 味 · 焙茶 */
+  --sense-touch: #9c8579;   /* 觸 · 樹皮 */
+
+  /* ============== 四大教學領域語意輔色（僅用於識別） ============== */
+  --subject-reading:  #3b82f6;   /* 閱讀理解 · Blue */
+  --subject-writing:  #10b981;   /* 寫作表達 · Emerald */
+  --subject-classic:  #8b5cf6;   /* 古文素養 · Violet */
+  --subject-strategy: #f59e0b;   /* 考試策略 · Orange */
+
+  /* ============== 系統色 / 通訊 ============== */
+  --line-green:      #06c755;
+  --line-green-dark: #05b34d;
+
+  --background: var(--cream);
+  --foreground: var(--navy);
+
+  /* ============== Spacing 8pt grid ============== */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  16px;
+  --space-4:  24px;
+  --space-5:  32px;
+  --space-6:  48px;
+  --space-7:  64px;
+  --space-8:  96px;
+  --space-9:  128px;
+
+  /* ============== Radius ============== */
+  --radius-sm:   0.5rem;    /* 8px  · 按鈕、徽章 icon */
+  --radius-md:   0.75rem;   /* 12px · 旁白塊 */
+  --radius-lg:   1rem;      /* 16px · 卡片、輸入框 */
+  --radius-xl:   1.25rem;   /* 20px · 雙軌動線卡 */
+  --radius-2xl:  1.5rem;    /* 24px · 大區塊、圖片框 */
+  --radius-full: 9999px;    /* 圓形、標籤、徽章 */
+
+  /* ============== Shadows (always navy-based, never pure black) ============== */
+  --shadow-sm:    0 2px 8px  rgba(26, 54, 93, 0.08);
+  --shadow-md:    0 4px 16px rgba(26, 54, 93, 0.10);
+  --shadow-lg:    0 8px 24px rgba(26, 54, 93, 0.12);
+  --shadow-xl:    0 12px 32px rgba(26, 54, 93, 0.15);
+  --shadow-gold:  0 8px 24px rgba(214, 158, 46, 0.30);
+
+  /* ============== Type tokens ============== */
+  --font-sans: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, -apple-system, Arial, sans-serif;
+  --font-serif: 'Noto Serif TC', 'Source Han Serif TC', 'PingFang TC', serif;
+
+  --fs-h1:      3.5rem;    /* 56px desktop · 36px mobile */
+  --fs-h1-m:    2.25rem;
+  --fs-h2:      2.5rem;    /* 40px · 30px mobile */
+  --fs-h2-m:    1.875rem;
+  --fs-h3:      1.5rem;    /* 24px · 20px mobile */
+  --fs-h3-m:    1.25rem;
+  --fs-lead:    1.25rem;   /* 20px · 18px mobile */
+  --fs-body:    1rem;      /* 16px · 內文 */
+  --fs-caption: 0.875rem;  /* 14px · 副資訊 */
+  --fs-eyebrow: 0.75rem;   /* 12px · tracking-widest */
+
+  --lh-tight:  1.15;
+  --lh-snug:   1.25;
+  --lh-normal: 1.6;
+  --lh-relaxed: 1.75;   /* 中文長文閱讀 */
+  --lh-loose:  1.85;    /* 心靈專欄長文 */
+}
+
+/* ================================================================
+   Base
+   ================================================================ */
+html, body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ================================================================
+   Semantic typography
+   ================================================================ */
+.h1, h1 {
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+.h2, h2 {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  letter-spacing: -0.015em;
+  color: var(--navy);
+}
+.h3, h3 {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  color: var(--navy);
+}
+.lead {
+  font-size: var(--fs-lead);
+  font-weight: 400;
+  line-height: var(--lh-relaxed);
+  color: var(--navy-light);
+}
+.body, p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  color: var(--navy);
+}
+.caption {
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: var(--navy-light);
+}
+.eyebrow {
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+.trust-badge {
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: var(--gold-dark);
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .h1, h1 { font-size: var(--fs-h1-m); }
+  .h2, h2 { font-size: var(--fs-h2-m); }
+  .h3, h3 { font-size: var(--fs-h3-m); }
+}
+
+/* 金色漸層文字（用來強調，不要用底線） */
+.gold-text {
+  background: linear-gradient(90deg, var(--gold-glow) 0%, var(--gold-amber) 50%, var(--gold-warm) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 金色細線分隔 */
+.gold-hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(214, 158, 46, 0.6), transparent);
+  border: none;
+  margin: 2rem 0;
+}
+
+/* ================================================================
+   Buttons
+   ================================================================ */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(90deg, var(--gold-glow), var(--gold-amber));
+  color: var(--navy-hero);
+  padding: 0.875rem 1.5rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  box-shadow: var(--shadow-gold);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(214, 158, 46, 0.45);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--navy);
+  border: 2px solid var(--navy);
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: var(--fs-body);
+  transition: all 200ms ease;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background: var(--navy);
+  color: var(--cream);
+}
+
+.btn-secondary--gold {
+  border-color: rgba(251, 191, 36, 0.4);
+  color: #fde68a;
+  background: transparent;
+}
+.btn-secondary--gold:hover {
+  background: rgba(251, 191, 36, 0.10);
+  border-color: rgba(251, 191, 36, 0.6);
+}
+
+/* ================================================================
+   Card
+   ================================================================ */
+.card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ================================================================
+   Trust badge (above headline)
+   ================================================================ */
+.badge-trust {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  background: rgba(251, 191, 36, 0.10);
+  border: 1px solid rgba(251, 191, 36, 0.30);
+  backdrop-filter: blur(4px);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: #fde68a;
+}
+.badge-trust__dot {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--gold-glow), var(--gold-amber));
+  flex-shrink: 0;
+}
+
+/* ================================================================
+   v2.0 brand utility classes (mirrors globals.css)
+   ================================================================ */
+
+/* 導師旁白塊 */
+.mentor-voice {
+  position: relative;
+  background: linear-gradient(180deg, var(--mentor-sunrise) 0%, var(--mentor-clay) 100%);
+  border-left: 3px solid var(--mentor-terracotta);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 1.5rem 1.75rem;
+  color: var(--navy);
+}
+
+/* 親情橋樑卡 */
+.bridge-card {
+  background: var(--bridge-mist);
+  border: 1px solid color-mix(in srgb, var(--bridge-teal) 25%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.bridge-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--bridge-teal), var(--bridge-sage));
+}
+
+/* 親子討論題 */
+.dialogue-prompt {
+  background: var(--cream-soft);
+  border: 1px dashed var(--mentor-terracotta);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  color: var(--navy);
+  position: relative;
+}
+.dialogue-prompt::before {
+  content: "「";
+  position: absolute;
+  top: -0.5rem;
+  left: 0.75rem;
+  font-size: 2.5rem;
+  color: var(--mentor-terracotta);
+  font-family: serif;
+  line-height: 1;
+}
+
+/* 情緒詞彙標籤 */
+.emotion-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  background: var(--cream-soft);
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+}
+.emotion-chip::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+/* 雙軌動線卡 */
+.dual-track-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  overflow: hidden;
+}
+.dual-track-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+}
+.dual-track-card--student {
+  background: linear-gradient(135deg, var(--bridge-mist) 0%, color-mix(in srgb, var(--bridge-teal) 12%, var(--cream)) 100%);
+  border: 1px solid color-mix(in srgb, var(--bridge-teal) 30%, transparent);
+}
+.dual-track-card--parent {
+  background: linear-gradient(135deg, var(--mentor-sunrise) 0%, var(--mentor-clay) 100%);
+  border: 1px solid color-mix(in srgb, var(--mentor-terracotta) 25%, transparent);
+}
+
+/* Hero 深底 */
+.hero-bg {
+  background: linear-gradient(135deg, #0A1A35 0%, #0d2341 50%, #071428 100%);
+  color: var(--cream);
+}
+
+/* ================================================================
+   Reduced motion
+   ================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>教材與品管｜立霖國文</title>
+<meta name="description" content="立霖國文教材資產：119 課講義、近三十年真題比對、逐頁品管製程、三年課程地圖，以及核心古文 15 篇自學版介紹。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+  /* —— 教材與品管頁專屬 —— */
+
+  .asset-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .asset-card {
+    background: var(--paper-soft); border: 1px solid var(--hairline); border-top: 3px solid var(--gold);
+    border-radius: 3px; padding: 30px 28px 26px;
+  }
+  .asset-card__kicker {
+    font-family: var(--serif); font-size: 12px; letter-spacing: .22em; color: var(--gold-dark); margin: 0 0 12px;
+  }
+  .asset-card__quote {
+    font-family: var(--serif); font-size: 17px; line-height: 1.85; letter-spacing: .02em;
+    color: var(--ink); margin: 0;
+  }
+
+  /* 講義版面示意 */
+  .handout-demo {
+    max-width: 760px; margin: 0 auto;
+  }
+  .handout-demo__page {
+    background: var(--paper-soft); border: 1px solid var(--hairline); border-radius: 3px;
+    padding: 30px 32px; box-shadow: 0 10px 30px rgba(15,39,68,.06);
+  }
+  .handout-demo__lesson-title {
+    font-family: var(--serif); font-size: 19px; font-weight: 700; letter-spacing: .1em;
+    color: var(--navy); margin: 0 0 18px; padding-bottom: 14px; border-bottom: 1px solid var(--hairline);
+  }
+  .handout-demo__lesson-title .handout-demo__author {
+    font-size: 13px; font-weight: 400; letter-spacing: .1em; color: rgba(26,54,93,.55); margin-left: 12px;
+  }
+  .handout-demo__body { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+  @media (max-width: 620px) { .handout-demo__body { grid-template-columns: 1fr; } }
+  .handout-demo__text p {
+    font-family: var(--serif); font-size: 15.5px; line-height: 2.2; letter-spacing: .04em;
+    color: var(--ink); margin: 0;
+  }
+  .handout-demo__notes {
+    border-left: 1px dashed var(--hairline); padding-left: 22px;
+  }
+  .handout-demo__notes-title {
+    font-family: var(--serif); font-size: 12px; letter-spacing: .24em; color: var(--teal); margin: 0 0 10px;
+  }
+  .handout-demo__notes ol { margin: 0; padding-left: 1.2em; }
+  .handout-demo__notes li {
+    font-size: 13px; line-height: 1.9; color: rgba(26,54,93,.78); margin-bottom: 8px;
+  }
+  .handout-demo__caption {
+    text-align: center; font-size: 12.5px; color: rgba(26,54,93,.5); margin: 14px 0 0; font-style: italic;
+  }
+
+  /* 15 篇篇目清單 */
+  .lesson-list {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px;
+    list-style: none; padding: 0; margin: 0;
+    counter-reset: lesson;
+  }
+  .lesson-list li {
+    counter-increment: lesson;
+    background: var(--paper-soft); border: 1px solid var(--hairline); border-radius: 3px;
+    padding: 12px 14px; font-size: 14.5px; color: var(--navy); display: flex; align-items: baseline; gap: 8px;
+  }
+  .lesson-list li::before {
+    content: counter(lesson);
+    font-family: var(--serif); font-size: 12px; color: var(--gold-dark); flex: none;
+  }
+
+  .store-pending-note {
+    font-size: 14px; line-height: 1.9; color: rgba(26,54,93,.65); margin: 0;
+  }
+</style>
+</head>
+<body data-page="materials">
+
+<div id="site-header"></div>
+
+<!-- ===== 頁首 ===== -->
+<header class="page-head ink-wash">
+  <div class="page-head__inner">
+    <p class="page-head__eyebrow">教材資產 · 品管製程</p>
+    <h1 class="page-head__title">
+      每一頁交到孩子手上前，<br>
+      我們先自己<span class="accent-gold">刁難</span>過一遍。
+    </h1>
+    <p class="page-head__lead">
+      教材不是隨堂補充講義，是一條規劃過的路線。這頁讓您看見這條路線長什麼樣子。
+    </p>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== 一、教材資產 ===== -->
+<section class="section" id="assets">
+  <div class="container">
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">教材資產</p>
+      <h2 class="section__title">從入學到考完，路線已經畫好。</h2>
+    </div>
+
+    <div class="asset-grid">
+      <article class="asset-card reveal">
+        <p class="asset-card__kicker">119 課講義</p>
+        <p class="asset-card__quote">
+          國一入學直到學測考完，孩子課本翻到哪一課，都已經有一冊講義在等他。
+        </p>
+      </article>
+      <article class="asset-card reveal">
+        <p class="asset-card__kicker">真題比對</p>
+        <p class="asset-card__quote">
+          這一課會怎麼考，我們用近三十年的考題先對過一遍。
+        </p>
+      </article>
+      <article class="asset-card reveal">
+        <p class="asset-card__kicker">品管製程</p>
+        <p class="asset-card__quote">
+          交到孩子手上的每一頁，都先被我們自己刁難過。
+        </p>
+      </article>
+      <article class="asset-card reveal">
+        <p class="asset-card__kicker">三年課程地圖</p>
+        <p class="asset-card__quote">
+          不是一堂一堂上到哪算哪，是一條從國一走到會考的路線圖。
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 二、講義版面示意 ===== -->
+<section class="section section--alt" id="preview">
+  <div class="container container--narrow">
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">版面示意</p>
+      <h2 class="section__title">講義長這樣——課文與注釋，一頁看完。</h2>
+      <p class="section__sub">左欄是課文段落，右欄是逐句注釋。不是照抄課本，是重新排版過的閱讀動線。</p>
+    </div>
+
+    <div class="handout-demo reveal">
+      <div class="handout-demo__page">
+        <p class="handout-demo__lesson-title">桃花源記<span class="handout-demo__author">陶淵明</span></p>
+        <div class="handout-demo__body">
+          <div class="handout-demo__text">
+            <p>
+              晉太元中，武陵人捕魚為業。緣溪行，忘路之遠近。忽逢桃花林，夾岸數百步，
+              中無雜樹，芳草鮮美，落英繽紛。漁人甚異之，復前行，欲窮其林。
+            </p>
+          </div>
+          <div class="handout-demo__notes">
+            <p class="handout-demo__notes-title">注釋</p>
+            <ol>
+              <li><b>太元：</b>晉孝武帝年號。</li>
+              <li><b>武陵：</b>郡名，約當今湖南常德一帶。</li>
+              <li><b>緣：</b>沿著。</li>
+              <li><b>芳草鮮美：</b>花草鮮嫩美麗。</li>
+              <li><b>落英繽紛：</b>落花繁多紛雜的樣子。</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <p class="handout-demo__caption">示意版面 · 實際講義依課次調整欄位與字級</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 三、核心古文 15 篇自學版 ===== -->
+<section class="section" id="guwen15">
+  <div class="container container--narrow">
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">核心古文 15 篇 · 自學版</p>
+      <h2 class="section__title">15 篇高中核心古文，自己的節奏也能讀懂。</h2>
+      <p class="section__sub">
+        沒有課的時段，也能照著「閱破劍法」四式，自己把一篇古文讀通。<br>
+        已報名立霖課程的學生，自學版全部免費。
+      </p>
+    </div>
+
+    <ol class="lesson-list reveal" aria-label="核心古文十五篇篇目">
+      <li>師說</li>
+      <li>赤壁賦</li>
+      <li>鴻門宴</li>
+      <li>桃花源記</li>
+      <li>諫逐客書</li>
+      <li>燭之武退秦師</li>
+      <li>出師表</li>
+      <li>項脊軒志</li>
+      <li>大同與小康</li>
+      <li>虯髯客傳</li>
+      <li>勸和論</li>
+      <li>畫菊自序</li>
+      <li>勞山道士</li>
+      <li>晚遊六橋待月記</li>
+      <li>鹿港乘桴記</li>
+    </ol>
+
+    <div class="text-center reveal" style="margin-top:36px;" data-sample-direct>
+      <a class="btn btn--teal" href="assets/downloads/taohuayuan-sample.pdf" target="_blank" rel="noopener">
+        下載免費樣章（桃花源記）
+      </a>
+    </div>
+
+    <div class="text-center reveal" style="margin-top:36px;display:none;" data-sample-form>
+      <a class="btn btn--teal" data-sample-form-link href="#" target="_blank" rel="noopener">
+        留下 Email，索取免費樣章（桃花源記）
+      </a>
+      <p style="margin-top:12px;font-size:.9em;opacity:.8;">
+        樣章連結會寄到你的信箱，之後幾天會再收到幾封說明講義讀法的信，以及每月一封的月報；每封信末都能退訂。
+        資料用途見<a href="privacy.html" style="color:var(--teal);">個資告知</a>。
+      </p>
+    </div>
+
+    <div class="text-center reveal" style="margin-top:28px;">
+      <p class="store-pending-note" data-store-pending>完整版購買連結整備中，敬請期待。<br>想先了解課程或詢問報名，歡迎到<a href="courses.html#inquiry" style="color:var(--teal);">課程頁留言諮詢</a>。</p>
+      <div data-store style="margin-top:16px;">
+        <a class="btn btn--solid" data-store-link href="#" target="_blank" rel="noopener">前往購買完整版</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== closing CTA ===== -->
+<section class="closing ink-wash" id="cta">
+  <div class="container">
+    <h2 class="closing__title">想先看看孩子那一課，<br><span class="accent-gold">長什麼樣子？</span></h2>
+    <p class="closing__lead">先下載一份樣章，或直接留言告訴我們孩子現在讀到哪一課。</p>
+    <div class="closing__actions">
+      <a class="btn btn--teal" href="courses.html#inquiry">留言諮詢</a>
+      <a class="btn btn--line" data-line href="#">加 LINE 聊聊</a>
+    </div>
+    <p class="closing__note">不催促，不推銷。我們先聽。</p>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+</body>
+</html>

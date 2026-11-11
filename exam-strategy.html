@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>會考與學測策略｜立霖國文</title>
+<meta name="description" content="立霖國文 — 三階段備考策略與模考檢討回流系統。不販售焦慮，只提供方法。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+  /* ——— 頁面專屬：考試倒數橫列 ——— */
+  .exam-dates {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .exam-date-card {
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    padding: 28px 30px;
+    background: var(--paper-soft);
+  }
+  .exam-date-card--teal {
+    border-color: rgba(74, 124, 126, .28);
+    background: linear-gradient(150deg, var(--mist), color-mix(in srgb, var(--teal) 6%, var(--paper-soft)));
+  }
+  .exam-date-card--terracotta {
+    border-color: rgba(184, 106, 74, .24);
+    background: linear-gradient(150deg, var(--sunrise), var(--clay));
+  }
+  .exam-date-card__label {
+    font-family: var(--serif);
+    font-size: 12.5px;
+    letter-spacing: .26em;
+    color: var(--gold-dark);
+    margin: 0 0 10px;
+  }
+  .exam-date-card--teal .exam-date-card__label { color: var(--teal); }
+  .exam-date-card--terracotta .exam-date-card__label { color: var(--terracotta); }
+  .exam-date-card__name {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: var(--ink);
+    margin: 0 0 6px;
+  }
+  .exam-date-card__date {
+    font-size: 14px;
+    letter-spacing: .08em;
+    color: rgba(26, 54, 93, .6);
+    margin: 0 0 18px;
+  }
+  .exam-date-card__steps {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: grid; gap: 11px;
+    border-top: 1px solid var(--hairline-soft);
+    padding-top: 16px;
+  }
+  .exam-date-card__steps li {
+    display: flex;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(26, 54, 93, .8);
+    align-items: flex-start;
+  }
+  .exam-date-card__steps .dot-step {
+    flex: none;
+    margin-top: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(26, 54, 93, .15);
+  }
+  .exam-date-card--teal .dot-step.is-now { background: var(--teal); box-shadow: 0 0 0 4px rgba(74,124,126,.2); }
+  .exam-date-card--terracotta .dot-step.is-now { background: var(--terracotta); box-shadow: 0 0 0 4px rgba(184,106,74,.2); }
+  .exam-date-card__steps .step-label { font-weight: 600; color: var(--ink); }
+  .exam-date-card__steps .step-detail { font-size: 12.5px; color: rgba(26,54,93,.6); }
+
+  /* ——— 階段 caution 段落 ——— */
+  .phase-note {
+    margin-top: 16px;
+    padding: 10px 16px;
+    border-left: 2px solid var(--hairline);
+    background: rgba(250, 245, 239, .72);
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: rgba(26, 54, 93, .65);
+    border-radius: 0 2px 2px 0;
+  }
+  .phase--teal .phase-note { border-left-color: var(--teal-soft); }
+  .phase--gold .phase-note { border-left-color: var(--gold); }
+  .phase--terracotta .phase-note { border-left-color: var(--terracotta-soft); }
+
+  @media (max-width: 860px) {
+    .exam-dates { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body data-page="exam-strategy">
+
+<div id="site-header"></div>
+
+<!-- ================= PAGE HEAD ================= -->
+<header class="page-head ink-wash">
+  <div class="page-head__inner">
+    <p class="page-head__eyebrow">會考與學測策略 · STRATEGY</p>
+    <h1 class="page-head__title">
+      倒數的不是時間，<br>
+      是<span class="accent-teal">你成為自己的過程</span>。
+    </h1>
+    <p class="page-head__lead">
+      我們不販售焦慮，但也不假裝考試不存在。<br>
+      這裡有時程、有方法、有過來人的經驗——最後一段路，你自己走。
+    </p>
+
+    <!-- 考試日期橫列 -->
+    <div class="exam-dates" aria-label="考試時程">
+      <div class="exam-date-card exam-date-card--teal reveal">
+        <p class="exam-date-card__label">國中會考</p>
+        <h2 class="exam-date-card__name">國中教育會考</h2>
+        <p class="exam-date-card__date">每年 5 月第三週</p>
+        <ul class="exam-date-card__steps">
+          <li>
+            <span class="dot-step"></span>
+            <span><span class="step-label">基本盤建立</span><br><span class="step-detail">弱項清單 · 古文印象索引</span></span>
+          </li>
+          <li>
+            <span class="dot-step is-now"></span>
+            <span><span class="step-label">衝刺期</span><br><span class="step-detail">錯題類型化 · 限時練習</span></span>
+          </li>
+          <li>
+            <span class="dot-step"></span>
+            <span><span class="step-label">心理整備</span><br><span class="step-detail">減量 · 寫信給考完的自己</span></span>
+          </li>
+        </ul>
+      </div>
+      <div class="exam-date-card exam-date-card--terracotta reveal">
+        <p class="exam-date-card__label">大學學測</p>
+        <h2 class="exam-date-card__name">大學學科能力測驗</h2>
+        <p class="exam-date-card__date">每年 1 月第三週</p>
+        <ul class="exam-date-card__steps">
+          <li>
+            <span class="dot-step is-now"></span>
+            <span><span class="step-label">基本盤建立</span><br><span class="step-detail">國寫題型分類 · 經典文本重讀</span></span>
+          </li>
+          <li>
+            <span class="dot-step"></span>
+            <span><span class="step-label">衝刺期</span><br><span class="step-detail">計時模考 · 國寫限時練筆</span></span>
+          </li>
+          <li>
+            <span class="dot-step"></span>
+            <span><span class="step-label">心理整備</span><br><span class="step-detail">考前一日流程 · 自我對話</span></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 三階段策略 ================= -->
+<section class="section section--alt" id="phases">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">三階段策略</p>
+      <h2 class="section__title">從 180 天前到 0 天前——<br>每一階段，只做最關鍵的事。</h2>
+      <p class="section__sub">備考不是愈早愈多愈好，而是在對的時機做對的事。</p>
+    </div>
+
+    <div class="phase phase--teal reveal">
+      <div>
+        <p class="phase__name">基本盤</p>
+        <p class="phase__when">第一階段 · 考前 180 至 90 天</p>
+      </div>
+      <div>
+        <ul class="phase__list">
+          <li>把過去三年的弱項題型清單列出來。</li>
+          <li>每週兩篇閱破劍法拆解，不限新舊文。</li>
+          <li>建立古文 30 篇的個人「印象索引」——只記印象，不記翻譯。</li>
+        </ul>
+        <p class="phase-note">常見錯誤：一上來就刷題。沒有結構，刷再多也只是重複錯誤。</p>
+      </div>
+    </div>
+
+    <div class="phase phase--gold reveal">
+      <div>
+        <p class="phase__name">衝刺</p>
+        <p class="phase__when">第二階段 · 考前 90 至 14 天</p>
+      </div>
+      <div>
+        <ul class="phase__list">
+          <li>計時練習：80 分鐘一份完整考卷。</li>
+          <li>把錯題寫成「錯誤類型筆記」，不是抄答案。</li>
+          <li>每週一篇 600 字限時寫作——練「先有結論再展開」。</li>
+        </ul>
+        <p class="phase-note">常見錯誤：把所有時間拿來做模考。模考是診斷工具，不是練習工具。</p>
+      </div>
+    </div>
+
+    <div class="phase phase--terracotta reveal">
+      <div>
+        <p class="phase__name">心理整備</p>
+        <p class="phase__when">第三階段 · 考前 14 至 0 天</p>
+      </div>
+      <div>
+        <ul class="phase__list">
+          <li>減量。每天 1 篇短文加 30 分鐘古文複習，到此為止。</li>
+          <li>建立「考前一日流程」，含睡眠、飲食、起床時間。</li>
+          <li>寫一封信給考完試的自己——分數之外，你想跟自己說什麼。</li>
+        </ul>
+        <p class="phase-note">常見錯誤：考前一晚還在熬夜刷題。那不是用功，那是焦慮的儀式。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 模考檢討回流系統 ================= -->
+<section class="section" id="review-system">
+  <div class="container container--narrow">
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">模考檢討回流系統</p>
+      <h2 class="section__title">模考是診斷工具，不是練習工具。</h2>
+      <p class="section__sub">五步驟把每一次錯題，變成往後的資產。</p>
+    </div>
+
+    <div class="reveal">
+      <div class="field-row">
+        <span class="field-row__num">Step 01</span>
+        <span class="field-row__name">拆題</span>
+        <span class="field-row__desc">不急著寫答案。先用閱破四式標出題目在問什麼動作——觀、析、證、寫，各問哪一層？</span>
+      </div>
+      <div class="field-row">
+        <span class="field-row__num">Step 02</span>
+        <span class="field-row__name">找錯點</span>
+        <span class="field-row__desc">把錯的環節說清楚：是「觀」而錯（訊息沒找到），還是「析」而錯（邏輯斷了），或是「寫」而錯（意思對但句子跑掉）？</span>
+      </div>
+      <div class="field-row">
+        <span class="field-row__num">Step 03</span>
+        <span class="field-row__name">分類</span>
+        <span class="field-row__desc">把錯題寫進個人錯題本。不抄答案，只記「錯誤類型」與當下的思路。類型累積到一定數量，模式自然浮現。</span>
+      </div>
+      <div class="field-row">
+        <span class="field-row__num">Step 04</span>
+        <span class="field-row__name">再做一次</span>
+        <span class="field-row__desc">一週後重做同一題。如果還是錯，回到第二步——錯點可能不在你以為的地方，需要重新定位。</span>
+      </div>
+      <div class="field-row">
+        <span class="field-row__num">Step 05</span>
+        <span class="field-row__name">教給別人</span>
+        <span class="field-row__desc">把這題講給同學或家人聽。能講明白，才是真的會。講不清楚的地方，正是還沒理解透的地方。</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 引文過渡 ================= -->
+<hr class="gold-hr">
+<section class="section section--paper-soft section--tight" aria-hidden="false">
+  <div class="container text-center">
+    <div class="pullquote" style="margin: 0 auto;" aria-label="品牌理念引言">
+      <p>在還沒抵達分數之前，<br>先抵達自己。</p>
+      <cite>立霖國文 · 備考哲學</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 結尾 closing--ink ================= -->
+<section class="closing closing--ink" id="mindset">
+  <div class="container">
+    <h2 class="closing__title">
+      我們不在乎你打敗誰，<br>
+      在乎你成為誰。
+    </h2>
+    <p class="closing__lead">
+      這個時代，考試焦慮是常態——但焦慮不等於努力。<br>
+      考完的那一天，你不會記得排名，你會記得這段日子你怎麼撐過來的、你變成什麼樣的人。
+    </p>
+    <div class="closing__actions">
+      <a class="btn btn--teal" href="diagnosis.html">做一次自我診斷</a>
+      <a class="btn btn--ghost" href="methodology.html" style="color:var(--paper);border-color:rgba(250,245,239,.4);">看閱破劍法方法論</a>
+    </div>
+    <p class="closing__note">引導 · 信任 · 不浮誇</p>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+</body>
+</html>

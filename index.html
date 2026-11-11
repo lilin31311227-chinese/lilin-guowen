@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>立霖國文｜素養教學領航者</title>
+<meta name="description" content="立霖國文 — 素養教學領航者。引導、信任、不浮誇。字句之間，有人生。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+  /* —— 首頁專屬：互動墨流 Hero —— */
+  .hero {
+    position: relative;
+    height: calc(100svh - var(--header-h));
+    min-height: 520px;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  #sumi-canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: block; cursor: crosshair; touch-action: none; z-index: 1;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse at 38% 58%, rgba(31,36,51,.06), transparent 42%),
+      radial-gradient(ellipse at 62% 42%, rgba(26,54,93,.05), transparent 40%),
+      var(--paper);
+  }
+  .hero.no-sim #sumi-canvas,
+  .hero.no-sim .dock,
+  .hero.no-sim .hero-hint { display: none; }
+  .hero > .hero-hint, .hero > .dock, .hero > .scroll-cue { z-index: 3; }
+
+  /* —— 首屏：價值主張＋老師照片；水墨退為背景 —— */
+  .hero::after {                       /* 紙色薄紗：壓低墨色，確保文字對比 */
+    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(90deg, rgba(250,245,239,.93) 0%, rgba(250,245,239,.88) 42%, rgba(250,245,239,.35) 72%, rgba(250,245,239,.1) 100%);
+  }
+  .hero__inner {
+    position: relative; z-index: 3; height: 100%;
+    max-width: 1180px; margin: 0 auto; padding: 0 32px 84px;
+    display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+    align-items: center; gap: 40px;
+    pointer-events: none;              /* 讓指尖仍可撥動底下的墨 */
+  }
+  .hero__inner a, .hero__inner picture { pointer-events: auto; }
+  .hero__eyebrow {
+    margin: 0 0 18px; font-family: var(--serif); font-size: 14px; letter-spacing: .3em;
+    color: var(--gold-dark); display: flex; align-items: center; gap: 14px;
+  }
+  .hero__eyebrow::before { content: ""; width: 30px; height: 1px; background: var(--gold); }
+  .hero__title {
+    margin: 0; font-family: var(--serif); font-weight: 700; color: var(--ink);
+    font-size: clamp(34px, 4.4vw, 54px); line-height: 1.32; letter-spacing: .04em;
+  }
+  .hero__sub {
+    margin: 20px 0 0; font-family: var(--sans); font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.8; letter-spacing: .05em; color: var(--navy);
+  }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+  .hero__portrait { display: flex; justify-content: center; align-items: stretch; gap: 18px; min-height: 0; max-height: 100%; }
+  .portrait__frame {
+    position: relative; margin: 0; display: flex; align-items: flex-end;
+    background: rgba(253,250,245,.78); border: 1px solid rgba(26,54,93,.16); border-radius: 3px;
+    padding: 14px 14px 0; max-height: 100%;
+  }
+  .portrait__frame img { display: block; width: auto; height: auto; max-width: 100%; max-height: min(60svh, 520px); }
+  .portrait__cap {
+    writing-mode: vertical-rl; display: flex; flex-direction: column; align-items: center; gap: 16px;
+    padding-top: 6px; font-family: var(--serif); user-select: none;
+  }
+  .portrait__cap b { font-size: 26px; font-weight: 700; letter-spacing: .36em; color: var(--ink); }
+  .portrait__cap small { font-size: 12px; letter-spacing: .3em; color: rgba(26,54,93,.72); }
+  .portrait__cap i {
+    writing-mode: horizontal-tb; width: 32px; height: 32px; border-radius: 4px; background: var(--terracotta);
+    color: #fff; font-style: normal; font-size: 12px; font-weight: 700; display: grid; place-items: center; padding-top: 2px;
+  }
+
+  .hero-hint {
+    position: absolute; bottom: 86px; left: 50%; transform: translateX(-50%); z-index: 3;
+    font-family: var(--serif); font-size: 14px; letter-spacing: .85em; text-indent: .85em;
+    color: rgba(26,54,93,.72); white-space: nowrap;
+    pointer-events: none; user-select: none; transition: opacity 1.8s ease;
+  }
+  .hero-hint.is-hidden { opacity: 0; }
+
+  .dock {
+    position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 18px;
+    padding: 12px 22px; border-radius: 999px;
+    background: rgba(250,245,239,.62); border: 1px solid rgba(26,54,93,.14);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 30px rgba(15,39,68,.08);
+  }
+  .dock__inks { display: flex; align-items: center; gap: 14px; }
+  .ink {
+    position: relative; width: 30px; height: 30px; border-radius: 50%;
+    border: none; padding: 0; cursor: pointer; background: var(--c, var(--ink));
+    box-shadow: inset 0 0 0 1px rgba(250,245,239,.25); transition: transform .2s ease;
+  }
+  .ink:hover { transform: scale(1.12); }
+  .ink--cycle { background: conic-gradient(#1f2433 0 25%, #1a365d 0 50%, #b86a4a 0 75%, #4a7c7e 0 100%); }
+  .ink::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 1px solid transparent; transition: border-color .25s; }
+  .ink.is-active::after { border-color: rgba(26,54,93,.55); }
+  .ink__tip {
+    position: absolute; bottom: calc(100% + 12px); left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    font-family: var(--serif); font-size: 12px; letter-spacing: .2em; text-indent: .2em;
+    color: var(--navy); background: rgba(250,245,239,.92);
+    border: 1px solid rgba(26,54,93,.14); border-radius: 6px; padding: 3px 9px;
+    opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; white-space: nowrap;
+  }
+  .ink:hover .ink__tip, .ink.is-active .ink__tip { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .dock__divider { width: 1px; height: 22px; background: rgba(26,54,93,.16); }
+  .dock__text {
+    display: inline-flex; align-items: center; gap: 8px; border: none; background: none;
+    padding: 4px 2px; cursor: pointer; font-family: var(--serif); font-size: 13.5px;
+    letter-spacing: .18em; color: rgba(26,54,93,.75); transition: color .2s;
+  }
+  .dock__text:hover { color: var(--ink); }
+  .dock__text .dot { width: 7px; height: 7px; border-radius: 50%; border: 1px solid rgba(26,54,93,.4); background: transparent; transition: all .3s; }
+  .dock__text.is-on .dot { background: var(--teal); border-color: var(--teal); box-shadow: 0 0 8px rgba(74,124,126,.8); }
+
+  .scroll-cue {
+    position: absolute; bottom: 30px; right: 40px;
+    writing-mode: vertical-rl; display: flex; align-items: center; gap: 12px;
+    font-family: var(--serif); font-size: 11.5px; letter-spacing: .42em;
+    color: rgba(26,54,93,.5); text-decoration: none;
+  }
+  .scroll-cue::after { content: ""; width: 1px; height: 52px; background: rgba(26,54,93,.35); animation: cue-flow 2.6s ease-in-out infinite; transform-origin: top; }
+  @keyframes cue-flow { 0% { transform: scaleY(0); } 45% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+  /* 引言關鍵詞 */
+  .keywords {
+    display: inline-flex; align-items: center; gap: 22px; margin-top: 50px;
+    font-family: var(--serif); font-size: 15px; letter-spacing: .3em; text-indent: .3em; color: var(--navy);
+  }
+  .keywords i { width: 26px; height: 1px; background: var(--gold); }
+
+  @media (max-width: 860px) {
+    .hero::after { background: linear-gradient(180deg, rgba(250,245,239,.93) 0%, rgba(250,245,239,.86) 50%, rgba(250,245,239,.3) 100%); }
+    .hero__inner { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); align-content: start; gap: 12px; padding: 22px 22px 70px; }
+    .hero__eyebrow { margin-bottom: 10px; font-size: 12px; }
+    .hero__title { font-size: 31px; }
+    .hero__sub { margin-top: 10px; font-size: 14.5px; letter-spacing: .02em; line-height: 1.7; }
+    .hero__actions { margin-top: 16px; gap: 10px; }
+    .hero__actions .btn { padding: 11px 20px; font-size: 15px; }
+    .hero__portrait { gap: 12px; justify-content: flex-start; overflow: hidden; }
+    .portrait__frame { padding: 8px 8px 0; }
+    .portrait__frame img { max-height: 100%; height: 100%; }
+    .portrait__cap b { font-size: 20px; } .portrait__cap small { display: none; }
+    .hero-hint { display: none; }
+    .dock { gap: 10px; padding: 7px 14px; bottom: 12px; max-width: calc(100vw - 24px); }
+    .dock__inks { gap: 10px; } .ink { width: 24px; height: 24px; }
+    .dock__text { font-size: 12px; letter-spacing: .06em; gap: 5px; white-space: nowrap; }
+    .scroll-cue { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .scroll-cue::after { animation: none; transform: scaleY(1); } }
+</style>
+</head>
+<body data-page="home">
+
+<div id="site-header"></div>
+
+<!-- ================= HERO 硯池 ================= -->
+<section class="hero" id="hero">
+  <canvas id="sumi-canvas"></canvas>
+
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <p class="hero__eyebrow">立霖國文 · 素養教學領航者</p>
+      <h1 class="hero__title">人生沒有 Google，<br>但有經典可循。</h1>
+      <p class="hero__sub">會考、學測國文，新竹實體授課，線上不限地區。</p>
+      <div class="hero__actions">
+        <a class="btn btn--line" href="#" data-hero-cta>加 LINE 聊聊</a>
+        <a class="btn btn--ghost" href="materials.html">看教材</a>
+      </div>
+    </div>
+    <div class="hero__portrait">
+      <picture class="portrait__frame">
+        <source media="(max-width: 860px)" srcset="assets/images/teacher-portrait-mobile.webp" type="image/webp">
+        <source srcset="assets/images/teacher-portrait-800.webp" type="image/webp">
+        <img src="assets/images/teacher-portrait-fallback.png" width="420" height="626" alt="立霖國文老師立像，身穿深藍西裝，雙臂交叉" fetchpriority="high">
+      </picture>
+      <div class="portrait__cap" aria-hidden="true"><b>立霖國文</b><small>字句之間，有人生</small><i>立霖</i></div>
+    </div>
+  </div>
+
+  <p class="hero-hint" id="hint">指尖輕拂，墨隨心流</p>
+
+  <div class="dock" role="toolbar" aria-label="墨色與演出控制">
+    <div class="dock__inks" id="inks">
+      <button class="ink ink--cycle is-active" data-ink="cycle" aria-label="循環墨色"><span class="ink__tip">巡</span></button>
+      <button class="ink" data-ink="sumi" style="--c:#1f2433" aria-label="墨色"><span class="ink__tip">墨</span></button>
+      <button class="ink" data-ink="navy" style="--c:#1a365d" aria-label="海軍藍"><span class="ink__tip">藍</span></button>
+      <button class="ink" data-ink="tea" style="--c:#b86a4a" aria-label="赤茶"><span class="ink__tip">茶</span></button>
+      <button class="ink" data-ink="teal" style="--c:#4a7c7e" aria-label="湖青"><span class="ink__tip">青</span></button>
+    </div>
+    <span class="dock__divider"></span>
+    <button class="dock__text is-on" id="autoBtn"><span class="dot"></span>自動行墨</button>
+    <button class="dock__text" id="washBtn">滌淨</button>
+  </div>
+
+  <a class="scroll-cue" href="#idea">往下展卷</a>
+</section>
+
+<main>
+<!-- ================= 引言 ================= -->
+<section class="section ink-wash" id="idea">
+  <div class="container text-center">
+    <p class="section__eyebrow">立霖國文 · 素養教學領航者</p>
+    <h2 class="section__title" style="font-size:clamp(28px,4.5vw,42px);">字句之間，有人生。</h2>
+    <p class="section__sub" style="margin:0 auto;max-width:36em;">
+      國文不只是考科。是孩子讀懂世界的眼睛，也是把心裡的話好好說出來的能力。
+      我們陪孩子在字句之間，慢慢長出自己的見解。
+    </p>
+    <div class="keywords" aria-label="品牌語氣"><i></i>引導 · 信任 · 不浮誇<i></i></div>
+  </div>
+</section>
+
+<!-- ================= 雙引擎 ================= -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__eyebrow">雙引擎品牌哲學</p>
+      <h2 class="section__title">一位老師，兩座橋。</h2>
+      <p class="section__sub">學科專業是底氣；在底氣之上，我們同時照顧孩子的心，也接住家長的焦慮。</p>
+    </div>
+    <div class="grid grid--2">
+      <article class="path-card path-card--student reveal">
+        <p class="card__kicker" style="color:var(--teal)">對學生 — 陪伴 · 解惑 · 平起平坐</p>
+        <h3 class="card__title" style="font-size:23px;">人生導師</h3>
+        <p class="card__text">課堂上教的是文本，課後接住的是迷惘。孩子在這裡可以發問、可以說不懂，
+        也可以聊一聊考試以外的事。被尊重的孩子，才學得進去。</p>
+      </article>
+      <article class="path-card path-card--parent reveal">
+        <p class="card__kicker" style="color:var(--terracotta)">對家長 — 理解 · 卸下 · 給工具</p>
+        <h3 class="card__title" style="font-size:23px;">親情橋樑</h3>
+        <p class="card__text">您不必再扮演催促的角色。孩子的學習狀況，我們定期讓您知道；
+        親子之間卡住的話，我們幫忙翻譯。讓專業的事，回到專業的人手上。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 四大教學領域 ================= -->
+<section class="section" id="fields">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__eyebrow">課程地圖</p>
+      <h2 class="section__title">四條墨路，同一方硯。</h2>
+    </div>
+    <div class="fields">
+      <div class="field-row"><span class="field-row__num">壹</span><span class="field-row__name">閱讀理解</span><span class="field-row__desc">從訊息檢索到觀點評析，建立一套拿得走的讀懂方法。</span></div>
+      <div class="field-row"><span class="field-row__num">貳</span><span class="field-row__name">寫作表達</span><span class="field-row__desc">先有想法，再有章法。讓孩子寫自己相信的句子。</span></div>
+      <div class="field-row"><span class="field-row__num">參</span><span class="field-row__name">古文素養</span><span class="field-row__desc">文言不是背誦，是跨越千年的對話練習。</span></div>
+      <div class="field-row"><span class="field-row__num">肆</span><span class="field-row__name">考試策略</span><span class="field-row__desc">理解命題邏輯，把實力穩穩換成分數。</span></div>
+    </div>
+    <div class="text-center" style="margin-top:44px;">
+      <a class="btn btn--ghost" href="methodology.html">看「閱破劍法」如何拆解文字 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="closing ink-wash" id="line">
+  <div class="container">
+    <h2 class="closing__title">先來坐坐，<br>聊聊孩子現在的樣子。</h2>
+    <p class="closing__lead">每個孩子的節奏不同。一杯茶的時間，我們先聽您說，再一起看看怎麼開始。</p>
+    <div class="closing__actions">
+      <a class="btn btn--line" href="#">加 LINE 聊聊</a>
+      <a class="btn btn--ghost" href="diagnosis.html">先做一次自我診斷</a>
+    </div>
+    <p class="closing__note">不催促，不推銷。我們先聽。</p>
+  </div>
+</section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="assets/sumi-fluid.js"></script>
+<script src="assets/sumi-site.js"></script>
+</body>
+</html>

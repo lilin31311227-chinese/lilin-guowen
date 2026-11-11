@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Trust Badge & Eyebrow</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;padding:0;font-size:13px}
+  .row{padding:20px 24px}
+  .light{background:#faf5ef;color:#1a365d}
+  .dark{background:linear-gradient(135deg,#0A1A35,#0d2341);color:#faf5ef}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.6;font-weight:600;margin-bottom:10px}
+  .items{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .badge-light{display:inline-flex;align-items:center;gap:.5rem;background:rgba(214,158,46,.1);border:1px solid rgba(214,158,46,.3);padding:.4rem .9rem;border-radius:9999px;font-size:13px;font-weight:500;color:#b7791f}
+  .badge-light::before{content:"";width:.5rem;height:.5rem;border-radius:9999px;background:#d69e2e}
+  .badge-dark{display:inline-flex;align-items:center;gap:.6rem;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);padding:.5rem 1rem;border-radius:9999px;font-size:13px;font-weight:500;color:#fde68a}
+  .badge-dark .check{width:1.1rem;height:1.1rem;border-radius:9999px;background:linear-gradient(135deg,#fbbf24,#f59e0b);display:flex;align-items:center;justify-content:center}
+  .badge-dark .check svg{width:.7rem;height:.7rem;color:#0A1A35}
+  .eb{font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase}
+  .eb.gold{color:#b7791f}
+  .eb.cream{color:#fbbf24}
+</style>
+</head>
+<body>
+  <div class="row light">
+    <div class="lbl">Eyebrow + Trust Badge · 淺底</div>
+    <div class="items">
+      <span class="eb gold">DESIGN SYSTEM · v2.0</span>
+      <span class="badge-light">獨家方法</span>
+      <span class="badge-light">500+ 學員</span>
+    </div>
+  </div>
+  <div class="row dark">
+    <div class="lbl">Eyebrow + Trust Badge · 深底</div>
+    <div class="items">
+      <span class="eb cream">FEATURED</span>
+      <span class="badge-dark">
+        <span class="check"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-8 8a1 1 0 01-1.4 0l-4-4a1 1 0 011.4-1.4L8 12.6l7.3-7.3a1 1 0 011.4 0z" clip-rule="evenodd"/></svg></span>
+        素養教學領航者 · 家長與孩子的溝通橋樑
+      </span>
+    </div>
+  </div>
+</body>
+</html>

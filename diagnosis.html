@@ -1,0 +1,1294 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>自我診斷｜立霖國文</title>
+<meta name="description" content="立霖國文 — 一份 12 題的小診斷，幫你看見現在的閱讀位置，指出下一步可以怎麼走。不打分數、不分高下、不收 email。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+/* ============================================================
+   diagnosis.html — 頁面專屬樣式
+   ============================================================ */
+
+/* —— 四維度卡片 —— */
+.dim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+.dim-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper-soft);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  padding: 32px 28px 28px;
+}
+.dim-card__bg-char {
+  position: absolute;
+  top: -12px; right: 6px;
+  font-family: var(--serif);
+  font-size: 100px;
+  line-height: 1;
+  opacity: .07;
+  user-select: none;
+  pointer-events: none;
+}
+.dim-card__row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.dim-card__kanji {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+  flex: none;
+}
+.dim-card__meta { }
+.dim-card__en {
+  font-size: 10.5px;
+  letter-spacing: .22em;
+  color: var(--gold-dark);
+  margin: 0 0 4px;
+}
+.dim-card__name {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+}
+.dim-card__desc {
+  font-size: 14px;
+  line-height: 1.85;
+  color: rgba(26, 54, 93, .72);
+  margin: 0;
+}
+
+/* 四維度顏色 */
+.dim-card--kan .dim-card__bg-char,
+.dim-card--kan .dim-card__kanji { color: var(--teal); }
+.dim-card--kan { border-top: 3px solid var(--teal); }
+
+.dim-card--kan2 .dim-card__bg-char,
+.dim-card--kan2 .dim-card__kanji { color: var(--terracotta); }
+.dim-card--kan2 { border-top: 3px solid var(--terracotta); }
+
+.dim-card--gen .dim-card__bg-char,
+.dim-card--gen .dim-card__kanji { color: var(--gold-dark); }
+.dim-card--gen { border-top: 3px solid var(--gold); }
+
+.dim-card--ko .dim-card__bg-char,
+.dim-card--ko .dim-card__kanji { color: var(--navy); }
+.dim-card--ko { border-top: 3px solid var(--navy-light); }
+
+/* —— 路徑選擇標題 —— */
+.track-tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.track-tab {
+  padding: 10px 22px;
+  border-radius: 999px;
+  border: 1.5px solid;
+  font-family: var(--serif);
+  font-size: 14.5px;
+  letter-spacing: .08em;
+  cursor: pointer;
+  background: transparent;
+  transition: background .2s, color .2s, transform .15s;
+}
+.track-tab--student {
+  color: var(--teal);
+  border-color: rgba(74, 124, 126, .45);
+}
+.track-tab--student.is-active,
+.track-tab--student:hover {
+  background: var(--teal);
+  color: #fff;
+  border-color: var(--teal);
+}
+.track-tab--parent {
+  color: var(--terracotta);
+  border-color: rgba(184, 106, 74, .45);
+}
+.track-tab--parent.is-active,
+.track-tab--parent:hover {
+  background: var(--terracotta);
+  color: #fff;
+  border-color: var(--terracotta);
+}
+.track-tab.is-active { transform: none; }
+
+/* —— 路徑面板 —— */
+.track-panel { display: none; }
+.track-panel.is-active { display: block; }
+
+.track-header {
+  padding: 36px 36px 28px;
+  background: var(--paper-soft);
+  border: 1px solid var(--hairline);
+  border-radius: 3px 3px 0 0;
+  border-bottom: none;
+}
+.track-header--student { border-top: 3px solid var(--teal); }
+.track-header--parent  { border-top: 3px solid var(--terracotta); }
+
+.track-header__eyebrow {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: .3em;
+  margin: 0 0 8px;
+}
+.track-header--student .track-header__eyebrow { color: var(--teal); }
+.track-header--parent  .track-header__eyebrow { color: var(--terracotta); }
+
+.track-header__title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.track-header__note {
+  font-size: 13px;
+  color: rgba(26, 54, 93, .6);
+  margin: 0;
+}
+
+/* —— 題目列 —— */
+.q-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid var(--hairline);
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  background: var(--paper-soft);
+}
+.q-item {
+  padding: 22px 36px;
+  border-top: 1px solid var(--hairline-soft);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 14px 16px;
+  align-items: start;
+}
+.q-item__dim {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.75;
+  width: 24px;
+  text-align: center;
+  flex: none;
+}
+.track-panel--student .q-item__dim { color: var(--teal); }
+.track-panel--parent  .q-item__dim { color: var(--terracotta); }
+
+.q-item__text {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--ink);
+  margin: 0 0 10px;
+  letter-spacing: .03em;
+}
+.q-item .likert {
+  grid-column: 2;
+}
+
+/* 答題進度列 */
+.q-progress {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: .1em;
+  color: rgba(26, 54, 93, .6);
+}
+.q-progress__bar {
+  flex: 1;
+  height: 3px;
+  background: var(--hairline);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.q-progress__fill {
+  height: 100%;
+  background: var(--teal);
+  border-radius: 99px;
+  transition: width .4s ease;
+  width: 0%;
+}
+.track-panel--parent .q-progress__fill { background: var(--terracotta); }
+
+/* 提交區 */
+.track-submit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+  padding: 22px 36px;
+  background: var(--paper-dark);
+  border: 1px solid var(--hairline);
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+}
+.track-submit__notice {
+  font-size: 12.5px;
+  letter-spacing: .05em;
+  color: rgba(26, 54, 93, .55);
+  font-family: var(--serif);
+}
+.diag-warn {
+  display: none;
+  font-size: 13px;
+  letter-spacing: .05em;
+  color: var(--gold-dark);
+  margin-top: 8px;
+}
+.diag-warn.is-visible { display: block; }
+
+/* ============================================================
+   雷達圖 + 結果區 — scoped（以 :root 色）
+   ============================================================ */
+.diag-result-wrap {
+  display: none;
+  margin-top: 56px;
+}
+.diag-result-wrap.is-visible { display: block; }
+
+.diag-result-head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.diag-result-head__eyebrow {
+  font-family: var(--serif);
+  font-size: 12.5px;
+  letter-spacing: .36em;
+  color: var(--gold-dark);
+  margin: 0 0 14px;
+}
+.diag-result-head__title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+.diag-result-head__sub {
+  font-size: 15px;
+  color: rgba(26, 54, 93, .72);
+  margin: 0;
+}
+
+.diag-result-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .diag-result-grid { grid-template-columns: 1fr; }
+}
+
+/* SVG 雷達 */
+.diag-radar-svg {
+  width: 100%;
+  max-width: 380px;
+  display: block;
+  margin: 0 auto;
+}
+.diag-radar__grid-poly {
+  fill: none;
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+.diag-radar__axis-line {
+  stroke: var(--hairline);
+  stroke-width: 1;
+}
+.diag-radar__shape {
+  fill: rgba(74, 124, 126, .16);
+  stroke: var(--teal);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  transition: all .5s ease;
+}
+.diag-radar__shape--parent {
+  fill: rgba(184, 106, 74, .14);
+  stroke: var(--terracotta);
+}
+.diag-radar__dot {
+  fill: var(--teal);
+  transition: cx .5s ease, cy .5s ease;
+}
+.diag-radar__dot--parent { fill: var(--terracotta); }
+.diag-radar__label {
+  font-family: "Noto Serif TC", serif;
+  font-size: 20px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+.diag-radar__label-en {
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 9px;
+  fill: var(--gold-dark);
+  letter-spacing: .12em;
+}
+
+/* 回饋卡 */
+.diag-feedback { display: flex; flex-direction: column; gap: 16px; }
+.diag-fb-card {
+  padding: 24px 26px;
+  border-radius: 3px;
+  border: 1px solid var(--hairline);
+}
+.diag-fb-card--strong {
+  background: color-mix(in srgb, var(--teal) 8%, var(--paper-soft));
+  border-color: rgba(74, 124, 126, .25);
+}
+.diag-fb-card--strong.is-parent {
+  background: color-mix(in srgb, var(--terracotta) 8%, var(--paper-soft));
+  border-color: rgba(184, 106, 74, .25);
+}
+.diag-fb-card--weak {
+  background: color-mix(in srgb, var(--gold) 10%, var(--paper-soft));
+  border-color: rgba(214, 158, 46, .28);
+}
+.diag-fb-card--next {
+  background: color-mix(in srgb, var(--navy) 5%, var(--paper-soft));
+  border-color: rgba(26, 54, 93, .18);
+}
+.diag-fb-card__label {
+  font-family: var(--serif);
+  font-size: 11px;
+  letter-spacing: .28em;
+  color: var(--gold-dark);
+  margin: 0 0 6px;
+}
+.diag-fb-card--strong .diag-fb-card__label { color: var(--teal); }
+.diag-fb-card--strong.is-parent .diag-fb-card__label { color: var(--terracotta); }
+.diag-fb-card--next .diag-fb-card__label { color: var(--navy-light); }
+.diag-fb-card__axis {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+  letter-spacing: .06em;
+}
+.diag-fb-card__text {
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(26, 54, 93, .82);
+  margin: 0;
+}
+.diag-fb-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  font-family: var(--serif);
+  font-size: 13.5px;
+  letter-spacing: .08em;
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(26, 54, 93, .3);
+  padding-bottom: 1px;
+  transition: color .2s, border-color .2s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+}
+.diag-fb-card__cta:hover { color: var(--teal); border-bottom-color: var(--teal); }
+
+/* 結果底部 */
+.diag-result-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--hairline-soft);
+}
+.diag-result-notice {
+  text-align: center;
+  margin-top: 16px;
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: .14em;
+  color: rgba(26, 54, 93, .45);
+}
+
+/* —— 反承諾卡片組 —— */
+.pledge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin-top: 36px;
+}
+.pledge-card {
+  padding: 22px 24px;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  background: var(--paper-soft);
+}
+.pledge-card__label {
+  font-family: var(--serif);
+  font-size: 12.5px;
+  letter-spacing: .18em;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 8px;
+}
+.pledge-card__desc {
+  font-size: 13px;
+  color: rgba(26, 54, 93, .65);
+  line-height: 1.75;
+  margin: 0;
+}
+.pledge-card__rule {
+  height: 2px;
+  background: var(--gold);
+  width: 32px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 860px) {
+  .q-item {
+    grid-template-columns: auto 1fr;
+    padding: 18px 22px;
+  }
+  .q-item .likert { grid-column: 1 / -1; }
+  .track-submit { padding: 18px 22px; }
+  .track-header { padding: 24px 22px 20px; }
+  .diag-result-grid { gap: 28px; }
+  .diag-fb-card { padding: 18px 20px; }
+}
+</style>
+</head>
+<body data-page="diagnosis">
+
+<div id="site-header"></div>
+
+<!-- ================= PAGE HEAD ================= -->
+<header class="page-head ink-wash">
+  <div class="page-head__inner">
+    <p class="page-head__eyebrow">自我診斷</p>
+    <h1 class="page-head__title">
+      在抵達分數之前，<br>
+      <span class="accent-teal">先抵達自己。</span>
+    </h1>
+    <p class="page-head__lead">
+      一份 12 題的小診斷——不打分數、不分高下、不收 email。<br>
+      幫你看見現在的閱讀位置，並指出下一步可以怎麼走。
+    </p>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 四維度說明 ================= -->
+<section class="section section--paper-soft" id="dimensions">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__eyebrow">四個維度</p>
+      <h2 class="section__title">觀 · 感 · 言 · 己</h2>
+      <p class="section__sub">閱讀的四個層次，也是與自己對話的四個層次。</p>
+    </div>
+
+    <div class="dim-grid">
+      <article class="dim-card dim-card--kan reveal">
+        <span class="dim-card__bg-char" aria-hidden="true">觀</span>
+        <div class="dim-card__row">
+          <span class="dim-card__kanji">觀</span>
+          <div class="dim-card__meta">
+            <p class="dim-card__en">OBSERVATION</p>
+            <h3 class="dim-card__name">觀察力</h3>
+          </div>
+        </div>
+        <p class="dim-card__desc">能不能在讀一段文字時，先看出它的骨架。不急著抓內容，先看結構。</p>
+      </article>
+
+      <article class="dim-card dim-card--kan2 reveal">
+        <span class="dim-card__bg-char" aria-hidden="true">感</span>
+        <div class="dim-card__row">
+          <span class="dim-card__kanji">感</span>
+          <div class="dim-card__meta">
+            <p class="dim-card__en">EMPATHY</p>
+            <h3 class="dim-card__name">同理力</h3>
+          </div>
+        </div>
+        <p class="dim-card__desc">能不能感受作者沒明說的情緒，並把它對應到自己的生命經驗。</p>
+      </article>
+
+      <article class="dim-card dim-card--gen reveal">
+        <span class="dim-card__bg-char" aria-hidden="true">言</span>
+        <div class="dim-card__row">
+          <span class="dim-card__kanji">言</span>
+          <div class="dim-card__meta">
+            <p class="dim-card__en">EXPRESSION</p>
+            <h3 class="dim-card__name">表達力</h3>
+          </div>
+        </div>
+        <p class="dim-card__desc">能不能把心裡想的事，用精準的詞——不是「煩」、「不知道」——說出來。</p>
+      </article>
+
+      <article class="dim-card dim-card--ko reveal">
+        <span class="dim-card__bg-char" aria-hidden="true">己</span>
+        <div class="dim-card__row">
+          <span class="dim-card__kanji">己</span>
+          <div class="dim-card__meta">
+            <p class="dim-card__en">SELF-AWARENESS</p>
+            <h3 class="dim-card__name">自覺力</h3>
+          </div>
+        </div>
+        <p class="dim-card__desc">能不能在情緒湧上來時，認得它，並且不被它沖走。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 題目區 ================= -->
+<section class="section" id="quiz">
+  <div class="container container--narrow">
+    <div class="section__head">
+      <p class="section__eyebrow">兩條路徑 · 各 6 題</p>
+      <h2 class="section__title">選一條開始。</h2>
+      <p class="section__sub">學生練習認識自己，家長練習看見孩子。約 3 分鐘。</p>
+    </div>
+
+    <!-- 路徑切換 -->
+    <div class="track-tabs" role="tablist" aria-label="診斷路徑選擇">
+      <button
+        class="track-tab track-tab--student is-active"
+        role="tab"
+        aria-selected="true"
+        aria-controls="panel-student"
+        id="tab-student">
+        學生軌 · 自我覺察
+      </button>
+      <button
+        class="track-tab track-tab--parent"
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-parent"
+        id="tab-parent">
+        家長軌 · 理解孩子
+      </button>
+    </div>
+
+    <!-- ====== 學生軌面板 ====== -->
+    <div
+      class="track-panel track-panel--student is-active"
+      id="panel-student"
+      role="tabpanel"
+      aria-labelledby="tab-student">
+
+      <div class="track-header track-header--student">
+        <p class="track-header__eyebrow">學生軌 · 自我覺察</p>
+        <h3 class="track-header__title">現在的閱讀，現在的我，現在的距離</h3>
+        <p class="track-header__note">6 題 · 約 3 分鐘 · 不會儲存你的答案，也不會用來推銷。</p>
+      </div>
+
+      <ul class="q-list" id="qlist-student">
+        <!-- Q1 觀 -->
+        <li class="q-item" data-dim="觀" data-track="student">
+          <span class="q-item__dim" aria-hidden="true">觀</span>
+          <p class="q-item__text">讀一篇課文時，我會先注意它的結構安排（總分總、起承轉合），而不是急著背內容。</p>
+          <div class="likert" data-qid="s1">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+        <!-- Q2 感 -->
+        <li class="q-item" data-dim="感" data-track="student">
+          <span class="q-item__dim" aria-hidden="true">感</span>
+          <p class="q-item__text">看到一句古詩時，我能在腦中浮現一個畫面，或對應到自己的某種心情。</p>
+          <div class="likert" data-qid="s2">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+        <!-- Q3 言 -->
+        <li class="q-item" data-dim="言" data-track="student">
+          <span class="q-item__dim" aria-hidden="true">言</span>
+          <p class="q-item__text">當我「不爽」時，我能用比「不爽」更精準的詞描述那是什麼——例如惆悵、懸宕、慍然。</p>
+          <div class="likert" data-qid="s3">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+        <!-- Q4 己 -->
+        <li class="q-item" data-dim="己" data-track="student">
+          <span class="q-item__dim" aria-hidden="true">己</span>
+          <p class="q-item__text">情緒湧上來時，我能在腦中先說出「我現在很＿＿」，然後再決定怎麼回應。</p>
+          <div class="likert" data-qid="s4">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+        <!-- Q5 觀 -->
+        <li class="q-item" data-dim="觀" data-track="student">
+          <span class="q-item__dim" aria-hidden="true">觀</span>
+          <p class="q-item__text">面對一則選擇題，我會先看選項之間的邏輯關係，再去原文找根據。</p>
+          <div class="likert" data-qid="s5">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+        <!-- Q6 感 -->
+        <li class="q-item" data-dim="感" data-track="student">
+          <span class="q-item__dim" aria-hidden="true">感</span>
+          <p class="q-item__text">聽朋友講話時，我能聽出他「字面在說 A、心裡其實是 B」。</p>
+          <div class="likert" data-qid="s6">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+      </ul>
+
+      <!-- 進度條 + 提交 -->
+      <div class="track-submit">
+        <div>
+          <div class="q-progress">
+            <span id="s-progress-text">已回答 0 / 6 題</span>
+            <div class="q-progress__bar">
+              <div class="q-progress__fill" id="s-progress-fill"></div>
+            </div>
+          </div>
+          <p class="diag-warn" id="s-warn">請先回答所有 6 題，再看結果。</p>
+        </div>
+        <button class="btn btn--teal" id="submit-student">看看我現在在哪</button>
+      </div>
+    </div>
+
+    <!-- ====== 家長軌面板 ====== -->
+    <div
+      class="track-panel track-panel--parent"
+      id="panel-parent"
+      role="tabpanel"
+      aria-labelledby="tab-parent">
+
+      <div class="track-header track-header--parent">
+        <p class="track-header__eyebrow">家長軌 · 理解孩子</p>
+        <h3 class="track-header__title">他沒說的，您可能已經懂了一半</h3>
+        <p class="track-header__note">6 題 · 約 3 分鐘 · 不會儲存您的答案，也不會用來推銷。</p>
+      </div>
+
+      <ul class="q-list" id="qlist-parent">
+        <!-- Q1 觀 -->
+        <li class="q-item" data-dim="觀" data-track="parent">
+          <span class="q-item__dim" aria-hidden="true">觀</span>
+          <p class="q-item__text">我能描述孩子最近一週「最常出現的情緒」是什麼，並指出觸發的場景。</p>
+          <div class="likert" data-qid="p1">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+        <!-- Q2 感 -->
+        <li class="q-item" data-dim="感" data-track="parent">
+          <span class="q-item__dim" aria-hidden="true">感</span>
+          <p class="q-item__text">當孩子說「沒事」時，我能感覺到那其實意味著什麼，而不是逼他多說。</p>
+          <div class="likert" data-qid="p2">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+        <!-- Q3 言 -->
+        <li class="q-item" data-dim="言" data-track="parent">
+          <span class="q-item__dim" aria-hidden="true">言</span>
+          <p class="q-item__text">在親子衝突當下，我能先停三秒，再開口——而不是直接反應。</p>
+          <div class="likert" data-qid="p3">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+        <!-- Q4 己 -->
+        <li class="q-item" data-dim="己" data-track="parent">
+          <span class="q-item__dim" aria-hidden="true">己</span>
+          <p class="q-item__text">我能分清楚「我為他焦慮」與「他真正需要我做什麼」是兩件事。</p>
+          <div class="likert" data-qid="p4">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+        <!-- Q5 觀 -->
+        <li class="q-item" data-dim="觀" data-track="parent">
+          <span class="q-item__dim" aria-hidden="true">觀</span>
+          <p class="q-item__text">我知道孩子最近一篇作文的題目，並能說出他在裡面寫了什麼。</p>
+          <div class="likert" data-qid="p5">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+        <!-- Q6 感 -->
+        <li class="q-item" data-dim="感" data-track="parent">
+          <span class="q-item__dim" aria-hidden="true">感</span>
+          <p class="q-item__text">當孩子的成績不如預期時，我能先問他怎麼想，再決定要不要說什麼。</p>
+          <div class="likert" data-qid="p6">
+            <button class="l4">很像我</button>
+            <button class="l3">有點像</button>
+            <button class="l2">不太像</button>
+            <button class="l1">完全不像</button>
+          </div>
+        </li>
+      </ul>
+
+      <!-- 進度條 + 提交 -->
+      <div class="track-submit">
+        <div>
+          <div class="q-progress">
+            <span id="p-progress-text">已回答 0 / 6 題</span>
+            <div class="q-progress__bar">
+              <div class="q-progress__fill" id="p-progress-fill" style="background:var(--terracotta);"></div>
+            </div>
+          </div>
+          <p class="diag-warn" id="p-warn">請先回答所有 6 題，再看結果。</p>
+        </div>
+        <button class="btn btn--terracotta" id="submit-parent">看看我現在在哪</button>
+      </div>
+    </div>
+
+    <!-- ====== 結果區塊 ====== -->
+    <div class="diag-result-wrap" id="diag-result" aria-live="polite">
+      <hr class="gold-hr">
+      <div class="diag-result-head" style="margin-top:48px;">
+        <p class="diag-result-head__eyebrow" id="result-track-label">學生軌 · 自我覺察</p>
+        <h2 class="diag-result-head__title">這是你目前的形狀。</h2>
+        <p class="diag-result-head__sub">不是分數、不是等級——只是一份「你現在站在哪裡」的小地圖。</p>
+      </div>
+
+      <div class="diag-result-grid">
+        <!-- 雷達 SVG -->
+        <div>
+          <svg class="diag-radar-svg" viewBox="0 0 400 400" aria-label="自我診斷四維結果雷達圖" id="diag-radar">
+            <defs>
+              <radialGradient id="radarPaperBg" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#fdfaf5"/>
+                <stop offset="100%" stop-color="#f5e6d3" stop-opacity="0.4"/>
+              </radialGradient>
+            </defs>
+            <!-- 底色 -->
+            <circle cx="200" cy="200" r="130" fill="url(#radarPaperBg)"/>
+            <!-- 背景四層多邊形（刻度網格） -->
+            <polygon class="diag-radar__grid-poly" points="200,80 320,200 200,320 80,200"/>
+            <polygon class="diag-radar__grid-poly" points="200,110 290,200 200,290 110,200"/>
+            <polygon class="diag-radar__grid-poly" points="200,140 260,200 200,260 140,200"/>
+            <polygon class="diag-radar__grid-poly" points="200,170 230,200 200,230 170,200"/>
+            <!-- 四軸線 -->
+            <line class="diag-radar__axis-line" x1="200" y1="200" x2="200" y2="80"/>
+            <line class="diag-radar__axis-line" x1="200" y1="200" x2="320" y2="200"/>
+            <line class="diag-radar__axis-line" x1="200" y1="200" x2="200" y2="320"/>
+            <line class="diag-radar__axis-line" x1="200" y1="200" x2="80" y2="200"/>
+            <!-- 結果多邊形（JS 更新） -->
+            <polygon id="radar-shape" class="diag-radar__shape" points="200,170 230,200 200,230 170,200"/>
+            <!-- 四個頂點（JS 更新） -->
+            <circle id="dot-觀" class="diag-radar__dot" cx="200" cy="170" r="5.5"/>
+            <circle id="dot-感" class="diag-radar__dot" cx="230" cy="200" r="5.5"/>
+            <circle id="dot-言" class="diag-radar__dot" cx="200" cy="230" r="5.5"/>
+            <circle id="dot-己" class="diag-radar__dot" cx="170" cy="200" r="5.5"/>
+            <!-- 軸標籤 -->
+            <text class="diag-radar__label" x="200" y="60" text-anchor="middle">觀</text>
+            <text class="diag-radar__label-en" x="200" y="47" text-anchor="middle">OBSERVATION</text>
+            <text class="diag-radar__label" x="348" y="206" text-anchor="middle">感</text>
+            <text class="diag-radar__label-en" x="348" y="220" text-anchor="middle">EMPATHY</text>
+            <text class="diag-radar__label" x="200" y="352" text-anchor="middle">言</text>
+            <text class="diag-radar__label-en" x="200" y="366" text-anchor="middle">EXPRESSION</text>
+            <text class="diag-radar__label" x="52" y="206" text-anchor="middle">己</text>
+            <text class="diag-radar__label-en" x="52" y="220" text-anchor="middle">SELF-AWARE</text>
+          </svg>
+        </div>
+
+        <!-- 三張回饋卡 -->
+        <div class="diag-feedback">
+          <div class="diag-fb-card diag-fb-card--strong" id="fb-strong">
+            <p class="diag-fb-card__label">你做得不錯的部分</p>
+            <p class="diag-fb-card__axis" id="fb-strong-axis">觀 · 觀察力</p>
+            <p class="diag-fb-card__text" id="fb-strong-text"></p>
+          </div>
+          <div class="diag-fb-card diag-fb-card--weak">
+            <p class="diag-fb-card__label">值得多看一眼的部分</p>
+            <p class="diag-fb-card__axis" id="fb-weak-axis">言 · 表達力</p>
+            <p class="diag-fb-card__text" id="fb-weak-text"></p>
+          </div>
+          <div class="diag-fb-card diag-fb-card--next">
+            <p class="diag-fb-card__label">給你的下一步</p>
+            <p class="diag-fb-card__axis" id="fb-next-axis">基於你的形狀</p>
+            <p class="diag-fb-card__text" id="fb-next-text"></p>
+            <button class="diag-fb-card__cta" id="fb-next-btn">前往閱破劍法 →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部操作 -->
+      <div class="diag-result-footer">
+        <button class="btn btn--ghost" id="btn-restart">重新診斷</button>
+        <a class="btn btn--ghost" href="methodology.html">去看閱破劍法</a>
+      </div>
+      <p class="diag-result-notice">這份結果只存在你的瀏覽器裡，重整或關閉視窗就會消失。我們沒有收集任何資料。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 反承諾宣言 ================= -->
+<section class="section section--alt" id="pledge">
+  <div class="container container--narrow">
+    <div class="section__head section__head--center">
+      <p class="section__eyebrow">關於這份診斷，我們的立場</p>
+      <h2 class="section__title">
+        我們不用「你不足」的話術，<br>
+        <span style="color:var(--teal);">推銷我們可以「補足你」的課程。</span>
+      </h2>
+      <p class="section__sub">診斷的目的是讓你看見自己，不是讓你感到不安。</p>
+    </div>
+    <div class="pledge-grid">
+      <div class="pledge-card reveal">
+        <div class="pledge-card__rule"></div>
+        <p class="pledge-card__label">我們 · 不收集 email</p>
+        <p class="pledge-card__desc">答案不換成資料庫名單，不用來做任何行銷。</p>
+      </div>
+      <div class="pledge-card reveal">
+        <div class="pledge-card__rule" style="background:var(--teal);"></div>
+        <p class="pledge-card__label">我們 · 不打分數</p>
+        <p class="pledge-card__desc">沒有高下、沒有標籤，只有「現在的形狀」。</p>
+      </div>
+      <div class="pledge-card reveal">
+        <div class="pledge-card__rule" style="background:var(--terracotta);"></div>
+        <p class="pledge-card__label">我們 · 不推銷課程</p>
+        <p class="pledge-card__desc">不用結果製造焦慮，再把焦慮換成報名。</p>
+      </div>
+      <div class="pledge-card reveal">
+        <div class="pledge-card__rule" style="background:var(--navy-light);"></div>
+        <p class="pledge-card__label">我們 · 只給下一步</p>
+        <p class="pledge-card__desc">一個方向，讓你自己決定要不要走。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 結尾 CTA ================= -->
+<section class="closing ink-wash">
+  <div class="container">
+    <h2 class="closing__title">看完診斷後，<br>下一步由你決定。</h2>
+    <p class="closing__lead">
+      我們建議的順序：閱破劍法（看我們怎麼教）→ 心靈專欄（看我們陪伴的姿態）。<br>
+      當然，您也可以什麼都不點，先把這份診斷收好。
+    </p>
+    <div class="closing__actions">
+      <a class="btn btn--solid" href="methodology.html">去看閱破劍法</a>
+      <a class="btn btn--ghost" data-line href="#">加 LINE 聊聊</a>
+    </div>
+    <p class="closing__note">不催促，不推銷。我們先聽。</p>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+<script>
+/* ============================================================
+   diagnosis.html — 頁面專屬 JS（純 vanilla，不依賴框架）
+   ============================================================
+
+   結構：
+   1. 路徑切換（tab）
+   2. 收集分數（監聽 'sumi:select'，更新進度條）
+   3. 提交 + 防呆
+   4. 計算四維度平均分數（觀/感/言/己 各 0–4，依答題題目的 data-dim 累加）
+   5. 更新雷達 SVG（計算四頂點座標）
+   6. 生成強項/弱項/下一步回饋文字
+   7. 重新診斷（reset）
+   ============================================================ */
+
+(function () {
+  'use strict';
+
+  /* —— 雷達座標常數 —— */
+  const CX = 200, CY = 200;  // 中心
+  const R_MAX = 120;          // 全滿（分數 4）時的半徑
+
+  /*
+    四維度對應的方向（0°=上=觀 / 90°=右=感 / 180°=下=言 / 270°=左=己）
+    用 unit vector * 半徑計算頂點
+  */
+  const DIM_DIRS = {
+    '觀': { dx:  0, dy: -1 },
+    '感': { dx:  1, dy:  0 },
+    '言': { dx:  0, dy:  1 },
+    '己': { dx: -1, dy:  0 },
+  };
+
+  /* —— 回饋文本庫 —— */
+  const FEEDBACK = {
+    student: {
+      '觀': {
+        strong: '你已經養成了「先看骨架」的習慣。這個能力在閱讀長篇文章、議論文時會特別有用——把結構看清楚，細節才不會讓你迷路。',
+        weak:   '閱讀時有時會急著找答案，而跳過了文章的整體邏輯。練習的方式很簡單：每次讀完一段，先問自己「這段在做什麼」。',
+      },
+      '感': {
+        strong: '你對文字中的情感線索很敏銳。作者沒說出口的，你往往能感覺到。這種能力在寫作、在閱讀古文時都是很大的優勢。',
+        weak:   '對文字中隱含的情緒，你目前比較習慣看字面意思。可以試著在讀完一段後，問自己：「作者說這句話的時候，心裡在想什麼？」',
+      },
+      '言': {
+        strong: '你能用精準的詞描述自己的狀態，而不只是「煩」「不知道」。這種語言能力直接反映在寫作表達的層次上——你的作文往往比較有厚度。',
+        weak:   '你的感受是真實的，但要把它說清楚，還需要多一些練習。試著每天花一分鐘，把當天最強烈的一個情緒，找出三個不同的詞來描述它。',
+      },
+      '己': {
+        strong: '你有在情緒中暫停、觀察自己的能力。這不是每個人都做得到的。這種自覺力讓你在壓力下比別人更能做出清醒的選擇。',
+        weak:   '情緒湧上來時，你比較習慣直接行動而不是先觀察。練習的起點很低：只要在情緒最強的那一刻，先在心裡默念「我現在很___」，就夠了。',
+      },
+    },
+    parent: {
+      '觀': {
+        strong: '你對孩子的日常狀態有細膩的觀察。這份觀察力是親子溝通最重要的基礎——你能看見的，就是你能接住的。',
+        weak:   '有時候孩子的情緒或狀況你是後知後覺的。這不是不關心，而是觀察的頻率或方向還可以調整。試著每天花兩分鐘，只是「看看他現在的樣子」。',
+      },
+      '感': {
+        strong: '你能感覺到孩子「說出口」和「心裡想的」之間的落差。這種敏銳度，讓孩子在你身邊比較安全——他知道你不只聽表面。',
+        weak:   '孩子說話時，你有時會比較快跳到解決問題或糾正錯誤。試著先讓他說完，再說你的想法——不是不說，是晚三秒說。',
+      },
+      '言': {
+        strong: '在親子衝突時，你有能力暫停、選擇開口的方式。這個能力很不容易，大多數大人都是直接反應的。你的孩子是幸運的。',
+        weak:   '衝突當下很難暫停，這是人的本能。練習的方法是：在平靜的時候，想好「我下次要說的第一句話是什麼」——讓那句話成為你的反射動作。',
+      },
+      '己': {
+        strong: '你能分辨「我的焦慮」和「孩子真正的需要」是兩件事。這份清醒讓你的陪伴更有品質——你幫的是他需要的，不是你自己想卸下的焦慮。',
+        weak:   '有時候我們給孩子的，其實是在安撫自己。這不是批評——這是所有父母都會經歷的。下一次你想介入時，先問自己：「這是他需要的，還是我需要的？」',
+      },
+    },
+  };
+
+  const NEXT_STEPS = {
+    student: {
+      high:  { axis: '你的形狀已經很完整', text: '已經有相當的閱讀基礎。下一步可以深入「閱破劍法」，看看如何把這些能力系統化運用在不同題型上。', btn: '去看閱破劍法' },
+      mid:   { axis: '有幾個維度值得深化', text: '整體方向是對的，有些地方再加一點練習就能穩下來。建議先看「閱破劍法」，了解結構化閱讀的方法。', btn: '去看閱破劍法' },
+      low:   { axis: '從一個地方先開始', text: '不用同時處理所有事。找出你最有感覺的那個維度，從那裡先走一步。我們的「閱破劍法」會幫你找到入口。', btn: '去看閱破劍法' },
+    },
+    parent: {
+      high:  { axis: '你的觀察與同理已經很扎實', text: '和孩子之間已經有不錯的連結。或許現在最有幫助的，是讓他看見自己的形狀——邀請他也做一次學生軌的診斷。', btn: '邀孩子也試試' },
+      mid:   { axis: '某些時刻可以更從容', text: '大方向是對的，有些當下可以給自己多一點空間。建議先看「心靈專欄」，裡面有幾篇專門寫給家長的文章。', btn: '去看心靈專欄' },
+      low:   { axis: '從看見自己的焦慮開始', text: '先照顧好自己，才能更好地陪伴孩子。我們的「心靈專欄」裡有幾篇專門寫給家長的文章，從那裡開始。', btn: '去看心靈專欄' },
+    },
+  };
+
+  /* —— 狀態 —— */
+  let activeTrack = 'student';
+
+  // scores[track][qid] = 1~4（l1=1, l2=2, l3=3, l4=4）
+  const scores = { student: {}, parent: {} };
+
+  // 每道題的維度對應
+  const Q_DIMS = {
+    student: { s1: '觀', s2: '感', s3: '言', s4: '己', s5: '觀', s6: '感' },
+    parent:  { p1: '觀', p2: '感', p3: '言', p4: '己', p5: '觀', p6: '感' },
+  };
+
+  /* ——————————————————————————
+     1. 路徑切換
+  —————————————————————————— */
+  const tabs = {
+    student: document.getElementById('tab-student'),
+    parent:  document.getElementById('tab-parent'),
+  };
+  const panels = {
+    student: document.getElementById('panel-student'),
+    parent:  document.getElementById('panel-parent'),
+  };
+
+  function switchTrack(track) {
+    activeTrack = track;
+    Object.keys(tabs).forEach(k => {
+      const isActive = k === track;
+      tabs[k].classList.toggle('is-active', isActive);
+      tabs[k].setAttribute('aria-selected', String(isActive));
+      panels[k].classList.toggle('is-active', isActive);
+    });
+    hideResult();
+  }
+
+  tabs.student.addEventListener('click', () => switchTrack('student'));
+  tabs.parent.addEventListener('click',  () => switchTrack('parent'));
+
+  /* ——————————————————————————
+     2. 收集分數（監聽共用 JS dispatch 的 'sumi:select' 事件）
+        共用 sumi-site.js 已綁定同容器單選、標記 is-active，
+        並 dispatch CustomEvent('sumi:select', { detail: { container, button } })
+  —————————————————————————— */
+  const SCORE_MAP = { l4: 4, l3: 3, l2: 2, l1: 1 };
+
+  document.addEventListener('sumi:select', function (e) {
+    const { container, button } = e.detail || {};
+    if (!container || !button) return;              // 僅處理 likert 來源
+    const qid = container.dataset.qid;
+    if (!qid) return;
+
+    // 判斷屬於哪個軌道
+    const track = qid.startsWith('s') ? 'student' : 'parent';
+
+    // 取分數
+    const cls = Array.from(button.classList).find(c => SCORE_MAP[c] !== undefined);
+    if (cls) {
+      scores[track][qid] = SCORE_MAP[cls];
+    }
+
+    updateProgress(track);
+  });
+
+  function updateProgress(track) {
+    const total = 6;
+    const answered = Object.keys(scores[track]).length;
+    const pct = (answered / total) * 100;
+
+    if (track === 'student') {
+      document.getElementById('s-progress-text').textContent = `已回答 ${answered} / ${total} 題`;
+      document.getElementById('s-progress-fill').style.width = pct + '%';
+      if (answered > 0) document.getElementById('s-warn').classList.remove('is-visible');
+    } else {
+      document.getElementById('p-progress-text').textContent = `已回答 ${answered} / ${total} 題`;
+      document.getElementById('p-progress-fill').style.width = pct + '%';
+      if (answered > 0) document.getElementById('p-warn').classList.remove('is-visible');
+    }
+  }
+
+  /* ——————————————————————————
+     3. 提交 + 防呆
+  —————————————————————————— */
+  document.getElementById('submit-student').addEventListener('click', () => handleSubmit('student'));
+  document.getElementById('submit-parent').addEventListener('click',  () => handleSubmit('parent'));
+
+  function handleSubmit(track) {
+    const qs = Object.keys(Q_DIMS[track]);
+    const unanswered = qs.filter(qid => scores[track][qid] === undefined);
+
+    if (unanswered.length > 0) {
+      const warnEl = document.getElementById(track === 'student' ? 's-warn' : 'p-warn');
+      warnEl.classList.add('is-visible');
+      // 滾到第一道未回答的題目
+      const firstUnansweredLikert = document.querySelector(
+        `[data-qid="${unanswered[0]}"]`
+      );
+      if (firstUnansweredLikert) {
+        firstUnansweredLikert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    renderResult(track);
+  }
+
+  /* ——————————————————————————
+     4. 計算四維度分數
+  —————————————————————————— */
+  function calcDimScores(track) {
+    /*
+      對於學生軌：
+        觀 = (s1 + s5) / 2
+        感 = (s2 + s6) / 2
+        言 = s3 / 1
+        己 = s4 / 1
+      對於家長軌：
+        觀 = (p1 + p5) / 2
+        感 = (p2 + p6) / 2
+        言 = p3 / 1
+        己 = p4 / 1
+
+      分數域 1~4，轉換到雷達半徑 0~R_MAX
+    */
+    const s = scores[track];
+    const dims = {};
+
+    if (track === 'student') {
+      dims['觀'] = (s.s1 + s.s5) / 2;
+      dims['感'] = (s.s2 + s.s6) / 2;
+      dims['言'] = s.s3;
+      dims['己'] = s.s4;
+    } else {
+      dims['觀'] = (s.p1 + s.p5) / 2;
+      dims['感'] = (s.p2 + s.p6) / 2;
+      dims['言'] = s.p3;
+      dims['己'] = s.p4;
+    }
+
+    return dims;  // 各值 1~4
+  }
+
+  /* ——————————————————————————
+     5. 更新雷達 SVG
+  —————————————————————————— */
+  function scoreToRadius(score) {
+    // 將 1~4 映射到 R_MAX/4 ~ R_MAX
+    return (score / 4) * R_MAX;
+  }
+
+  function updateRadar(dimScores, track) {
+    const shape = document.getElementById('radar-shape');
+    const isParent = track === 'parent';
+
+    // 切換配色
+    shape.classList.toggle('diag-radar__shape--parent', isParent);
+    ['觀', '感', '言', '己'].forEach(dim => {
+      document.getElementById('dot-' + dim).classList.toggle('diag-radar__dot--parent', isParent);
+    });
+
+    // 計算四頂點
+    const points = [];
+    ['觀', '感', '言', '己'].forEach(dim => {
+      const r = scoreToRadius(dimScores[dim]);
+      const dir = DIM_DIRS[dim];
+      const px = CX + dir.dx * r;
+      const py = CY + dir.dy * r;
+      points.push(`${px.toFixed(1)},${py.toFixed(1)}`);
+      // 更新頂點圓
+      const dot = document.getElementById('dot-' + dim);
+      dot.setAttribute('cx', px.toFixed(1));
+      dot.setAttribute('cy', py.toFixed(1));
+    });
+
+    shape.setAttribute('points', points.join(' '));
+  }
+
+  /* ——————————————————————————
+     6. 生成回饋文字
+  —————————————————————————— */
+  function renderFeedback(dimScores, track) {
+    const dims = ['觀', '感', '言', '己'];
+    const dimNames = { '觀': '觀察力', '感': '同理力', '言': '表達力', '己': '自覺力' };
+
+    // 找強項（最高分）和弱項（最低分）
+    let strongDim = dims[0], weakDim = dims[0];
+    dims.forEach(d => {
+      if (dimScores[d] > dimScores[strongDim]) strongDim = d;
+      if (dimScores[d] < dimScores[weakDim])  weakDim = d;
+    });
+
+    const fbLib = FEEDBACK[track];
+
+    // 強項卡
+    const fbStrong = document.getElementById('fb-strong');
+    fbStrong.classList.toggle('is-parent', track === 'parent');
+    document.getElementById('fb-strong-axis').textContent = `${strongDim} · ${dimNames[strongDim]}`;
+    document.getElementById('fb-strong-text').textContent = fbLib[strongDim].strong;
+
+    // 弱項卡
+    document.getElementById('fb-weak-axis').textContent = `${weakDim} · ${dimNames[weakDim]}`;
+    document.getElementById('fb-weak-text').textContent = fbLib[weakDim].weak;
+
+    // 下一步卡（依整體平均決定）
+    const avg = dims.reduce((a, d) => a + dimScores[d], 0) / 4;
+    const level = avg >= 3 ? 'high' : avg >= 2 ? 'mid' : 'low';
+    const nextData = NEXT_STEPS[track][level];
+
+    document.getElementById('fb-next-axis').textContent = nextData.axis;
+    document.getElementById('fb-next-text').textContent = nextData.text;
+
+    const nextBtn = document.getElementById('fb-next-btn');
+    nextBtn.textContent = nextData.btn + ' →';
+    if (track === 'parent' && level !== 'high') {
+      nextBtn.onclick = () => { window.location.href = 'index.html#line'; };
+    } else {
+      nextBtn.onclick = () => { window.location.href = 'methodology.html'; };
+    }
+  }
+
+  /* ——————————————————————————
+     主渲染函式
+  —————————————————————————— */
+  function renderResult(track) {
+    const dimScores = calcDimScores(track);
+
+    // 標題軌道說明
+    document.getElementById('result-track-label').textContent =
+      track === 'student' ? '學生軌 · 自我覺察' : '家長軌 · 理解孩子';
+
+    // 更新雷達
+    updateRadar(dimScores, track);
+
+    // 更新回饋
+    renderFeedback(dimScores, track);
+
+    // 顯示結果區
+    const resultWrap = document.getElementById('diag-result');
+    resultWrap.classList.add('is-visible');
+
+    // 平滑捲到結果
+    resultWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function hideResult() {
+    document.getElementById('diag-result').classList.remove('is-visible');
+  }
+
+  /* ——————————————————————————
+     7. 重新診斷
+  —————————————————————————— */
+  document.getElementById('btn-restart').addEventListener('click', function () {
+    // 清空分數
+    scores.student = {};
+    scores.parent  = {};
+
+    // 移除所有 is-active（取消選取的按鈕）
+    document.querySelectorAll('.likert button.is-active').forEach(btn => {
+      btn.classList.remove('is-active');
+    });
+
+    // 進度條重置
+    ['s', 'p'].forEach(prefix => {
+      document.getElementById(prefix + '-progress-text').textContent = '已回答 0 / 6 題';
+      document.getElementById(prefix + '-progress-fill').style.width = '0%';
+      document.getElementById(prefix + '-warn').classList.remove('is-visible');
+    });
+
+    hideResult();
+
+    // 回到題目區
+    document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+})();
+</script>
+</body>
+</html>

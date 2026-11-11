@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Dialogue Prompt</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:13px}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#b86a4a;font-weight:600;margin-bottom:12px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .dp{background:#fdfaf5;border:1px dashed #b86a4a;border-radius:12px;padding:1.25rem 1.5rem;position:relative}
+  .dp::before{content:"「";position:absolute;top:-.5rem;left:.75rem;font-size:2.5rem;color:#b86a4a;font-family:serif;line-height:1}
+  .eb{font-size:11px;letter-spacing:.15em;font-weight:600;color:#b86a4a}
+  .topic{font-size:14px;font-weight:700;margin-top:4px}
+  .body{font-size:13px;line-height:1.75;margin-top:10px}
+  .tip{margin-top:14px;font-size:12px;background:rgba(244,228,212,.6);border-radius:8px;padding:8px 12px;color:#2c5282}
+  .tip b{color:#b86a4a;font-weight:600}
+</style>
+</head>
+<body>
+  <div class="lbl">親子討論題 · DialoguePrompt</div>
+  <div class="grid">
+    <div class="dp">
+      <div class="eb">本週親子討論題</div>
+      <h4 class="topic">朱自清《背影》—— 看見父母不曾被看見的付出</h4>
+      <p class="body">三天內觀察並寫下一個父母為你付出、但你過去未曾留意的微小細節。父母也請在此欄回饋當時為你做這件事的想法。</p>
+      <div class="tip"><b>引導提示：</b>不評論、不糾正，只交換各自的版本。</div>
+    </div>
+    <div class="dp">
+      <div class="eb">本週親子討論題</div>
+      <h4 class="topic">《論語》—— 子曰：「君子和而不同」</h4>
+      <p class="body">與家人試著討論一件你們意見不同的小事。不要說服對方，只練習說：「我懂你的版本，我的版本是這樣。」</p>
+    </div>
+  </div>
+</body>
+</html>

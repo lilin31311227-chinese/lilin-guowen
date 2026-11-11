@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>立霖國文 · 授課講義範本</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ Tokens ============ */
+  :root{
+    --navy:#1a365d; --navy-light:#2c5282; --navy-dark:#0f2744;
+    --gold:#d69e2e; --gold-dark:#b7791f; --gold-glow:#fbbf24;
+    --cream:#faf5ef; --cream-soft:#fdfaf5; --cream-dark:#f5e6d3;
+    --mentor-terracotta:#b86a4a; --mentor-amber:#c98a3d;
+    --mentor-clay:#e8d5c4; --mentor-sunrise:#f4e4d4;
+    --bridge-teal:#4a7c7e; --bridge-sage:#9cae8e; --bridge-mist:#e8eeec;
+    --emo-melancholy:#6b7a99; --emo-anxiety:#b89968; --emo-hope:#9ab87c;
+    --emo-anger:#a8624a; --emo-grief:#5d6878; --emo-calm:#8aa9b5;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#e8e4dc;font-family:'Noto Sans TC','PingFang TC',sans-serif;color:var(--navy);-webkit-font-smoothing:antialiased}
+
+  /* ============ Page chrome ============ */
+  .doc{max-width:920px;margin:24px auto;padding:0 16px;display:grid;gap:24px}
+  .page{
+    background:var(--cream);
+    width:794px;        /* A4 width at 96dpi */
+    min-height:1123px;  /* A4 height */
+    margin:0 auto;
+    padding:84px 78px 72px;
+    box-shadow:0 20px 60px rgba(15,39,68,.18);
+    position:relative;
+    overflow:hidden;
+  }
+  .page__num{
+    position:absolute;left:78px;bottom:36px;
+    font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.15em;
+    color:var(--navy-light);opacity:.6;
+  }
+  .page__footer{
+    position:absolute;right:78px;bottom:36px;left:78px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:11px;color:var(--navy-light);opacity:.7;
+  }
+  .page__footer .brand{display:flex;align-items:center;gap:8px}
+  .page__footer img{height:18px;opacity:.85}
+
+  /* ============ Hairlines & ornaments ============ */
+  .gold-hairline{
+    height:1px;border:0;
+    background:linear-gradient(90deg,transparent,rgba(214,158,46,.65),transparent);
+    margin:24px 0;
+  }
+  .gold-hairline--short{
+    width:84px;height:1.5px;border:0;
+    background:linear-gradient(90deg,var(--gold-dark),var(--gold-glow),var(--gold-dark));
+    margin:0 0 18px;
+  }
+  .corner-cloud{position:absolute;color:var(--gold);opacity:.18;pointer-events:none}
+  .corner-cloud--tl{top:28px;left:32px}
+  .corner-cloud--tr{top:28px;right:32px;transform:scaleX(-1)}
+  .corner-cloud--bl{bottom:36px;left:24px}
+  .corner-cloud--br{bottom:36px;right:24px;transform:scaleX(-1)}
+
+  /* ============ Type ============ */
+  .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dark)}
+  .eyebrow--teal{color:var(--bridge-teal)}
+  .eyebrow--terra{color:var(--mentor-terracotta)}
+  .display{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+  h1.display{font-size:54px;line-height:1.2}
+  h2.display{font-size:34px;line-height:1.25;margin-bottom:6px}
+  h3{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:8px}
+  .body{font-size:15px;line-height:1.8;color:var(--navy)}
+  .body--lg{font-size:16px;line-height:1.85}
+  .caption{font-size:12.5px;color:var(--navy-light);line-height:1.65}
+  .tag-meta{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.1em;color:var(--gold-dark);font-weight:600}
+
+  /* ============ COVER ============ */
+  .cover{
+    background:
+      radial-gradient(circle at 50% 70%, rgba(214,158,46,.10) 0%, transparent 60%),
+      linear-gradient(180deg, var(--cream) 0%, var(--cream-dark) 100%);
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .cover__head{display:flex;justify-content:space-between;align-items:flex-start}
+  .cover__series{display:flex;align-items:center;gap:14px}
+  .cover__series .vbar{width:2px;height:42px;background:var(--gold)}
+  .cover__series .l1{font-size:11px;letter-spacing:.25em;color:var(--gold-dark);font-weight:600}
+  .cover__series .l2{font-size:14px;color:var(--navy);font-weight:600;margin-top:4px}
+  .cover__issue{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--navy-light);opacity:.7;text-align:right;line-height:1.7}
+
+  .cover__center{text-align:center;padding:48px 0}
+  .cover__sealmark{margin:0 auto 28px;display:block;width:72px;height:72px}
+  .cover__title{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--navy);font-size:78px;letter-spacing:.08em;line-height:1;margin-bottom:18px}
+  .cover__title .accent{color:var(--mentor-terracotta)}
+  .cover__sub{font-size:18px;color:var(--navy-light);letter-spacing:.05em;margin-top:10px}
+  .cover__quote{margin-top:42px;font-family:'Noto Serif TC',serif;font-size:21px;color:var(--navy);line-height:1.8;font-weight:500}
+  .cover__quote cite{display:block;font-style:normal;font-size:13.5px;color:var(--mentor-terracotta);margin-top:14px;letter-spacing:.05em}
+
+  .cover__foot{display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid rgba(26,54,93,.12);padding-top:22px}
+  .cover__foot .logo{height:36px;width:auto}
+  .cover__foot .info{text-align:right;font-size:11.5px;color:var(--navy-light);line-height:1.8}
+  .cover__foot .info b{color:var(--navy);font-weight:600}
+
+  /* ============ Page anatomy ============ */
+  .page__head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px}
+  .page__head h2{margin-bottom:2px}
+  .page__head .step{font-family:ui-monospace,Menlo,monospace;font-size:36px;font-weight:700;color:var(--gold);opacity:.5;letter-spacing:-.02em;line-height:1}
+
+  /* ============ Annotated text (主文本) ============ */
+  .source-text{
+    background:var(--cream-soft);
+    border-radius:14px;
+    padding:30px 34px;
+    margin:18px 0 22px;
+    position:relative;
+  }
+  .source-text::before{
+    content:"";position:absolute;left:0;top:24px;bottom:24px;width:3px;
+    background:linear-gradient(180deg,var(--gold-glow),var(--gold-dark));
+    border-radius:9999px;
+  }
+  .source-text .ttl{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--navy);font-size:22px;margin-bottom:14px}
+  .source-text .body{font-family:'Noto Serif TC',serif;font-size:16.5px;line-height:2.05;color:var(--navy)}
+  .source-text .body em{font-style:normal;background:linear-gradient(180deg,transparent 60%,rgba(214,158,46,.32) 60%);padding:0 2px}
+
+  /* 三連斬 split */
+  .triple{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 26px}
+  .triple__step{background:#fff;border-radius:12px;padding:16px 18px;box-shadow:0 2px 8px rgba(26,54,93,.06);position:relative}
+  .triple__step .num{font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.1em;color:var(--gold-dark);font-weight:600}
+  .triple__step .name{font-size:18px;font-weight:700;color:var(--navy);margin-top:4px}
+  .triple__step .what{font-size:12.5px;color:var(--navy-light);line-height:1.7;margin-top:8px}
+  .triple__step + .triple__step::before{
+    content:"→";position:absolute;left:-12px;top:50%;transform:translateY(-50%);
+    color:var(--gold);font-size:14px;font-weight:700;
+  }
+
+  /* ============ Mentor Voice block ============ */
+  .mentor-voice{
+    background:linear-gradient(180deg, var(--mentor-sunrise) 0%, var(--mentor-clay) 100%);
+    border-left:3px solid var(--mentor-terracotta);
+    border-radius:0 14px 14px 0;
+    padding:24px 28px;
+    margin:24px 0;
+    position:relative;
+  }
+  .mentor-voice .lbl{font-size:11.5px;letter-spacing:.18em;font-weight:600;color:var(--mentor-terracotta);margin-bottom:10px}
+  .mentor-voice .body{font-size:15.5px;line-height:1.85;color:var(--navy)}
+  .mentor-voice .ref{margin-top:14px;padding-top:12px;border-top:1px solid rgba(184,106,74,.25);font-size:12.5px;color:var(--navy-light)}
+
+  /* ============ Emotion chips ============ */
+  .emo-section{padding:8px 0}
+  .emo-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px}
+  .chip{
+    display:inline-flex;align-items:center;gap:.45rem;
+    padding:.45rem .95rem;border-radius:9999px;
+    font-size:14px;font-weight:500;
+    background:var(--cream-soft);border:1px solid;
+  }
+  .chip::before{content:"";width:.5rem;height:.5rem;border-radius:9999px;background:currentColor}
+  .chip .lbl{font-weight:700}
+  .chip .cl{font-size:12px;opacity:.78}
+  .chip-mel  {color:var(--emo-melancholy);border-color:rgba(107,122,153,.4)}
+  .chip-anx  {color:var(--emo-anxiety);border-color:rgba(184,153,104,.4)}
+  .chip-hope {color:var(--emo-hope);border-color:rgba(154,184,124,.4)}
+  .chip-ang  {color:var(--emo-anger);border-color:rgba(168,98,74,.4)}
+  .chip-grf  {color:var(--emo-grief);border-color:rgba(93,104,120,.4)}
+  .chip-clm  {color:var(--emo-calm);border-color:rgba(138,169,181,.4)}
+
+  .emo-grid{display:grid;grid-template-columns:90px 1fr 1fr;gap:0;margin:14px 0 2px;border-radius:12px;overflow:hidden;border:1px solid rgba(26,54,93,.1);background:#fff}
+  .emo-grid > div{padding:11px 14px;border-top:1px solid rgba(26,54,93,.08)}
+  .emo-grid > .h{border-top:0;background:var(--mentor-sunrise);font-size:11.5px;letter-spacing:.1em;color:var(--mentor-terracotta);font-weight:600}
+  .emo-grid .common{color:var(--navy-light);text-decoration:line-through;opacity:.55;font-size:13.5px}
+  .emo-grid .precise{color:var(--navy);font-size:13.5px;font-weight:500}
+  .emo-grid .word{font-family:'Noto Serif TC',serif;font-weight:700;font-size:17px}
+
+  /* ============ Dialogue Prompt (back cover) ============ */
+  .back{
+    background:
+      radial-gradient(circle at 80% 110%, rgba(184,106,74,.10) 0%, transparent 50%),
+      linear-gradient(180deg, var(--cream) 0%, var(--mentor-sunrise) 100%);
+  }
+  .dialogue-prompt{
+    background:#fff;
+    border:1px dashed var(--mentor-terracotta);
+    border-radius:14px;
+    padding:32px 36px;
+    margin:20px 0;
+    position:relative;
+  }
+  .dialogue-prompt::before{
+    content:"「";position:absolute;top:-14px;left:18px;
+    font-size:64px;color:var(--mentor-terracotta);font-family:'Noto Serif TC',serif;line-height:1;
+  }
+  .dialogue-prompt .ttl{font-family:'Noto Serif TC',serif;font-weight:700;font-size:22px;color:var(--navy);margin:8px 0 14px}
+  .dialogue-prompt .q{font-size:15px;line-height:1.85;color:var(--navy)}
+  .dialogue-prompt .hint{
+    margin-top:18px;font-size:13px;background:var(--mentor-sunrise);
+    border-radius:10px;padding:12px 16px;color:var(--navy-light);line-height:1.7;
+  }
+  .dialogue-prompt .hint b{color:var(--mentor-terracotta);font-weight:600}
+
+  .write-area{
+    background:#fff;border-radius:14px;padding:22px 24px;
+    border:1px solid rgba(26,54,93,.08);
+    background-image:repeating-linear-gradient(transparent 0,transparent 31px,rgba(26,54,93,.08) 31px,rgba(26,54,93,.08) 32px);
+    min-height:180px;margin-top:18px;
+  }
+  .write-area .who{font-size:11.5px;color:var(--mentor-terracotta);font-weight:600;letter-spacing:.1em;margin-bottom:8px}
+
+  /* ============ Toolbar ============ */
+  .toolbar{
+    max-width:920px;margin:24px auto 0;padding:12px 18px;
+    background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(26,54,93,.08);
+    display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--navy-light);
+  }
+  .toolbar button{
+    background:linear-gradient(90deg,#fbbf24,#f59e0b);color:#0A1A35;
+    border:0;padding:.55rem 1.1rem;border-radius:8px;
+    font-weight:600;font-size:13px;cursor:pointer;font-family:inherit;
+  }
+
+  /* ============ Print ============ */
+  @media print{
+    @page{size:A4;margin:0}
+    html,body{background:#fff}
+    .toolbar{display:none}
+    .doc{margin:0;gap:0;padding:0;max-width:none}
+    .page{
+      box-shadow:none;margin:0;page-break-after:always;
+      width:210mm;min-height:297mm;height:297mm;padding:22mm 20mm 18mm;
+    }
+    .page:last-child{page-break-after:auto}
+  }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <span>[A4] 授課講義範本 · A4 直式 · 4 頁　|　按 ⌘P / Ctrl+P 列印或存成 PDF</span>
+    <button onclick="window.print()">列印 / 存成 PDF</button>
+  </div>
+
+  <div class="doc" data-screen-label="01 講義範本">
+
+    <!-- ============ Page 1: COVER ============ -->
+    <article class="page cover" data-screen-label="01 封面">
+      <svg class="corner-cloud corner-cloud--tl" width="140" height="60" viewBox="0 0 120 80" fill="none"><path d="M20 60C20 60 25 40 45 40C65 40 60 55 80 55C100 55 100 35 100 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 70C10 70 20 50 40 55C60 60 70 45 90 50" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".6"/></svg>
+      <svg class="corner-cloud corner-cloud--tr" width="140" height="60" viewBox="0 0 120 80" fill="none"><path d="M20 60C20 60 25 40 45 40C65 40 60 55 80 55C100 55 100 35 100 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M10 70C10 70 20 50 40 55C60 60 70 45 90 50" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".6"/></svg>
+
+      <header class="cover__head">
+        <div class="cover__series">
+          <div class="vbar"></div>
+          <div>
+            <div class="l1">SU SHI · 蘇軾系列</div>
+            <div class="l2">素養閱讀 · 第一冊 · 第四講</div>
+          </div>
+        </div>
+        <div class="cover__issue">
+          ISSUE 06<br>2026 · SPRING<br>授課對象：國三 / 高一
+        </div>
+      </header>
+
+      <section class="cover__center">
+        <!-- Seal mark (篆刻立) -->
+        <svg class="cover__sealmark" viewBox="0 0 72 72" fill="none">
+          <rect x="3" y="3" width="66" height="66" rx="10" fill="var(--navy)"/>
+          <rect x="3" y="3" width="66" height="66" rx="10" fill="none" stroke="var(--gold)" stroke-width="1" opacity=".7"/>
+          <text x="36" y="50" text-anchor="middle" font-family="'Noto Serif TC',serif" font-weight="700" font-size="40" fill="var(--gold-glow)">立</text>
+        </svg>
+
+        <h1 class="cover__title">定<span class="accent">風</span>波</h1>
+        <p class="cover__sub">蘇軾 · 北宋 · 1082</p>
+
+        <blockquote class="cover__quote">
+          莫聽穿林打葉聲，<br>何妨吟嘯且徐行。
+          <cite>—— 給每一個正在風雨裡的你</cite>
+        </blockquote>
+      </section>
+
+      <footer class="cover__foot">
+        <img src="assets/lilin-logo.png" alt="立霖國文" class="logo">
+        <div class="info">
+          <b>立霖國文 · 素養教學領航者</b><br>
+          授課教師：立霖老師 · 課堂日期：2026 / 03 / 15<br>
+          人生沒有 Google，但有經典可循。
+        </div>
+      </footer>
+    </article>
+
+    <!-- ============ Page 2: 主文本 + 閱破拆解 ============ -->
+    <article class="page" data-screen-label="02 主文本">
+      <svg class="corner-cloud corner-cloud--br" width="160" height="80" viewBox="0 0 120 80" fill="none"><path d="M20 60C20 60 25 40 45 40C65 40 60 55 80 55C100 55 100 35 100 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+
+      <header class="page__head">
+        <div>
+          <div class="eyebrow">PART ONE · 文本與拆解</div>
+          <h2 class="display">一首詞，三層拆。</h2>
+        </div>
+        <div class="step">01</div>
+      </header>
+
+      <hr class="gold-hairline--short">
+      <p class="body">這是一首寫於蘇軾被貶謫黃州第三年的詞作。那時他剛經歷烏臺詩案，從汴京到偏鄉，身分一夕崩塌。我們從這 62 個字，看一個人怎麼用語言重建自己。</p>
+
+      <!-- 主文本卡 -->
+      <div class="source-text">
+        <div class="ttl">定風波 · 蘇軾</div>
+        <p class="body">三月七日，沙湖道中遇雨。雨具先去，同行皆狼狽，余獨不覺。已而遂晴，故作此詞。</p>
+        <p class="body" style="margin-top:14px">
+          <em>莫聽</em>穿林打葉聲，何妨吟嘯且<em>徐行</em>。竹杖芒鞋輕勝馬，誰怕？一蓑煙雨任平生。<br>
+          料峭春風吹酒醒，微冷，山頭斜照卻相迎。回首向來蕭瑟處，<em>歸去</em>，也無風雨也無晴。
+        </p>
+      </div>
+
+      <!-- 三連斬 -->
+      <div class="eyebrow">閱破劍法 · 基本三連斬</div>
+      <h3 style="margin-top:6px">在閱讀題下手前，先做這三件事</h3>
+      <div class="triple">
+        <div class="triple__step">
+          <div class="num">STEP 01</div>
+          <div class="name">刪除</div>
+          <div class="what">序文交代背景，作答時可略過；專注詞牌本體。</div>
+        </div>
+        <div class="triple__step">
+          <div class="num">STEP 02</div>
+          <div class="name">歸納</div>
+          <div class="what">上闋寫「雨中的態度」；下闋寫「雨後的回望」。</div>
+        </div>
+        <div class="triple__step">
+          <div class="num">STEP 03</div>
+          <div class="name">關鍵句</div>
+          <div class="what">「也無風雨也無晴」—— 全詞題眼，七字結。</div>
+        </div>
+      </div>
+
+      <p class="caption">▍ 提示：「穿林打葉聲」是事實，「莫聽」是選擇。事實不變，但「聽不聽」掌握在自己手上——這是全詞的精神主軸。</p>
+
+      <span class="page__num">01 / 03</span>
+      <div class="page__footer" style="left:auto;right:78px"><span class="brand"><img src="assets/lilin-logo.png" alt=""> 立霖國文 · 定風波</span></div>
+    </article>
+
+    <!-- ============ Page 3: 導師旁白 + 述情詞彙 ============ -->
+    <article class="page" data-screen-label="03 旁白與情緒">
+      <svg class="corner-cloud corner-cloud--tl" width="140" height="60" viewBox="0 0 120 80" fill="none"><path d="M20 60C20 60 25 40 45 40C65 40 60 55 80 55C100 55 100 35 100 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+
+      <header class="page__head">
+        <div>
+          <div class="eyebrow eyebrow--terra">PART TWO · 連結到你</div>
+          <h2 class="display">蘇軾沒在寫雨。<br>他在寫——你。</h2>
+        </div>
+        <div class="step">02</div>
+      </header>
+
+      <hr class="gold-hairline--short">
+
+      <!-- Mentor Voice -->
+      <aside class="mentor-voice">
+        <div class="lbl">導師的旁白</div>
+        <p class="body">蘇軾被貶到黃州那年 45 歲，他兒子蘇邁 16 歲。那一年蘇邁也沒考好。蘇軾寫信給他，沒說「加油」，沒說「再努力」，只說了一句：<b>「人生如逆旅，我亦是行人。」</b></p>
+        <p class="body" style="margin-top:14px">他想告訴蘇邁的，跟他自己在「定風波」裡告訴自己的，是同一件事——<br>面對風雨，你可以「狼狽」，也可以「徐行」。事實一樣，姿態不同。<br>那麼，<b style="color:var(--mentor-terracotta)">你今天的風雨，你想用什麼姿態走過？</b></p>
+        <div class="ref">—— 連結文本：蘇軾《與蘇邁》家書 · 1080</div>
+      </aside>
+
+      <!-- Emotion vocabulary -->
+      <div class="emo-section">
+        <div class="eyebrow">述情詞彙擴充 · Emotion Lexicon</div>
+        <h3 style="margin-top:6px">當你想說「煩」的時候，可以說——</h3>
+        <p class="caption" style="margin-top:6px">古人的厲害不在用大詞，而在用「準」的詞。下面三組，是這首詞裡藏著的精準情緒。試著用它們，去描述上週你最難受的一個瞬間。</p>
+
+        <div class="emo-row">
+          <span class="chip chip-anx"><span class="lbl">焦</span><span class="cl">· 懸宕</span></span>
+          <span class="chip chip-mel"><span class="lbl">鬱</span><span class="cl">· 惆悵</span></span>
+          <span class="chip chip-hope"><span class="lbl">望</span><span class="cl">· 懷想</span></span>
+          <span class="chip chip-ang"><span class="lbl">慍</span><span class="cl">· 不平</span></span>
+          <span class="chip chip-clm"><span class="lbl">安</span><span class="cl">· 從容</span></span>
+        </div>
+
+        <div class="emo-grid">
+          <div class="h">情緒</div>
+          <div class="h">你以前會說</div>
+          <div class="h">這首詞教你說</div>
+
+          <div class="word" style="color:var(--emo-anxiety)">焦</div>
+          <div class="common">「煩死了，要被淹沒了」</div>
+          <div class="precise">「我此刻心裡 <b>懸宕</b>，像穿林打葉的雨還沒停」</div>
+
+          <div class="word" style="color:var(--emo-melancholy)">鬱</div>
+          <div class="common">「不知道，反正心情爛」</div>
+          <div class="precise">「我有點 <b>惆悵</b>——蕭瑟之中，無人相迎」</div>
+
+          <div class="word" style="color:var(--emo-hope)">望</div>
+          <div class="common">「希望趕快結束」</div>
+          <div class="precise">「我在 <b>懷想</b>，山頭斜照卻相迎的那一刻」</div>
+        </div>
+      </div>
+
+      <p class="caption" style="margin-top:18px">▍ 給家長的話：當孩子開始用「懸宕」代替「煩」、用「惆悵」代替「不知道」——飯桌上的對話，會慢慢變了。</p>
+
+      <span class="page__num">02 / 03</span>
+      <div class="page__footer" style="left:auto;right:78px"><span class="brand"><img src="assets/lilin-logo.png" alt=""> 立霖國文 · 定風波</span></div>
+    </article>
+
+    <!-- ============ Page 4: 親子討論題 + 簽名 ============ -->
+    <article class="page back" data-screen-label="04 親子討論題">
+      <svg class="corner-cloud corner-cloud--tr" width="160" height="80" viewBox="0 0 120 80" fill="none"><path d="M20 60C20 60 25 40 45 40C65 40 60 55 80 55C100 55 100 35 100 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+
+      <header class="page__head">
+        <div>
+          <div class="eyebrow eyebrow--terra">PART THREE · 帶回家</div>
+          <h2 class="display">這週的功課，<br>是<span style="color:var(--mentor-terracotta)">一起做的</span>。</h2>
+        </div>
+        <div class="step">03</div>
+      </header>
+
+      <hr class="gold-hairline--short">
+      <p class="body">每週講義的最後一頁，永遠留給家庭。不需要拍照上傳，不需要打勾交回——只需要在飯桌、在散步路上、在睡前那十分鐘，把它打開。</p>
+
+      <div class="dialogue-prompt">
+        <div class="eyebrow eyebrow--terra" style="padding-top:8px">本週親子討論題</div>
+        <h3 class="ttl">如果你也有「穿林打葉聲」，那是什麼？</h3>
+        <p class="q">
+          請在接下來的三天內，<b>各自</b>寫下：<br>
+          ① 這個星期，最讓你覺得「狼狽」的一件事；<br>
+          ② 你希望自己用什麼姿態走過它（不必勇敢，可以只是「徐行」）。<br><br>
+          然後找一個不必對視的時刻（例如散步、坐車），念給對方聽。<b>不評論，不糾正，只說：「我聽見了」。</b>
+        </p>
+        <div class="hint"><b>引導提示：</b>家長不需要追問細節，孩子也不需要解釋。語言之外，已經傳遞了最重要的東西——「我願意被你看見」。</div>
+      </div>
+
+      <div class="write-area">
+        <div class="who">學生：我的「穿林打葉聲」</div>
+      </div>
+      <div class="write-area" style="margin-top:14px">
+        <div class="who" style="color:var(--bridge-teal)">家長：我聽見的，是——</div>
+      </div>
+
+      <hr class="gold-hairline">
+
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;font-size:11.5px;color:var(--navy-light)">
+        <div>
+          下週進度：李白《將進酒》<br>
+          請預先朗讀全文 3 次，不必背。
+        </div>
+        <div style="text-align:right">
+          立霖老師簽　<span style="font-family:'Noto Serif TC',serif;color:var(--mentor-terracotta);font-size:18px;font-weight:700">立霖</span><br>
+          <span style="opacity:.7">2026 / 03 / 15</span>
+        </div>
+      </div>
+
+      <span class="page__num">03 / 03</span>
+      <div class="page__footer" style="left:auto;right:78px">
+        <span class="brand"><img src="assets/lilin-logo.png" alt=""> 立霖國文 · 親情橋樑互動講義</span>
+      </div>
+    </article>
+
+  </div>
+</body>
+</html>

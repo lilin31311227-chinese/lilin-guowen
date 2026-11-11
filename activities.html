@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>體驗活動｜立霖國文</title>
+<meta name="description" content="立霖國文體驗活動 — 不練習回答，練習傾聽。自然輕觸之旅、親子工作坊，在語言之外重建親子連結。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+  /* —— activities 頁專屬 —— */
+
+  /* 理念三柱：橫條目 */
+  .pillar-row {
+    display: flex;
+    align-items: baseline;
+    gap: 28px;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .pillar-row:first-child { border-top: 1px solid var(--hairline); }
+  .pillar-row__glyph {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold);
+    flex: none;
+    width: 44px;
+    text-align: center;
+    line-height: 1;
+  }
+  .pillar-row__label {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    color: var(--ink);
+    flex: none;
+    min-width: 96px;
+  }
+  .pillar-row__desc {
+    font-size: 15px;
+    line-height: 1.9;
+    color: rgba(26, 54, 93, .78);
+  }
+
+  /* 活動卡片加強版 */
+  .event-path-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    border: 1px solid var(--hairline);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: transform .28s, box-shadow .28s;
+  }
+  .event-path-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 44px rgba(15, 39, 68, .12);
+  }
+  .event-path-card--nature {
+    background: linear-gradient(160deg,
+      color-mix(in srgb, var(--teal) 10%, var(--paper-soft)),
+      var(--mist));
+    border-color: rgba(74, 124, 126, .3);
+  }
+  .event-path-card--workshop {
+    background: linear-gradient(160deg, var(--sunrise), var(--clay));
+    border-color: rgba(184, 106, 74, .28);
+  }
+
+  .event-path-card__head {
+    padding: 36px 36px 28px;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .event-path-card__kicker {
+    font-family: var(--serif);
+    font-size: 12px;
+    letter-spacing: .38em;
+    text-indent: .38em;
+    margin: 0 0 16px;
+  }
+  .event-path-card--nature .event-path-card__kicker { color: var(--teal); }
+  .event-path-card--workshop .event-path-card__kicker { color: var(--terracotta); }
+
+  .event-path-card__title {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    color: var(--ink);
+    margin: 0 0 8px;
+    line-height: 1.35;
+  }
+  .event-path-card__subtitle {
+    font-family: var(--serif);
+    font-size: 13.5px;
+    letter-spacing: .16em;
+    color: rgba(26, 54, 93, .62);
+    margin: 0;
+  }
+
+  .event-path-card__body {
+    padding: 24px 36px 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .event-path-card__desc {
+    font-size: 15px;
+    line-height: 2;
+    letter-spacing: .03em;
+    color: rgba(26, 54, 93, .82);
+    margin: 0;
+  }
+
+  /* 感官 chips 小列 */
+  .sense-chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* 古文引句 */
+  .event-path-card__quote {
+    font-family: var(--serif);
+    font-size: 14px;
+    line-height: 1.9;
+    letter-spacing: .04em;
+    color: rgba(26, 54, 93, .68);
+    padding-top: 16px;
+    border-top: 1px solid rgba(214, 158, 46, .35);
+    margin: 0;
+  }
+  .event-path-card__quote cite {
+    display: block;
+    font-style: normal;
+    font-size: 12px;
+    letter-spacing: .22em;
+    margin-top: 4px;
+  }
+  .event-path-card--nature .event-path-card__quote cite { color: var(--teal); }
+  .event-path-card--workshop .event-path-card__quote cite { color: var(--terracotta); }
+
+  .event-path-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--serif);
+    font-size: 14.5px;
+    letter-spacing: .1em;
+    margin-top: auto;
+    padding-top: 4px;
+    text-decoration: none;
+  }
+  .event-path-card--nature .event-path-card__cta { color: var(--teal); }
+  .event-path-card--workshop .event-path-card__cta { color: var(--terracotta); }
+  .event-path-card__cta::after {
+    content: "→";
+    transition: transform .2s;
+  }
+  .event-path-card:hover .event-path-card__cta::after { transform: translateX(4px); }
+
+  /* 色帶裝飾頂線 */
+  .event-path-card__top-rule {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .event-path-card--nature .event-path-card__top-rule { background: var(--teal); }
+  .event-path-card--workshop .event-path-card__top-rule { background: var(--terracotta); }
+
+  @media (max-width: 860px) {
+    .pillar-row { gap: 16px; }
+    .pillar-row__label { min-width: 72px; font-size: 17px; }
+    .event-path-card__head,
+    .event-path-card__body { padding-left: 24px; padding-right: 24px; }
+  }
+</style>
+</head>
+<body data-page="activities">
+
+<div id="site-header"></div>
+
+<!-- ================= PAGE HEAD ================= -->
+<header class="page-head ink-wash">
+  <div class="page-head__inner">
+    <p class="page-head__eyebrow">體驗活動 · LIVE EXPERIENCE</p>
+    <h1 class="page-head__title">
+      不練習回答，<br>練習<span class="accent-teal">傾聽</span>。
+    </h1>
+    <p class="page-head__lead">
+      永遠在「語言之外」設計溝通機制——肢體、五感、共創。<br>
+      每一場活動，都有一個文學錨點。
+    </p>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 理念說明 ================= -->
+<section class="section ink-wash" id="philosophy">
+  <div class="container container--narrow">
+    <div class="section__head">
+      <p class="section__eyebrow">設計理念</p>
+      <h2 class="section__title">為什麼要「不說話」的活動？</h2>
+      <p class="section__sub">
+        我們發現，很多親子之間最遠的距離，不是無話可說，而是太習慣「說正確的話」。
+        活動的作用，是暫時拆掉語言的防線，讓感覺先走一步。
+      </p>
+    </div>
+
+    <div class="pillar-row reveal">
+      <span class="pillar-row__glyph">感</span>
+      <span class="pillar-row__label">五感先行</span>
+      <span class="pillar-row__desc">視覺、聽覺、觸覺、嗅覺、味覺輪番開門。身體感知先鬆動，心理的牆才跟著鬆。</span>
+    </div>
+    <div class="pillar-row reveal">
+      <span class="pillar-row__glyph">文</span>
+      <span class="pillar-row__label">文學錨點</span>
+      <span class="pillar-row__desc">每場活動植入一首詩、一段散文，讓感受有名字，讓當天的記憶可以帶回家。</span>
+    </div>
+    <div class="pillar-row reveal">
+      <span class="pillar-row__glyph">共</span>
+      <span class="pillar-row__label">共創無評分</span>
+      <span class="pillar-row__desc">沒有成品優劣之分。親子各自從同一個素材裡看見不同的東西，就是這場活動的收穫。</span>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-hr">
+
+<!-- ================= 兩大活動入口卡片 ================= -->
+<section class="section section--alt" id="events">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <p class="section__eyebrow">兩條路徑</p>
+      <h2 class="section__title">選一場，帶孩子來。</h2>
+      <p class="section__sub">活動設計給不同的親子節奏；無論選哪一條，都以「輕鬆」為原則。</p>
+    </div>
+
+    <div class="grid grid--2">
+
+      <!-- 自然輕觸之旅 -->
+      <a class="event-path-card event-path-card--nature reveal" href="event-nature.html">
+        <span class="event-path-card__top-rule" aria-hidden="true"></span>
+        <div class="event-path-card__head">
+          <p class="event-path-card__kicker">戶外五感 · 親子同行</p>
+          <h2 class="event-path-card__title">自然 · 輕觸之旅</h2>
+          <p class="event-path-card__subtitle">親子五感體驗日</p>
+        </div>
+        <div class="event-path-card__body">
+          <div class="sense-chips" aria-label="感官通道">
+            <span class="chip" style="color:var(--teal)"><span class="dot-sm" style="background:var(--teal)"></span>視</span>
+            <span class="chip" style="color:var(--navy-light)"><span class="dot-sm" style="background:var(--navy-light)"></span>聽</span>
+            <span class="chip" style="color:var(--sage)"><span class="dot-sm" style="background:var(--sage)"></span>觸</span>
+          </div>
+          <p class="event-path-card__desc">
+            靜觀漫步、自然書寫、藝術共創、共食共備。<br>
+            讓親子在不必說話的時段裡，重新感覺到彼此。
+          </p>
+          <p class="event-path-card__quote">
+            「采菊東籬下，悠然見南山。」
+            <cite>—— 陶淵明《飲酒》</cite>
+          </p>
+          <span class="event-path-card__cta">了解活動詳情</span>
+        </div>
+      </a>
+
+      <!-- 親子工作坊 -->
+      <a class="event-path-card event-path-card--workshop reveal" href="event-workshop.html">
+        <span class="event-path-card__top-rule" aria-hidden="true"></span>
+        <div class="event-path-card__head">
+          <p class="event-path-card__kicker">室內共學 · 家長同場</p>
+          <h2 class="event-path-card__title">文人飯桌 · 親子工作坊</h2>
+          <p class="event-path-card__subtitle">共讀 · 共食 · 共創</p>
+        </div>
+        <div class="event-path-card__body">
+          <div class="sense-chips" aria-label="感官通道">
+            <span class="chip" style="color:var(--terracotta)"><span class="dot-sm" style="background:var(--terracotta)"></span>嗅</span>
+            <span class="chip" style="color:var(--gold-dark)"><span class="dot-sm" style="background:var(--gold-dark)"></span>味</span>
+            <span class="chip" style="color:var(--navy-light)"><span class="dot-sm" style="background:var(--navy-light)"></span>聽</span>
+          </div>
+          <p class="event-path-card__desc">
+            每月一文，選一篇可吃可讀的散文，由立霖老師導讀，<br>
+            親子共食共讀。讓餐桌成為最溫柔的課堂。
+          </p>
+          <p class="event-path-card__quote">
+            「飯後一笑，書中見君。」
+            <cite>—— 立霖</cite>
+          </p>
+          <span class="event-path-card__cta">了解活動詳情</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 設計初衷 引句 ================= -->
+<section class="section" id="anchor">
+  <div class="container container--narrow text-center">
+    <div class="pullquote" style="margin:0 auto;border-left-color:var(--teal);">
+      <p>不練習回答，練習傾聽。</p>
+      <cite>立霖國文 · 活動設計理念</cite>
+    </div>
+    <p class="section__sub" style="margin:36px auto 0;max-width:34em;">
+      每一場體驗活動，我們都問自己一個問題：<br>
+      活動結束後，孩子和家長回家路上，會說些什麼？
+    </p>
+  </div>
+</section>
+
+<!-- ================= CLOSING CTA ================= -->
+<section class="closing ink-wash" id="cta">
+  <div class="container">
+    <h2 class="closing__title">想知道下一場是什麼時候？</h2>
+    <p class="closing__lead">
+      活動場次不定期公告，人數以小班為主，讓每組親子都有空間慢慢感受。
+      加入 LINE 即可收到最新消息。
+    </p>
+    <div class="closing__actions">
+      <a class="btn btn--line" href="#">加 LINE 收活動通知</a>
+      <a class="btn btn--ghost" href="index.html">回到首頁</a>
+    </div>
+    <p class="closing__note">不催促，不推銷。有興趣，再來聊。</p>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+</body>
+</html>

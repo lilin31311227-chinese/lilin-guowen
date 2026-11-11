@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Brand Imagery</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;font-size:12px}
+  .grid{display:grid;grid-template-columns:280px 1fr;gap:0;min-height:280px}
+  .portrait{background:radial-gradient(circle at 50% 60%,#0d2341 0%,#0A1A35 60%,#071428 100%);display:flex;align-items:flex-end;justify-content:center;position:relative;overflow:hidden}
+  .portrait::after{content:"";position:absolute;bottom:5%;left:50%;transform:translateX(-50%);width:75%;height:75%;background:radial-gradient(circle,rgba(251,191,36,.25) 0%,rgba(245,158,11,.08) 50%,transparent 100%);filter:blur(30px);border-radius:9999px}
+  .portrait img{height:240px;object-fit:contain;object-position:bottom;position:relative;z-index:2;filter:drop-shadow(0 0 30px rgba(251,191,36,.3)) drop-shadow(0 10px 40px rgba(26,54,93,.4))}
+  .panel{padding:24px 26px;display:flex;flex-direction:column;gap:14px}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.55;font-weight:600}
+  h3{font-size:18px;font-weight:700}
+  .rules{display:grid;gap:8px}
+  .rule{display:flex;gap:8px;align-items:start;font-size:12.5px;line-height:1.65}
+  .rule .k{font-weight:600;color:#b7791f;min-width:80px}
+  .rule .v{color:#2c5282;flex:1}
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="portrait"><img src="../assets/teacher-portrait-fallback.png" alt="立霖老師形象照"></div>
+    <div class="panel">
+      <div class="lbl">人像處理 Portrait Treatment</div>
+      <h3>金色光暈 × 深藍夜空</h3>
+      <div class="rules">
+        <div class="rule"><span class="k">去背</span><span class="v">老師形象照永遠去背，配深藍 hero 底</span></div>
+        <div class="rule"><span class="k">金色光暈</span><span class="v">底部 radial gradient `rgba(251,191,36,.25)` + blur-3xl</span></div>
+        <div class="rule"><span class="k">drop-shadow</span><span class="v">`drop-shadow(0 0 30px rgba(251,191,36,.3))` + 黑色下投陰影</span></div>
+        <div class="rule"><span class="k">氣質</span><span class="v">暖色為主、光源從上、燭光感 — 避免冷藍、純白</span></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

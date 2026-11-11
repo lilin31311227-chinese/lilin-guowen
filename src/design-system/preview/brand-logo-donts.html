@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Logo Don't</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:20px 24px;font-size:11.5px}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.55;font-weight:600;margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .item{position:relative;background:#fff;border-radius:12px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;height:140px;box-shadow:0 2px 8px rgba(26,54,93,.06);overflow:hidden}
+  .item img{height:38px;width:auto}
+  .tag{position:absolute;top:8px;left:8px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:9999px}
+  .yes .tag{background:#dcfce7;color:#166534}
+  .no .tag{background:#fee2e2;color:#991b1b}
+  .lab{font-size:10.5px;color:#2c5282;opacity:.75;text-align:center}
+  .stretch img{transform:scaleY(.55) scaleX(1.4)}
+  .tint img{filter:hue-rotate(280deg) saturate(2)}
+  .shadow img{filter:drop-shadow(0 0 6px #fcd34d)}
+  .rotate img{transform:rotate(15deg)}
+</style>
+</head>
+<body>
+  <div class="lbl">Logo 禁止事項 · Don'ts</div>
+  <div class="grid">
+    <div class="item yes"><span class="tag">✅ YES</span><img src="../assets/lilin-logo.png" alt=""><div class="lab">標準使用</div></div>
+    <div class="item no stretch"><span class="tag">✗ NO</span><img src="../assets/lilin-logo.png" alt=""><div class="lab">變形拉伸</div></div>
+    <div class="item no tint"><span class="tag">✗ NO</span><img src="../assets/lilin-logo.png" alt=""><div class="lab">改色</div></div>
+    <div class="item no rotate"><span class="tag">✗ NO</span><img src="../assets/lilin-logo.png" alt=""><div class="lab">旋轉 &gt; 5°</div></div>
+  </div>
+</body>
+</html>

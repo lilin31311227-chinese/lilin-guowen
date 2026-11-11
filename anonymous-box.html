@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>匿名信箱｜立霖國文</title>
+<meta name="description" content="想說的話，寫給沒有名字的這裡。不署名、不評價、不轉發。立霖國文匿名信箱。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+/* ── 頁面專屬 ── */
+
+/* 頁首題眼：直排浮字「言」 */
+.page-head { padding-bottom: 72px; }
+.page-head__watermark {
+  position: absolute;
+  right: 6%;
+  top: 50%;
+  transform: translateY(-52%);
+  font-family: var(--serif);
+  font-size: clamp(200px, 28vw, 360px);
+  font-weight: 700;
+  color: var(--teal);
+  opacity: .045;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* 三規則橫列 */
+.rule-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+.rule-item {
+  padding: 20px 22px;
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  background: rgba(74, 124, 126, .04);
+}
+.rule-item__num {
+  font-family: var(--serif);
+  font-size: 11.5px;
+  letter-spacing: .28em;
+  color: var(--teal);
+  margin: 0 0 7px;
+}
+.rule-item__name {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: .12em;
+  margin: 0 0 4px;
+}
+.rule-item__note {
+  font-size: 13px;
+  color: rgba(26, 54, 93, .62);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* 情緒選擇區 */
+.emo-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.emo-chip {
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 14.5px;
+  letter-spacing: .06em;
+}
+
+/* 字數提示 */
+.char-hint {
+  font-size: 12.5px;
+  letter-spacing: .08em;
+  color: rgba(26, 54, 93, .5);
+  text-align: right;
+  margin-top: 7px;
+  font-family: var(--serif);
+}
+
+/* 送出後感謝狀態 */
+#anon-thanks {
+  display: none;
+  text-align: center;
+  padding: 72px 0 56px;
+}
+#anon-thanks.is-visible { display: block; }
+
+.thanks-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 28px;
+  color: var(--teal);
+}
+
+.thanks-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4.2vw, 40px);
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+.thanks-lead {
+  font-size: 16px;
+  line-height: 2;
+  color: rgba(26, 54, 93, .78);
+  max-width: 38em;
+  margin: 0 auto 28px;
+}
+.thanks-quote {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.9;
+  letter-spacing: .04em;
+  color: var(--ink);
+  margin: 0 auto 36px;
+  max-width: 32em;
+  padding: 22px 28px;
+  border-left: 2px solid var(--gold);
+  text-align: left;
+}
+.thanks-quote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  font-size: 12.5px;
+  letter-spacing: .22em;
+  color: var(--gold-dark);
+}
+
+/* 聚合訊號卡 */
+.signal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 18px;
+}
+.signal-card {
+  background: var(--paper-soft);
+  border: 1px solid var(--hairline);
+  border-radius: 4px;
+  padding: 26px 20px;
+  text-align: center;
+}
+.signal-card__num {
+  font-family: var(--serif);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.1;
+  margin: 0 0 8px;
+}
+.signal-card__label {
+  font-size: 13px;
+  letter-spacing: .06em;
+  color: rgba(26, 54, 93, .64);
+  margin: 0;
+}
+
+/* 給你的話——安全訊息框 */
+.safety-box {
+  background: rgba(74, 124, 126, .06);
+  border: 1px solid rgba(74, 124, 126, .22);
+  border-radius: 4px;
+  padding: 22px 28px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(26, 54, 93, .78);
+  margin-top: 24px;
+  text-align: center;
+}
+.safety-box strong { color: var(--navy); }
+
+/* 表單區域間距 */
+.form-block { margin-bottom: 34px; }
+.form-block:last-child { margin-bottom: 0; }
+
+/* 送出後隱藏表單 */
+#anon-form-wrap.is-hidden { display: none; }
+
+@media (max-width: 680px) {
+  .rule-strip { gap: 10px; }
+  .thanks-quote { padding: 18px 20px; }
+}
+</style>
+</head>
+<body data-page="anonymous-box">
+
+<div id="site-header"></div>
+
+<!-- ══════════ 頁首 ══════════ -->
+<header class="page-head ink-wash ink-wash--student">
+  <div class="page-head__inner" style="position:relative;">
+    <div class="page-head__watermark" aria-hidden="true">言</div>
+    <p class="page-head__eyebrow">匿名信箱 · ANONYMOUS LETTERS</p>
+    <h1 class="page-head__title">
+      想說的話，<br>
+      <span class="accent-teal">寫給沒有名字的這裡。</span>
+    </h1>
+    <p class="page-head__lead">
+      不是諮商、不是回信、不是評分。<br>
+      是一個可以放下去、不必接住、也不必回頭看的地方。
+    </p>
+
+    <!-- 三條規則 -->
+    <div class="rule-strip">
+      <div class="rule-item">
+        <p class="rule-item__num">規則一</p>
+        <p class="rule-item__name">不署名</p>
+        <p class="rule-item__note">我們不會問你是誰</p>
+      </div>
+      <div class="rule-item">
+        <p class="rule-item__num">規則二</p>
+        <p class="rule-item__name">不評價</p>
+        <p class="rule-item__note">我們只讀，不點評</p>
+      </div>
+      <div class="rule-item">
+        <p class="rule-item__num">規則三</p>
+        <p class="rule-item__name">不轉發</p>
+        <p class="rule-item__note">不會給任何人看</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ══════════ 表單區 ══════════ -->
+<section class="section">
+  <div class="container container--narrow">
+
+    <!-- 表單主體 -->
+    <div id="anon-form-wrap">
+      <form id="anon-form" novalidate>
+
+        <!-- 情緒選擇 -->
+        <div class="form-block">
+          <p class="section__eyebrow" style="margin-bottom:6px;">先選一個最接近的情緒（選填）</p>
+          <h2 class="section__title" style="font-size:22px;margin-bottom:18px;">不必精準，挑個最接近的就好</h2>
+          <div class="emo-group" id="emo-group" role="group" aria-label="情緒選擇">
+            <button type="button" class="emo-chip" data-emo="喜">喜 · 欣然</button>
+            <button type="button" class="emo-chip" data-emo="安">安 · 從容</button>
+            <button type="button" class="emo-chip" data-emo="望">望 · 懷想</button>
+            <button type="button" class="emo-chip" data-emo="哀">哀 · 黯然</button>
+            <button type="button" class="emo-chip" data-emo="慍">慍 · 不平</button>
+            <button type="button" class="emo-chip" data-emo="焦">焦 · 懸宕</button>
+            <button type="button" class="emo-chip" data-emo="鬱">鬱 · 惆悵</button>
+          </div>
+        </div>
+
+        <!-- 書寫區 -->
+        <div class="form-block">
+          <label class="field-label" for="anon-letter">想說的話</label>
+          <p style="font-size:13px;color:rgba(26,54,93,.6);margin:0 0 12px;font-family:var(--serif);letter-spacing:.04em;">
+            一句話也好，五百字也好。連續打字到忘記時間也好。
+          </p>
+          <textarea
+            id="anon-letter"
+            class="field-textarea"
+            name="letter"
+            rows="10"
+            placeholder="今天 / 最近 / 那一次 / 我一直想說但沒說出口的..."
+            minlength="3"
+            required
+            aria-describedby="char-count"
+            style="min-height:200px;"
+          ></textarea>
+          <p class="char-hint" id="char-count" aria-live="polite">0 字</p>
+        </div>
+
+        <!-- 送出 -->
+        <div class="form-block" style="text-align:center;">
+          <button type="submit" class="btn btn--teal" id="submit-btn">
+            放進信箱
+          </button>
+          <p style="margin-top:16px;font-size:12.5px;color:rgba(26,54,93,.56);font-family:var(--serif);letter-spacing:.04em;line-height:1.75;">
+            送出後，這封信會被收進立霖老師每週四晚上的閱讀時段。<br>
+            不會回覆、不會聯絡、不會分析。只會讀。
+          </p>
+        </div>
+
+        <!-- 防呆錯誤提示 -->
+        <p id="form-error" role="alert" style="display:none;text-align:center;font-size:13.5px;color:var(--terracotta);font-family:var(--serif);margin-top:-10px;margin-bottom:16px;">
+          請先寫幾個字，才能放進信箱。
+        </p>
+
+      </form>
+    </div>
+
+    <!-- 送出後狀態（預設隱藏） -->
+    <div id="anon-thanks" role="status" aria-live="polite">
+      <svg class="thanks-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <rect x="8" y="20" width="48" height="32" rx="2"/>
+        <path d="M8 24 L32 38 L56 24"/>
+      </svg>
+
+      <h2 class="thanks-title">收到了。</h2>
+      <p class="thanks-lead">
+        立霖老師會在這週四晚上九點到十一點之間，把這封信讀完。<br>
+        不會回信、不會搜尋你是誰、不會跟任何人提。
+      </p>
+
+      <blockquote class="thanks-quote">
+        「歸去來兮，田園將蕪胡不歸。」<br>
+        陶淵明說的不是辭職，是回到自己。<br>
+        謝謝你今天回來了一下。
+        <cite>— 立霖</cite>
+      </blockquote>
+
+      <button type="button" class="btn btn--ghost" id="write-again-btn">
+        再寫一封
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ 聚合訊號（隱私說明） ══════════ -->
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <div class="section__head">
+      <p class="section__eyebrow">這個月的信箱 · THIS MONTH</p>
+      <h2 class="section__title">我們收到的訊號</h2>
+      <p class="section__sub">
+        這些數字不會回推到任何人。
+        我們不存 IP、不存裝置、不存時間。只在最後一週統計總量。
+        你看到的是聚合而已——看不到任何一封的內容。
+      </p>
+    </div>
+
+    <div class="signal-grid">
+      <div class="signal-card">
+        <p class="signal-card__num" style="color:var(--navy);">147</p>
+        <p class="signal-card__label">本月收到的信</p>
+      </div>
+      <div class="signal-card">
+        <p class="signal-card__num" style="font-size:20px;color:var(--emo-melancholy);">鬱 · 惆悵</p>
+        <p class="signal-card__label">最多人選的心情</p>
+      </div>
+      <div class="signal-card">
+        <p class="signal-card__num" style="color:var(--teal);">每封</p>
+        <p class="signal-card__label">立霖老師都讀完</p>
+      </div>
+      <div class="signal-card">
+        <p class="signal-card__num" style="color:var(--terracotta);">0</p>
+        <p class="signal-card__label">轉發次數 · 永遠</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 給你的話 ══════════ -->
+<section class="closing ink-wash">
+  <div class="container" style="max-width:660px;margin:0 auto;text-align:center;">
+    <p class="section__eyebrow" style="text-align:center;">給寫信的你</p>
+    <h2 class="closing__title" style="font-size:clamp(24px,3.8vw,36px);">
+      如果你最近不太好，<br>這裡有一些不急著說的話。
+    </h2>
+    <p class="closing__lead">
+      我們不會說「加油」、「振作」、「別想太多」。<br>
+      那些話你已經聽過太多次。<br>
+      我們只想告訴你一件事——<br>
+      你願意寫下來，就已經是一件很大的事了。
+    </p>
+
+    <div class="safety-box">
+      如果你有立即的安全顧慮，請聯絡專業協助：<br>
+      衛福部安心專線 <strong>1925</strong>（24 小時）／生命線 <strong>1995</strong>／張老師 <strong>1980</strong>
+    </div>
+    <p class="closing__note" style="margin-top:32px;">不署名 · 不評價 · 不轉發</p>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+<script>
+/* ── anonymous-box.js — 頁面專屬邏輯 ── */
+(function () {
+  'use strict';
+
+  /* 狀態 */
+  var selectedEmo = null;
+
+  /* DOM refs */
+  var form       = document.getElementById('anon-form');
+  var formWrap   = document.getElementById('anon-form-wrap');
+  var thanks     = document.getElementById('anon-thanks');
+  var textarea   = document.getElementById('anon-letter');
+  var charCount  = document.getElementById('char-count');
+  var formError  = document.getElementById('form-error');
+  var writeAgain = document.getElementById('write-again-btn');
+  var emoGroup   = document.getElementById('emo-group');
+  var thanksTitle = thanks ? thanks.querySelector('.thanks-title') : null;
+  var thanksLead  = thanks ? thanks.querySelector('.thanks-lead') : null;
+  var thanksQuote = thanks ? thanks.querySelector('.thanks-quote') : null;
+  var SENT_TITLE = thanksTitle ? thanksTitle.innerHTML : '';
+  var SENT_LEAD  = thanksLead ? thanksLead.innerHTML : '';
+  var QUEUED_TITLE = '整備中。';
+  /* 匿名精神：整備中的替代訊息不放 email（不引導使用者留下可識別身份的聯絡方式）*/
+  var QUEUED_LEAD  = '匿名信箱目前整備中，晚點再來投遞。';
+
+  /* ── 情緒 chip 單選 ──
+     單選與 is-active 由 sumi-site.js 的 bindSingleSelect('.emo-group','.emo-chip')
+     統一處理；此處只監聽其派送的 sumi:select 取值，避免雙重綁定造成狀態逆反。 */
+  if (emoGroup) {
+    emoGroup.addEventListener('sumi:select', function (e) {
+      selectedEmo = e.detail ? e.detail.value : null;
+    });
+  }
+
+  /* ── 字數即時更新 ── */
+  if (textarea && charCount) {
+    textarea.addEventListener('input', updateCharCount);
+    updateCharCount();
+  }
+
+  function updateCharCount () {
+    var len = textarea.value.length;
+    charCount.textContent = len + ' 字';
+  }
+
+  /* ── 送出 ── */
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      /* 防呆：最少 3 字 */
+      var content = textarea ? textarea.value.trim() : '';
+      if (content.length < 3) {
+        if (formError) {
+          formError.style.display = 'block';
+          formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        if (textarea) textarea.focus();
+        return;
+      }
+
+      /* 隱藏錯誤訊息 */
+      if (formError) formError.style.display = 'none';
+
+      /* 匿名信箱鐵則：payload 只送情緒標籤＋內容，不收集任何身份資訊 */
+      var data = { emo: selectedEmo || '', content: content };
+
+      var submitBtn = document.getElementById('submit-btn');
+      if (submitBtn) { submitBtn.disabled = true; }
+
+      function done(result) {
+        var queued = result && result.status === 'queued';
+        if (thanksTitle) { thanksTitle.innerHTML = queued ? QUEUED_TITLE : SENT_TITLE; }
+        if (thanksLead) { thanksLead.innerHTML = queued ? QUEUED_LEAD : SENT_LEAD; }
+        /* 整備中：不展示「立霖老師會在週四晚上讀完」的具體承諾，因為信其實還沒送達 */
+        if (thanksQuote) { thanksQuote.style.display = queued ? 'none' : ''; }
+        thanks.setAttribute('data-form-status', queued ? 'queued' : 'sent');
+
+        /* 隱藏表單、顯示感謝 */
+        formWrap.classList.add('is-hidden');
+        thanks.classList.add('is-visible');
+
+        /* 捲到感謝區 */
+        thanks.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        if (submitBtn) { submitBtn.disabled = false; }
+      }
+
+      if (window.SumiForms && window.SumiForms.submit) {
+        window.SumiForms.submit('anonymous-box', data).then(done, done);
+      } else {
+        done();
+      }
+    });
+  }
+
+  /* ── 再寫一封 ── */
+  if (writeAgain) {
+    writeAgain.addEventListener('click', function () {
+      /* 重設表單 */
+      if (form) form.reset();
+      if (charCount) charCount.textContent = '0 字';
+      if (formError) formError.style.display = 'none';
+
+      /* 清除情緒選取 */
+      selectedEmo = null;
+      if (emoGroup) {
+        emoGroup.querySelectorAll('.emo-chip').forEach(function (c) {
+          c.classList.remove('is-active');
+        });
+      }
+
+      /* 切換顯示 */
+      thanks.classList.remove('is-visible');
+      formWrap.classList.remove('is-hidden');
+
+      /* 捲回表單頂端 */
+      formWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+})();
+</script>
+</body>
+</html>

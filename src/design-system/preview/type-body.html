@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Body Type</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px}
+  .row{display:grid;grid-template-columns:110px 110px 1fr;gap:18px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(26,54,93,.08)}
+  .row:last-child{border-bottom:0}
+  .lvl{font-size:11px;font-family:ui-monospace,Menlo,monospace;color:#b7791f;font-weight:600;letter-spacing:.05em}
+  .spec{font-size:11px;font-family:ui-monospace,Menlo,monospace;color:#2c5282;opacity:.75}
+  .body{font-size:16px;line-height:1.75;color:#1a365d;max-width:520px}
+  .caption{font-size:14px;font-weight:500;color:#2c5282}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:#b7791f}
+  .badge{display:inline-flex;align-items:center;gap:.4rem;font-size:14px;font-weight:500;color:#b7791f;background:rgba(214,158,46,.1);border:1px solid rgba(214,158,46,.3);padding:.3rem .7rem;border-radius:9999px}
+  .badge::before{content:"";width:.45rem;height:.45rem;background:#d69e2e;border-radius:9999px}
+  .mono{font-size:13px;font-family:ui-monospace,Menlo,monospace;color:#1a365d}
+</style>
+</head>
+<body>
+  <div class="row"><div class="lvl">Body</div><div class="spec">16 · 400 · 1.75</div><div class="body">帶你讀懂文章邏輯，寫出生命厚度。在分數抵達之前，你已經抵達自己。</div></div>
+  <div class="row"><div class="lvl">Caption</div><div class="spec">14 · 500</div><div class="caption">出自《論語》子曰：「君子和而不同」</div></div>
+  <div class="row"><div class="lvl">Eyebrow</div><div class="spec">12 · 600 · 0.15em</div><div class="eyebrow">DESIGN SYSTEM · v2.0</div></div>
+  <div class="row"><div class="lvl">Trust Badge</div><div class="spec">14 · 500</div><div><span class="badge">素養教學領航者</span></div></div>
+  <div class="row"><div class="lvl">Mono / Token</div><div class="spec">13 · monospace</div><div class="mono">var(--mentor-terracotta) → #b86a4a</div></div>
+</body>
+</html>

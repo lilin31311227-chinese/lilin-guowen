@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Spacing 8pt Grid</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:12px}
+  .label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.6;font-weight:600;margin-bottom:14px}
+  .row{display:grid;grid-template-columns:60px 80px 1fr;gap:14px;align-items:center;margin-bottom:6px}
+  .name{font-family:ui-monospace,Menlo,monospace;font-weight:600;color:#b7791f}
+  .val{font-family:ui-monospace,Menlo,monospace;color:#2c5282;opacity:.75}
+  .bar{height:14px;background:linear-gradient(90deg,#d69e2e,#fcd34d);border-radius:4px}
+</style>
+</head>
+<body>
+  <div class="label">間距系統 · 8pt grid</div>
+  <div class="row"><span class="name">space-1</span><span class="val">4px</span><div class="bar" style="width:4px"></div></div>
+  <div class="row"><span class="name">space-2</span><span class="val">8px</span><div class="bar" style="width:8px"></div></div>
+  <div class="row"><span class="name">space-3</span><span class="val">16px</span><div class="bar" style="width:16px"></div></div>
+  <div class="row"><span class="name">space-4</span><span class="val">24px</span><div class="bar" style="width:24px"></div></div>
+  <div class="row"><span class="name">space-5</span><span class="val">32px</span><div class="bar" style="width:32px"></div></div>
+  <div class="row"><span class="name">space-6</span><span class="val">48px</span><div class="bar" style="width:48px"></div></div>
+  <div class="row"><span class="name">space-7</span><span class="val">64px</span><div class="bar" style="width:64px"></div></div>
+  <div class="row"><span class="name">space-8</span><span class="val">96px</span><div class="bar" style="width:96px"></div></div>
+  <div class="row"><span class="name">space-9</span><span class="val">128px</span><div class="bar" style="width:128px"></div></div>
+</body>
+</html>

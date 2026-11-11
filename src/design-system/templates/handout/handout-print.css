@@ -1,0 +1,439 @@
+/* ============================================================
+   立霖國文 · 講義 黑白列印版 (B/W Print Override)
+   皮膚：變體 B「墨韻簡雅」黑白版（2026-08-02 落地）
+   權威規格：樣式稿-2026-07/變體B-墨韻簡雅-原版式-黑白版.html
+
+   套用方式: 在 handout.css 之後加 <link>，並把 body 加 class="bw-print"
+
+   機制（2026-07-31 教訓，勿改動架構）：
+     :root 保持彩色，灰階覆寫全部做在 body.bw-print 層，且**每個 token 都要
+     寫字面值**。`--alias:var(--base)` 在 :root 宣告時就把彩色算死，於 body 層
+     只改 base 帶不動 alias —— 這是當時文字掃描兩輪全過、渲染仍露彩色的原因。
+     新增 token 到 handout.css 時，務必同步補進下方 body.bw-print 區塊。
+
+   設計策略（沒有顏色，靠這些做層級）：
+     1. 黑（#000）作主標／重點，深灰（#333~#555）作次要
+     2. 用 border-style 區分類別（solid / dashed / dotted / double）
+     3. 用 underline 取代顏色 highlight 重點字
+     4. 一律不填底、不反白：變體B 本就無色底卡，黑白版順勢全面省墨
+   ============================================================ */
+
+/* ============= Base：token 全量灰階重映射 ============= */
+body.bw-print { background:#fff !important; }
+body.bw-print {
+  /* 變體 B 五色票 → 灰階 */
+  --paper:#fff;
+  --ink:#000;
+  --navy:#000;
+  --navy-soft:#555;
+  --navy-faint:rgba(0,0,0,.22);
+  --gold:#555;
+  --terracotta:#333;
+  /* 線框 token */
+  --gold-line:#444;
+  --terracotta-line:#333;
+  --line-dash:rgba(0,0,0,.60);
+  /* 舊變數名相容層（字面值，見檔頭機制說明）*/
+  --navy-light:#333; --navy-dark:#000; --navy-hero:#000;
+  --gold-light:#888; --gold-dark:#444; --gold-glow:#888;
+  --cream:#fff; --cream-dark:#eee; --cream-soft:#fff;
+  --mentor-terracotta:#333; --mentor-amber:#444; --mentor-clay:#eee; --mentor-sunrise:#fff;
+  --bridge-teal:#333; --bridge-sage:#666; --bridge-mist:#fff;
+  --emo-joy:#000; --emo-calm:#000; --emo-melancholy:#000;
+  --emo-anger:#000; --emo-anxiety:#000; --emo-grief:#000; --emo-hope:#000;
+  --subj-reading:#000; --subj-writing:#000; --subj-classic:#000; --subj-strategy:#000;
+}
+body.bw-print .doc { padding:32px 0; gap:28px; }
+body.bw-print .page,
+body.bw-print .page--soft,
+body.bw-print .page--white {
+  background:#fff !important;
+  border:1px solid rgba(0,0,0,.25);   /* 螢幕預覽的紙緣（變體B 零陰影）*/
+}
+/* 浮水印換用灰階版 PNG（原圖為 #1a365d 單色，灰階濾鏡在 10% 濃度下仍偏藍）*/
+body.bw-print .page::before {
+  background-image:url('../../assets/watermark-bw.png') !important;
+}
+body.bw-print .page__num { color:#555; }
+body.bw-print .page__num b { color:#000; font-weight:700; }
+body.bw-print .page__brand { color:#777; opacity:1; }
+body.bw-print .gold-hairline { background:#000; opacity:.35; }
+
+/* ============= COVER ============= */
+/* 彩色版封面已是紙白底，黑白版只需把 navy 線改黑、去掉殘留彩字 */
+body.bw-print .cover { background:#fff !important; color:#000; border-bottom-color:#000 !important; }
+body.bw-print .cover__bg,
+body.bw-print .cover__glow1,
+body.bw-print .cover__glow2,
+body.bw-print .cover__xiangyun { display:none !important; }
+body.bw-print .cover__hdr .logo { filter:none !important; }
+body.bw-print .cover__hdr .series {
+  color:#000 !important;
+  background:transparent !important;
+  border-bottom:1px solid #000 !important;
+}
+body.bw-print .cover__eyebrow { color:#333; letter-spacing:.35em; }
+body.bw-print .cover__title { color:#000; border-top-color:#000 !important; border-bottom-color:#000 !important; }
+body.bw-print .cover__quote { color:#000 !important; }
+body.bw-print .cover__poet  { color:#555 !important; }
+body.bw-print .cover__divider { background:#000 !important; opacity:.5; }
+body.bw-print .cover__sub { color:#000 !important; }
+body.bw-print .cover__sub b { color:#000 !important; font-weight:700; }
+body.bw-print .cover__meta { color:#555 !important; }
+body.bw-print .cover__meta b { color:#000 !important; }
+body.bw-print .cover__teacher .name { color:#000 !important; }
+body.bw-print .cover__teacher .role { color:#777 !important; }
+
+/* ============= Inner page heads ============= */
+body.bw-print .pg__head { border-bottom-color:#000 !important; }
+body.bw-print .pg__head .logo { filter:none; }
+body.bw-print .pg__crumbs { color:#555 !important; }
+body.bw-print .pg__h1,
+body.bw-print .pg__h2 { color:#000 !important; }
+body.bw-print .pg__h1 small,
+body.bw-print .pg__h2 small { color:#777 !important; }
+body.bw-print .pg__lead { color:#000 !important; }
+
+/* ============= 課文原文 ============= */
+body.bw-print .original { background:transparent !important; border-color:#000 !important; }
+body.bw-print .original::before { display:none !important; }
+body.bw-print .original__label { color:#000 !important; }
+body.bw-print .original__text { color:#000 !important; }
+body.bw-print .original__text .pause { color:#888 !important; }
+body.bw-print .original__attrib { color:#333 !important; }
+
+/* ============= 原文帶注 ============= */
+body.bw-print .gloss-text { background:transparent !important; border-color:#000 !important; }
+body.bw-print .gloss-text__lbl { color:#000 !important; }
+body.bw-print .gloss-text__body { color:#000 !important; }
+body.bw-print .gloss-text__body .pause { color:#888 !important; }
+body.bw-print .gloss-text__body .gloss {
+  color:#000 !important;
+  border-bottom:1px dotted #000;
+  font-weight:700;
+}
+/* 注號：彩色版已改純文字上標，黑白版同步（原為實心黑圓底反白，與省墨策略相左）*/
+body.bw-print .gloss-text__body .gloss .marker {
+  background:none !important; color:#000 !important;
+}
+body.bw-print .gloss-list { background:transparent !important; border-top-color:#000 !important; }
+body.bw-print .gloss-list__item { color:#000 !important; }
+body.bw-print .gloss-list__item .n { background:none !important; color:#000 !important; }
+body.bw-print .gloss-list__item b { color:#000 !important; }
+
+/* ============= 重點分析 ============= */
+body.bw-print .anablock {
+  background:transparent !important;
+  border-left:3px solid #000 !important;
+}
+body.bw-print .anablock h4 { color:#555 !important; letter-spacing:.22em; }
+body.bw-print .anablock h3 { color:#000 !important; }
+body.bw-print .anablock p { color:#000 !important; }
+
+/* ============= 多欄對照版式（四邊 2px 等粗方框）============= */
+body.bw-print .quad-theme,
+body.bw-print .usage-card,
+body.bw-print .metaphor-row .side {
+  background:transparent !important;
+  border:2px solid #000 !important;
+}
+body.bw-print .quad-theme .n   { color:#000 !important; }
+body.bw-print .quad-theme .ttl { color:#000 !important; }
+body.bw-print .quad-theme .desc { color:#333 !important; }
+body.bw-print .flower-card { background:transparent !important; border-left-color:#000 !important; }
+body.bw-print .flower-card .flabel { color:#000 !important; }
+body.bw-print .flower-card .fname  { color:#000 !important; }
+body.bw-print .flower-card .ftype  { color:#000 !important; }
+body.bw-print .flower-card .fbody  { color:#000 !important; }
+body.bw-print .flower-card .fbody b { color:#000 !important; font-weight:700; text-decoration:underline; text-underline-offset:2px; }
+body.bw-print .metaphor-row .arrow { color:#000 !important; }
+body.bw-print .exam-strip { background:transparent !important; border-left-color:#000 !important; }
+body.bw-print .exam-strip .lbl { color:#000 !important; }
+body.bw-print .exam-strip li::before { color:#000 !important; }
+body.bw-print .compare-block { background:transparent !important; border-left-color:#000 !important; }
+
+/* ============= 重點條列 ============= */
+body.bw-print .keypoints { background:transparent !important; border-top-color:#000 !important; }
+body.bw-print .keypoints h4 { color:#000 !important; }
+body.bw-print .keypoints h4::before { background:#000 !important; }
+body.bw-print .keypoints li { color:#000 !important; }
+body.bw-print .keypoints li::before { color:#000 !important; border-color:#000 !important; }
+body.bw-print .keypoints li b,
+body.bw-print .keypoints li em {
+  color:#000 !important; font-weight:700;
+  text-decoration:underline; text-underline-offset:3px; text-decoration-thickness:1px;
+}
+
+/* ============= 人生導師語 ============= */
+body.bw-print .mentor-voice {
+  background:transparent !important;
+  border-left:6px solid #000 !important;   /* 唯一加粗到 6px 的左線：這是全篇語氣重心 */
+}
+body.bw-print .mentor-voice::before { color:#bbb !important; opacity:.4; }
+body.bw-print .mentor-voice .lbl { color:#000 !important; }
+body.bw-print .mentor-voice .body { color:#000 !important; }
+body.bw-print .mentor-voice .body em {
+  color:#000 !important; font-weight:700;
+  text-decoration:underline; text-underline-offset:3px;
+}
+body.bw-print .mentor-voice .refline { color:#555 !important; border-top-color:#000 !important; }
+
+/* ============= 情緒標籤（border-style 分辨七情，與彩色版同一套語彙）============= */
+body.bw-print .emotion-section { background:transparent !important; border-top-color:#000 !important; }
+body.bw-print .emotion-section h4 { color:#000 !important; }
+body.bw-print .emotion-section .desc { color:#000 !important; }
+body.bw-print .emotion-section .desc b { color:#000 !important; }
+body.bw-print .chip { background:transparent !important; color:#000 !important; border-color:#000 !important; }
+body.bw-print .chip::before { background:#000 !important; }
+body.bw-print .chip b { color:#000 !important; }
+body.bw-print .chip .cl { color:#555 !important; }
+body.bw-print .emotion-exercise { background:transparent !important; border:1px dashed #000 !important; }
+body.bw-print .emotion-exercise h5 { color:#000 !important; }
+body.bw-print .emotion-exercise p { color:#000 !important; }
+body.bw-print .blank-line { border-bottom-color:#000 !important; }
+
+/* ============= 對話題 ============= */
+body.bw-print .dialogue { background:transparent !important; border-left-color:#000 !important; }
+body.bw-print .dialogue::before { color:#bbb !important; background:none !important; }
+body.bw-print .dialogue .week { color:#000 !important; }
+body.bw-print .dialogue .topic { color:#000 !important; }
+body.bw-print .dialogue .prompt-body { color:#000 !important; }
+body.bw-print .dialogue .prompt-body em {
+  color:#000 !important; font-weight:700; text-decoration:underline;
+}
+body.bw-print .dialogue .tip { background:transparent !important; border-left-color:#000 !important; color:#000 !important; }
+body.bw-print .dialogue .tip b { color:#000 !important; }
+
+/* ============= 考點卡 —— 六類仍以 border-style 區分 ============= */
+body.bw-print .exam-point { background:transparent !important; border-left-color:#000 !important; }
+body.bw-print .exam-point__tag {
+  background:transparent !important;
+  color:#000 !important;
+  border-bottom:1px solid #000 !important;
+  font-weight:700;
+}
+body.bw-print .exam-point__tag.tag-pronounce { border-bottom-style:solid !important; }
+body.bw-print .exam-point__tag.tag-form      { border-bottom-style:solid !important; border-bottom-width:2px !important; }
+body.bw-print .exam-point__tag.tag-rhetoric  { border-bottom-style:dashed !important; }
+body.bw-print .exam-point__tag.tag-meaning   { border-bottom-style:dotted !important; border-bottom-width:2px !important; }
+body.bw-print .exam-point__tag.tag-context   { border-bottom-style:double !important; border-bottom-width:3px !important; }
+body.bw-print .exam-point__tag.tag-virtual   { border-bottom-style:dashed !important; border-bottom-width:2px !important; }
+body.bw-print .exam-point__title { color:#000 !important; }
+body.bw-print .exam-point__example {
+  background:transparent !important;
+  color:#000 !important;
+  border-left:2px solid #000 !important;
+}
+body.bw-print .exam-point__example b { color:#000 !important; font-weight:700; }
+body.bw-print .exam-point__desc { color:#000 !important; }
+body.bw-print .exam-point__desc b {
+  color:#000 !important; font-weight:700; text-decoration:underline; text-underline-offset:2px;
+}
+body.bw-print .exam-point__mn {
+  background:transparent !important;
+  color:#000 !important;
+  border-bottom:1px dotted #000 !important;
+}
+body.bw-print .exam-point__mn::before { color:#555; }
+
+/* ============= 練習題與真題 ============= */
+body.bw-print .practice { background:transparent !important; border-top-color:#000 !important; }
+body.bw-print .practice__hdr { border-bottom-color:#000 !important; }
+body.bw-print .practice__num { color:#000 !important; }
+/* 題號徽章：彩色版已改空心方框，黑白版同步（原為實心黑底反白，最耗墨的一處）*/
+body.bw-print .practice__num .qn { background:none !important; color:#000 !important; border-color:#000 !important; }
+body.bw-print .practice__diff { color:#000 !important; border-color:#000 !important; }
+body.bw-print .practice__diff .full  { color:#000 !important; }
+body.bw-print .practice__diff .empty { display:none !important; }
+body.bw-print .practice__type { background:none !important; color:#000 !important; }
+body.bw-print .practice__q { color:#000 !important; }
+body.bw-print .practice__q em {
+  color:#000 !important; font-weight:700;
+  border-bottom:0 !important;
+  text-decoration:underline; text-underline-offset:3px;
+}
+body.bw-print .practice__q .blank { border-bottom-color:#000 !important; }
+body.bw-print .practice__excerpt {
+  background:transparent !important;
+  color:#000 !important;
+  border-left-color:#000 !important;
+}
+body.bw-print .practice__options { color:#000 !important; }
+body.bw-print .practice__options .opt-letter {
+  color:#000 !important; border-color:#000 !important; font-weight:700;
+}
+body.bw-print .practice__answer { color:#555 !important; }
+body.bw-print .practice__answer .blank-line { border-bottom-color:#000 !important; }
+body.bw-print .practice__write > div { border-bottom-color:#000 !important; }
+
+body.bw-print .examq { background:transparent !important; border-left-color:#000 !important; }
+body.bw-print .examq__tag .yr { color:#000 !important; }
+body.bw-print .examq__tag .venue { color:#000 !important; border-bottom-color:#000 !important; }
+body.bw-print .examq__tag .rate { color:#000 !important; }
+body.bw-print .examq__tag .src { color:#333 !important; }
+body.bw-print .passage { background:transparent !important; border-left-color:#000 !important; color:#000 !important; }
+body.bw-print .passage .src { color:#333 !important; }
+body.bw-print .group-lead { background:transparent !important; color:#000 !important; border-left-color:#000 !important; }
+body.bw-print .group-lead b { color:#000 !important; font-weight:700; }
+body.bw-print .qsrc { color:#333 !important; }
+body.bw-print .qsrc b { color:#000 !important; }
+body.bw-print .teacher-detail { background:transparent !important; border-left-color:#000 !important; color:#000 !important; }
+body.bw-print .teacher-detail .ans { color:#000 !important; }
+body.bw-print .teacher-detail .why b { color:#000 !important; font-weight:700; }
+
+/* 真題／題型分配表 */
+body.bw-print .ratetable th,
+body.bw-print .dist-table th {
+  color:#000 !important;
+  border-top-color:#000 !important;
+  border-bottom-color:#000 !important;
+  background:none !important;
+}
+body.bw-print .ratetable td,
+body.bw-print .dist-table td { color:#000 !important; border-bottom-color:rgba(0,0,0,.45) !important; }
+body.bw-print .dist-table .qnums { color:#000 !important; font-weight:700; }
+
+/* ============= 概念網 / 用法卡 ============= */
+body.bw-print .concept-web { background:transparent !important; border-top-color:#000 !important; }
+body.bw-print .concept-web__title { color:#000 !important; }
+body.bw-print .concept-web__title small { color:#555 !important; }
+body.bw-print .usage-card .num { background:none !important; color:#000 !important; }
+body.bw-print .usage-card .role { color:#000 !important; }
+body.bw-print .usage-card .meaning { color:#000 !important; }
+body.bw-print .usage-card .quote { color:#000 !important; }
+body.bw-print .usage-card .quote em {
+  color:#000 !important; font-weight:700; text-decoration:underline;
+}
+body.bw-print .usage-card .source { color:#555 !important; }
+/* 跨欄的第七張用雙線框區分（取代赤茶色）*/
+body.bw-print .usage-card[style*="span 2"] { border:3px double #000 !important; }
+body.bw-print .usage-card[style*="span 2"] .role { color:#000 !important; }
+
+/* ============= 互見引用 ============= */
+body.bw-print .crossref { background:transparent !important; border-left-color:#000 !important; }
+body.bw-print .crossref h4 { color:#000 !important; }
+body.bw-print .crossref h4::before { background:#000 !important; }
+body.bw-print .crossref__chip {
+  background:transparent !important;
+  border-color:#000 !important;
+  color:#000 !important;
+}
+body.bw-print .crossref__chip .ref { color:#000 !important; font-weight:700; }
+body.bw-print .crossref__chip .ref::before,
+body.bw-print .crossref__chip .ref::after { color:#000 !important; }
+
+/* ============= 複習橫幅 ============= */
+body.bw-print .review-banner { background:transparent !important; border:1px solid #000 !important; }
+body.bw-print .review-banner .icon { background:none !important; color:#000 !important; border:1px solid #000 !important; }
+body.bw-print .review-banner .meta { color:#000 !important; }
+body.bw-print .review-banner .meta b { color:#000 !important; font-weight:700; }
+body.bw-print .review-banner .meta .ttl { color:#000 !important; }
+body.bw-print .review-banner .freq { border-left-color:#000 !important; }
+body.bw-print .review-banner .freq .num { color:#000 !important; }
+body.bw-print .review-banner .freq .lbl { color:#555 !important; }
+
+/* ============= 作者卡 ============= */
+body.bw-print .author-card { background:transparent !important; border-left-color:#000 !important; }
+body.bw-print .author-card .avatar { background:none !important; color:#000 !important; border-color:#000 !important; }
+body.bw-print .author-card .meta { color:#000 !important; }
+body.bw-print .author-card .meta b { color:#000 !important; font-weight:700; text-decoration:underline; text-underline-offset:2px; }
+body.bw-print .author-card .meta .name { color:#000 !important; }
+
+/* ============= 易錯提醒 ============= */
+body.bw-print .pitfalls {
+  background:transparent !important;
+  border-left:4px solid #000 !important;
+}
+body.bw-print .pitfalls h4 { color:#000 !important; }
+body.bw-print .pitfalls li { color:#000 !important; }
+body.bw-print .pitfalls li::before { color:#000 !important; font-weight:700; }
+body.bw-print .pitfalls li b { color:#000 !important; font-weight:700; text-decoration:underline; }
+body.bw-print .pitfalls li em { background:none !important; color:#000 !important; font-weight:700; text-decoration:underline; }
+
+/* ============= 解答條 ============= */
+body.bw-print .answer-strip {
+  background:transparent !important;
+  color:#000 !important;
+  border:2px solid #000 !important;
+}
+body.bw-print .answer-strip h4 { color:#000 !important; }
+body.bw-print .answer-strip h4::before { background:#000 !important; }
+body.bw-print .answer-strip__cell { background:transparent !important; border-color:#000 !important; }
+body.bw-print .answer-strip__cell .qn { color:#555 !important; }
+body.bw-print .answer-strip__cell .ans { color:#000 !important; }
+body.bw-print .answer-strip__note { color:#000 !important; border-top-color:#000 !important; }
+body.bw-print .answer-strip__note b { color:#000 !important; text-decoration:underline; }
+
+/* ============= signoff bottom ============= */
+body.bw-print .signoff-bottom { color:#000 !important; border-top-color:#000 !important; }
+body.bw-print .signoff-bottom cite { color:#555 !important; }
+
+/* ============= 定風波 specific: think-prompts / obs-table / signoff ============= */
+body.bw-print .think-prompt {
+  background:transparent !important;
+  border:1px solid #000 !important;
+  color:#000 !important;
+}
+body.bw-print .think-prompt::before { background:#000 !important; opacity:1 !important; }
+body.bw-print .think-prompt b { color:#000 !important; }
+body.bw-print .obs-table { background:transparent !important; border:1px solid #000 !important; }
+body.bw-print .obs-table h4 { background:none !important; color:#000 !important; border-bottom:1px solid #000 !important; }
+body.bw-print .obs-table h4 small { color:#555 !important; }
+body.bw-print .obs-cell { border-right-color:#000 !important; }
+body.bw-print .obs-cell .role,
+body.bw-print .obs-cell .role.parent,
+body.bw-print .obs-cell .role.student { color:#000 !important; }
+body.bw-print .obs-cell .write-lines > div { border-bottom-color:#000 !important; }
+body.bw-print .signoff blockquote { color:#000 !important; }
+body.bw-print .signoff cite { color:#555 !important; }
+body.bw-print .signoff .seal-line .hr,
+body.bw-print .signoff .seal-line .hr.r { background:#000 !important; opacity:.4 !important; }
+body.bw-print .pg4__corner { color:#000 !important; opacity:.08 !important; }
+
+/* ============= 互動學習層 ============= */
+body.bw-print .ix,
+body.bw-print .ix-metacog { background:transparent !important; border-color:#000 !important; }
+body.bw-print .ix-warmup,
+body.bw-print .ix-explain,
+body.bw-print .ix-peer  { border-left:3px solid #000 !important; }
+body.bw-print .ix-think { border-left:3px dashed #000 !important; }
+body.bw-print .ix__lbl,
+body.bw-print .ix__q,
+body.bw-print .ix__q em,
+body.bw-print .ix-metacog .mc-title,
+body.bw-print .ix-metacog .mc { color:#000 !important; }
+body.bw-print .ix__lbl::before { background:#000 !important; }
+body.bw-print .ix__line { border-bottom-color:#000 !important; }
+body.bw-print .ix-metacog .mc::before { border-color:#000 !important; }
+body.bw-print .ix-metacog .mc.lv1::before { border-style:solid !important; }
+body.bw-print .ix-metacog .mc.lv2::before { border-style:dashed !important; }
+body.bw-print .ix-metacog .mc.lv3::before { border-style:dotted !important; }
+
+/* ============= 三欄流程卡 ============= */
+body.bw-print .flow__step {
+  background:transparent !important;
+  border:2px solid #000 !important;
+}
+body.bw-print .flow__step .n { color:#444 !important; }
+body.bw-print .flow__step .ttl { color:#000 !important; }
+body.bw-print .flow__step .desc { color:#000 !important; }
+
+/* ============= utility ============= */
+body.bw-print svg { color:#000; }
+/* 圖片一律轉灰階（logo 等點陣圖，CSS 變數管不到）；
+   注意 handout.css 的全域中和層對 .doc 內元素設了 filter:none !important，
+   故此處需同等 !important 才蓋得過去。 */
+body.bw-print img { filter:grayscale(1) !important; }
+
+/* ============= 實際列印時 ============= */
+@media print {
+  body.bw-print { background:#fff !important; }
+  body.bw-print .doc { padding:0 !important; gap:0 !important; }
+  body.bw-print .page { border:none !important; margin:0 !important; outline:none !important; }
+  /* 筆記欄：make_bw 安全網會清掉 background-image，這裡以較高 specificity 用黑色重畫橫線 */
+  body.bw-print .note-box { border-color:#555 !important; }
+  body.bw-print .note-box__lines {
+    background-image:repeating-linear-gradient(to bottom,
+      rgba(0,0,0,.36) 0, rgba(0,0,0,.36) 1px, transparent 1px, transparent 34px) !important;
+  }
+}

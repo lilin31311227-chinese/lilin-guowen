@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>家長月報範例｜立霖國文</title>
+<meta name="description" content="立霖國文 — 家長月報範例。每個月，我們用一份具體的觀察，讓您看見課堂裡那個孩子。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+  /* —— 頁面專屬：月報細部 —— */
+
+  /* 課堂觀察紀錄卡（帶左邊線） */
+  .obs-card {
+    position: relative;
+    background: var(--paper-soft);
+    border: 1px solid var(--hairline);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 3px 3px 0;
+    padding: 24px 28px;
+  }
+  .obs-card__date {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .18em;
+    color: var(--teal-soft);
+    margin: 0 0 4px;
+  }
+  .obs-card__topic {
+    font-size: 12px;
+    letter-spacing: .12em;
+    color: rgba(26, 54, 93, .55);
+    margin: 0 0 14px;
+  }
+  .obs-card__body {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.95;
+    letter-spacing: .03em;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* 進步卡（小型，金色點睛） */
+  .progress-card {
+    background: var(--paper-soft);
+    border: 1px solid var(--hairline);
+    border-top: 3px solid var(--gold);
+    border-radius: 0 0 3px 3px;
+    padding: 26px 28px;
+  }
+  .progress-card__label {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: var(--gold-dark);
+    margin: 0 0 10px;
+  }
+  .progress-card__text {
+    font-size: 14.5px;
+    line-height: 1.85;
+    color: rgba(26, 54, 93, .78);
+    margin: 0;
+  }
+
+  /* 餐桌句型卡（赤茶底） */
+  .sentence-card {
+    background: var(--sunrise);
+    border: 1px solid rgba(184, 106, 74, .22);
+    border-radius: 3px;
+    padding: 26px 30px;
+  }
+  .sentence-card__ctx {
+    font-size: 11px;
+    letter-spacing: .22em;
+    font-weight: 600;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+  .sentence-card__quote {
+    font-family: var(--serif);
+    font-size: 18.5px;
+    line-height: 1.75;
+    letter-spacing: .04em;
+    color: var(--ink);
+    margin: 0 0 10px;
+    font-style: italic;
+  }
+  .sentence-card__note {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: rgba(26, 54, 93, .72);
+    margin: 0;
+  }
+
+  /* 下月計畫條列 */
+  .next-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .next-list li {
+    display: flex;
+    gap: 18px;
+    font-size: 15.5px;
+    line-height: 1.85;
+    color: rgba(26, 54, 93, .84);
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+  .next-list li:last-child { border-bottom: none; padding-bottom: 0; }
+  .next-list__num {
+    font-family: var(--serif);
+    font-size: 14px;
+    letter-spacing: .2em;
+    color: var(--gold-dark);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* 月報 meta 條 */
+  .report-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--hairline-soft);
+    font-size: 13px;
+    color: rgba(26, 54, 93, .58);
+  }
+  .report-meta strong {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .report-meta__dot {
+    width: 3px; height: 3px;
+    border-radius: 999px;
+    background: currentColor;
+    opacity: .4;
+    flex-shrink: 0;
+  }
+
+  /* chip 組 */
+  .chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .chip--terracotta {
+    color: var(--terracotta);
+    background: rgba(184, 106, 74, .08);
+    border-color: rgba(184, 106, 74, .28);
+  }
+  .chip--gold {
+    color: var(--gold-dark);
+    background: rgba(214, 158, 46, .08);
+    border-color: rgba(214, 158, 46, .28);
+  }
+  .chip--teal {
+    color: var(--teal);
+    background: rgba(74, 124, 126, .08);
+    border-color: rgba(74, 124, 126, .28);
+  }
+
+  /* 簽名區 */
+  .sign-block {
+    text-align: center;
+    padding: 16px 0 0;
+  }
+  .sign-block__quote {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.95;
+    letter-spacing: .04em;
+    color: var(--navy);
+    font-style: italic;
+    margin: 0 0 22px;
+  }
+  .sign-block__name {
+    font-family: var(--serif);
+    font-size: 22px;
+    letter-spacing: .3em;
+    color: var(--gold-dark);
+    margin: 0 0 28px;
+  }
+  .sign-block__note {
+    font-size: 12px;
+    line-height: 1.9;
+    letter-spacing: .1em;
+    color: rgba(26, 54, 93, .5);
+    font-style: italic;
+  }
+
+  @media (max-width: 860px) {
+    .obs-card { padding: 18px 20px; }
+    .sentence-card { padding: 20px 22px; }
+    .progress-card { padding: 20px 22px; }
+  }
+</style>
+</head>
+<body data-page="parent-report">
+
+<div id="site-header"></div>
+
+<!-- ================= 頁首 ================= -->
+<header class="page-head ink-wash ink-wash--parent">
+  <div class="page-head__inner">
+
+    <p class="page-head__eyebrow">親情橋樑 · 家長月報範例</p>
+
+    <div class="chip-group">
+      <span class="chip chip--terracotta"><span class="dot-sm"></span>親情橋樑 · 月報</span>
+      <span class="chip chip--gold">2026 · 4 月</span>
+      <span class="chip chip--teal">國二 · 週三班</span>
+    </div>
+
+    <h1 class="page-head__title">
+      小語的四月，<br>
+      是一個願意把話<span class="accent-terracotta">放慢</span>的月份。
+    </h1>
+
+    <p class="page-head__lead">
+      這份月報不是評鑑、不是排名、不是 KPI。<br>
+      是我們在課堂上看到的小語——這個月跟三月、跟去年都不太一樣的小語。
+    </p>
+
+    <div class="report-meta" style="margin-top:32px;">
+      <strong>立霖 · 導師</strong>
+      <span class="report-meta__dot"></span>
+      <span>2026 · 5 · 1 完成</span>
+      <span class="report-meta__dot"></span>
+      <span>第 8 份月報</span>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 課堂觀察 ================= -->
+<section class="section ink-wash" id="classroom">
+  <div class="container container--narrow">
+
+    <div class="section__head">
+      <p class="section__eyebrow">課堂觀察 · CLASSROOM</p>
+      <h2 class="section__title">這個月，我們在課堂上看到的小語</h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:20px;">
+
+      <article class="obs-card reveal">
+        <p class="obs-card__date">4 · 10</p>
+        <p class="obs-card__topic">課堂主題：愛蓮說</p>
+        <p class="obs-card__body">討論「出淤泥而不染」時，小語舉手說：「老師，我覺得周敦頤在說一件他做不到的事，所以才寫成文章。」她沒有用課本給的「君子品格」標準答案——她在跟作者對話。那一刻整個教室安靜了三秒。</p>
+      </article>
+
+      <article class="obs-card reveal">
+        <p class="obs-card__date">4 · 17</p>
+        <p class="obs-card__topic">課堂主題：情緒詞彙</p>
+        <p class="obs-card__body">她原本最常用「煩」概括所有情緒。這次練習她寫下「我不是煩，我是『悵然』——好像有什麼東西失去了，但我說不出來」。從一個字到四個字，這個距離其實很長。</p>
+      </article>
+
+      <article class="obs-card reveal">
+        <p class="obs-card__date">4 · 24</p>
+        <p class="obs-card__topic">課堂主題：作文〈一個沒說出口的擁抱〉</p>
+        <p class="obs-card__body">她寫了 720 字，超出規定字數一倍。題材是她外婆過世的事。我們改作文的時候不確定要不要動她的標點，最後我們只回了一句評語：「謝謝妳願意寫這件事給我們看。」</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= 學習進展 ================= -->
+<section class="section section--alt" id="progress">
+  <div class="container container--narrow">
+
+    <div class="section__head">
+      <p class="section__eyebrow">學習進展 · PROGRESS</p>
+      <h2 class="section__title">她這個月在進步的事</h2>
+      <p class="section__sub">不是分數的進步——是您可能看不見、但我們看見的那些。</p>
+    </div>
+
+    <div class="grid grid--3">
+
+      <div class="progress-card reveal">
+        <p class="progress-card__label">願意說「我不確定」</p>
+        <p class="progress-card__text">這個月小語三次說「老師，我可不可以再想一下」。國二的孩子能說這句話，比答對更難。</p>
+      </div>
+
+      <div class="progress-card reveal">
+        <p class="progress-card__label">情緒詞彙從 1 個變 7 個</p>
+        <p class="progress-card__text">會主動使用的詞包含：悵然 / 慍 / 黯然 / 懸宕 / 釋然 / 欣慰 / 安然。她在自己跟自己對話。</p>
+      </div>
+
+      <div class="progress-card reveal">
+        <p class="progress-card__label">會留下來問問題</p>
+        <p class="progress-card__text">三月她下課就走。四月她留了三次。每次都不是問課業，是聊一句課堂以外的話。</p>
+      </div>
+
+    </div>
+
+    <div class="pullquote reveal" style="margin-top:48px;">
+      <p>從一個字到四個字，這個距離其實很長。</p>
+      <cite>立霖 · 課堂觀察紀錄 · 2026 · 4 · 17</cite>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= 餐桌句型 ================= -->
+<section class="section" id="tonight">
+  <div class="container container--narrow">
+
+    <div class="section__head">
+      <p class="section__eyebrow">給家長 · TONIGHT</p>
+      <h2 class="section__title">您本週可以試的三個句子</h2>
+      <p class="section__sub">不必全部用上。挑一個您覺得不彆扭的就好。</p>
+    </div>
+
+    <div class="field-row reveal">
+      <span class="field-row__num">一</span>
+      <span class="field-row__name">飯桌上</span>
+      <div class="field-row__desc">
+        <p style="font-family:var(--serif);font-size:17px;line-height:1.75;color:var(--ink);font-style:italic;margin:0 0 10px;">「妳上次寫的那篇作文，我可以看嗎？我不會評論，就想看。」</p>
+        <p style="margin:0;">小語這個月寫了一篇關於外婆的長文。如果您想看，請她拿給您。不必說「妳寫得很好」，看完只說「謝謝妳給我看」。</p>
+      </div>
+    </div>
+
+    <div class="field-row reveal">
+      <span class="field-row__num">二</span>
+      <span class="field-row__name">她說「煩」的時候</span>
+      <div class="field-row__desc">
+        <p style="font-family:var(--serif);font-size:17px;line-height:1.75;color:var(--ink);font-style:italic;margin:0 0 10px;">「妳說的『煩』，是七種裡面的哪一種？」</p>
+        <p style="margin:0;">這是她課堂上練過的事。她應該會愣一下，然後可能說出一個更具體的字。重點不是她說對，是她願意停下來想。</p>
+      </div>
+    </div>
+
+    <div class="field-row reveal">
+      <span class="field-row__num">三</span>
+      <span class="field-row__name">她關門之後</span>
+      <div class="field-row__desc">
+        <p style="font-family:var(--serif);font-size:17px;line-height:1.75;color:var(--ink);font-style:italic;margin:0 0 10px;">不要敲門。十五分鐘後，路過時用她平時能聽到的音量說「我去買杯飲料，妳要不要喝什麼」。</p>
+        <p style="margin:0;">她不一定會回應。但她知道您沒有生氣、沒有放棄、就在隔壁。這比任何深談都有效。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= 五月計畫 ================= -->
+<section class="section section--alt" id="next-month">
+  <div class="container container--narrow">
+
+    <div class="section__head">
+      <p class="section__eyebrow">下個月關注重點 · NEXT MONTH</p>
+      <h2 class="section__title">我們會在五月做這三件事</h2>
+    </div>
+
+    <ol class="next-list">
+      <li class="reveal">
+        <span class="next-list__num">壹</span>
+        <span>五月主題進入《赤壁賦》。我們會幫她繼續練「自己跟作者對話」這件事——這是她四月開出來的線索。</span>
+      </li>
+      <li class="reveal">
+        <span class="next-list__num">貳</span>
+        <span>她的長文〈一個沒說出口的擁抱〉，我們會問她願不願意改寫成正式版，收進她自己的作品集。不勉強。</span>
+      </li>
+      <li class="reveal">
+        <span class="next-list__num">參</span>
+        <span>會考倒數十二個月。我們不會跟她聊倒數，會跟她聊「妳現在的學習方式，能不能撐到那一天」。</span>
+      </li>
+    </ol>
+
+  </div>
+</section>
+
+<!-- ================= 簽名 ================= -->
+<section class="closing ink-wash ink-wash--parent" id="closing">
+  <div class="container container--narrow">
+
+    <div class="sign-block reveal">
+      <p class="sign-block__quote">
+        「謝謝您把小語帶來這裡。<br>
+        她的這個月，<br>
+        我們有好好地在場。」
+      </p>
+      <p class="sign-block__name">——立霖</p>
+      <p class="sign-block__note">
+        這份月報只寄給您一個人。如果您願意，可以跟小語分享其中任何一段——但她沒看過。<br>
+        下次月報：2026 · 6 · 1
+      </p>
+    </div>
+
+    <hr class="gold-hr" style="margin:44px 0 36px;">
+
+    <div class="closing__actions">
+      <a class="btn btn--terracotta" data-line href="#">加 LINE 與立霖聊聊</a>
+      <a class="btn btn--ghost" href="index.html">回首頁</a>
+    </div>
+    <p class="closing__note">不催促，不推銷。您說，我們聽。</p>
+
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+</body>
+</html>

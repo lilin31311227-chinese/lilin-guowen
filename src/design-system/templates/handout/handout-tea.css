@@ -1,0 +1,110 @@
+/* ============================================================
+   立霖國文 · 講義系統「暖茶宣紙」主題覆蓋層 (Tea theme override)
+   皮膚：變體 B「墨韻簡雅」暖茶版（2026-08-02 落地）
+   ------------------------------------------------------------
+   用法：在 handout.css 之後載入即可整課換成暖茶宣紙視覺。
+     <link rel="stylesheet" href="handout.css">
+     <link rel="stylesheet" href="handout-tea.css">
+
+   原理：handout.css 全面以 CSS 變數驅動（連各 part 的頁內 <style> 與 inline
+   style 也用 var(--navy/--gold/--mentor-*…)），故只需重映射 :root token
+   ＋覆蓋少數寫死色的表面，整課自動套用。
+
+   變體 B 落地後本檔大幅縮減：原本要覆蓋的白卡、暖陰影、深色封面、漸層分隔線
+   在基底層已不存在（零圓角／零陰影／零漸層／零色底卡），此處只剩「換色票」與
+   「換紙紋、換浮水印」兩件事。
+   守品牌紅線：無純黑、無紅、無螢光、無藍紫。
+   黑白版（body.bw-print）以 body 層覆寫，優先度高於本檔的 :root，無需另行處理。
+   ============================================================ */
+
+/* ─── 1. Token 重映射：海軍藍／晨曦金 → 赭墨／陳金 ─────────────── */
+:root {
+  /* 變體 B 五色票 */
+  --paper:#f6ecd9;                    /* 米黃宣紙（原紙莎草白）*/
+  --ink:#3a2d22;                      /* 赭墨（原墨色）*/
+  --navy:#3a2d22;                     /* 結構色一併轉赭墨 */
+  --navy-soft:rgba(58,45,34,.68);
+  --navy-faint:rgba(58,45,34,.18);
+  --gold:#c79a3e;                     /* 陳金，較沉 */
+  --terracotta:#a9663d;               /* 茶褐 */
+  /* 線框 token */
+  --gold-line:#9c7320;
+  --terracotta-line:#8a4f2e;
+  --line-dash:rgba(58,45,34,.60);
+
+  /* 舊變數名相容層（字面值，理由見 handout.css 檔頭）*/
+  --navy-light:#3a2d22; --navy-dark:#2e2318; --navy-hero:#2a2017;
+  --gold-light:#c79a3e; --gold-dark:#9c7320; --gold-glow:#c79a3e;
+  --cream:#f6ecd9; --cream-dark:#eddcc0; --cream-soft:#f6ecd9;
+  --mentor-terracotta:#a9663d; --mentor-amber:#a9663d;
+  --mentor-clay:#f6ecd9; --mentor-sunrise:#f6ecd9;
+  --bridge-teal:#4f7e74; --bridge-sage:#4f7e74; --bridge-mist:#f6ecd9;
+  --emo-joy:#3a2d22; --emo-calm:#3a2d22; --emo-melancholy:#3a2d22;
+  --emo-anger:#3a2d22; --emo-anxiety:#3a2d22; --emo-grief:#3a2d22; --emo-hope:#3a2d22;
+  --subj-reading:#3a2d22; --subj-writing:#3a2d22; --subj-classic:#3a2d22; --subj-strategy:#3a2d22;
+
+  /* 暖茶專屬輔助 */
+  --tea-paper-edge:#e2cfa8;
+}
+
+/* ─── 2. 紙面與紙紋（宣紙質感）────────────────────────────── */
+html, body { background:#e6ddcb; color:var(--ink); }   /* 桌面外底色：淺暖灰，襯托紙頁 */
+
+.page { background:var(--paper); border-color:var(--tea-paper-edge); }
+
+/* 浮水印改用赭墨版（原圖為 #1a365d 單色，直接用會在暖紙上透出冷灰）*/
+.page::before { background-image:url('../../assets/watermark-tea.png'); }
+
+/* 宣紙纖維微噪：疊於紙頁之上（偽元素，不受基底層 background-image 中和層影響）*/
+.page:not(.cover)::after {
+  content:"";
+  position:absolute; inset:0;
+  pointer-events:none;
+  z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+/* 內容浮於紙紋之上 */
+.page > * { position:relative; z-index:1; }
+
+.page--soft  { background:var(--paper); }
+.page--white { background:var(--paper); }   /* 暖茶無純白卡 */
+
+/* ─── 3. 標題與襯線編輯感 ──────────────────────────────────── */
+.pg__h1, .pg__h2 { letter-spacing:.06em; }
+
+/* ─── 4. 封面：暖紙茶寮 ────────────────────────────────────────
+   變體 B 封面已是紙白底＋雙線標題，暖茶版只換色票與少數寫死色。*/
+.cover { background:var(--paper); color:var(--ink); border-bottom-color:var(--ink); }
+.cover__hdr .series { color:var(--ink); border-bottom-color:var(--ink); }
+.cover__eyebrow { color:var(--terracotta); }
+.cover__title { color:var(--ink); border-top-color:var(--ink); border-bottom-color:var(--ink); }
+.cover__quote { color:var(--ink); }
+.cover__poet  { color:var(--navy-soft); }
+.cover__divider { background:var(--ink); }
+.cover__sub { color:var(--ink); }
+.cover__sub b { color:var(--terracotta) !important; }   /* meta.json 內可能寫死亮黃，導回茶褐 */
+.cover__meta { color:var(--navy-soft); }
+.cover__meta b { color:var(--terracotta); }
+
+/* ─── 5. 頁碼／細線微調 ─────────────────────────────────────── */
+.page__num b { color:var(--gold-line); }
+.gold-hairline { background:var(--gold-line); }
+
+/* ─── 6. 整體字級 +1 級（約 9%）────────────────────────────────
+   做法：對「內容子元素」（非 .page 本身）套 zoom，與 fit_print 對 .page
+   的列印微縮『相乘』而非覆蓋——
+     · 有餘裕的頁：zoom 保留 → 字真的變大。
+     · 已滿頁：fit_print 等比微縮抵銷放大 → 維持單張、物理字級不變（不會反而變小）。
+   排除絕對定位頁尾（頁碼/頁眉品牌字），避免位移漂移。封面版式固定，不放大。 */
+.page:not(.cover) > *:not(.page__num):not(.page__brand) { zoom: 1.09; }
+
+/* ─── 7. 列印滿版：關閉紙紋 ──────────────────────────────────
+   紙紋在 .page:not(.cover)::after，短頁或跨張尾張露出 body（body 無紋）時
+   會與 .page 產生「內容區有紋／頁尾區無紋」的水平接縫。列印改純暖紙平底
+   （螢幕版仍保留紙紋質感），與 base 一致、與 body 底色無縫。 */
+@media print {
+  .page:not(.cover)::after { display:none !important; }
+  html, body { background:var(--paper) !important; }
+  body::before { background:var(--paper) !important; }
+}

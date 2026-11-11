@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>親子工作坊｜立霖國文</title>
+<meta name="description" content="立霖國文親子工作坊 — 月度三主題輪換。律動、戲劇、圍爐讀書會，每場 8–10 對親子。在語言以外，找一條回家的路。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+/* ---- 頁面專屬微樣式 ---- */
+.topic-card {
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--paper-soft);
+  transition: transform .25s, box-shadow .25s;
+}
+.topic-card:hover { transform: translateY(-3px); box-shadow: 0 14px 38px rgba(15,39,68,.10); }
+
+.topic-card__head {
+  padding: 26px 28px 22px;
+  position: relative;
+}
+.topic-card__head::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--hairline-soft);
+}
+.topic-card--teal   .topic-card__head { background: linear-gradient(150deg, var(--mist), color-mix(in srgb, var(--teal) 10%, var(--paper-soft))); }
+.topic-card--clay   .topic-card__head { background: linear-gradient(150deg, var(--sunrise), var(--clay)); }
+.topic-card--gold   .topic-card__head { background: linear-gradient(150deg, var(--paper-soft), rgba(214,158,46,.14)); }
+
+.topic-card__body { padding: 22px 28px 26px; }
+
+.topic-card__kicker {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: .26em;
+  margin: 0 0 10px;
+}
+.topic-card--teal   .topic-card__kicker { color: var(--teal); }
+.topic-card--clay   .topic-card__kicker { color: var(--terracotta); }
+.topic-card--gold   .topic-card__kicker { color: var(--gold-dark); }
+
+.topic-card__title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--ink);
+  margin: 0 0 8px;
+  line-height: 1.35;
+}
+.topic-card__sub {
+  font-size: 13px;
+  color: rgba(26,54,93,.6);
+  margin: 0;
+  line-height: 1.7;
+}
+.topic-card__text {
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: rgba(26,54,93,.84);
+  margin: 0 0 14px;
+}
+.topic-card__anchor-label {
+  font-family: var(--serif);
+  font-size: 11.5px;
+  letter-spacing: .22em;
+  color: var(--gold-dark);
+  margin: 0 0 6px;
+}
+.topic-card__anchor-text {
+  font-family: var(--serif);
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--ink);
+  margin: 0 0 16px;
+  line-height: 1.75;
+}
+.topic-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 14px;
+  border-top: 1px dashed var(--hairline);
+  font-size: 13px;
+  color: rgba(26,54,93,.65);
+}
+.topic-card__target {
+  padding-top: 14px;
+  border-top: 1px dashed var(--hairline);
+  margin-bottom: 14px;
+}
+.topic-card__target-label {
+  font-size: 12px;
+  letter-spacing: .1em;
+  color: rgba(26,54,93,.55);
+  margin: 0 0 4px;
+}
+.topic-card__target-val {
+  font-size: 14px;
+  color: var(--navy);
+  margin: 0;
+}
+
+/* 承諾格 (no-do list) */
+.nodo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.nodo-item {
+  background: rgba(214,158,46,.05);
+  border: 1px solid rgba(214,158,46,.22);
+  border-radius: 3px;
+  padding: 26px 28px;
+}
+.nodo-item__title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+.nodo-item__text {
+  font-size: 14px;
+  line-height: 1.85;
+  color: rgba(26,54,93,.8);
+  margin: 0;
+}
+
+/* 費用包含列 */
+.incl-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+.incl-list li {
+  display: flex;
+  gap: 10px;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: rgba(26,54,93,.82);
+}
+.incl-list li::before {
+  content: "·";
+  flex: none;
+}
+.incl-list--teal li::before { color: var(--teal); }
+.incl-list--clay  li::before { color: var(--terracotta); }
+
+/* 退費政策小格 */
+.refund-box {
+  margin-top: 32px;
+  background: var(--paper-dark);
+  border-radius: 3px;
+  padding: 28px 32px;
+  border: 1px solid var(--hairline);
+}
+.refund-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+.refund-list li {
+  display: flex;
+  gap: 10px;
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: rgba(26,54,93,.8);
+}
+.refund-list li::before { content: "·"; color: var(--gold-dark); flex: none; }
+
+/* 篩選卡 */
+.filter-card {
+  background: var(--paper-soft);
+  border-radius: 3px;
+  padding: 30px 32px;
+  border: 1px solid var(--hairline);
+}
+.filter-card--teal  { border-left: 4px solid var(--teal); }
+.filter-card--clay  { border-left: 4px solid var(--terracotta); }
+.filter-card__kicker {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: .24em;
+  margin: 0 0 10px;
+}
+.filter-card--teal .filter-card__kicker { color: var(--teal); }
+.filter-card--clay .filter-card__kicker { color: var(--terracotta); }
+.filter-card__title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--ink);
+  margin: 0 0 16px;
+  line-height: 1.4;
+}
+.filter-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+.filter-list li {
+  display: flex;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(26,54,93,.82);
+}
+.filter-card--teal .filter-list li::before { content: "·"; color: var(--teal); flex: none; }
+.filter-card--clay .filter-list li::before { content: "·"; color: var(--terracotta); flex: none; }
+
+/* 導師角色 */
+.mentor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.mentor-box {
+  background: var(--paper-soft);
+  border-radius: 3px;
+  padding: 24px 28px;
+  border: 1px solid var(--hairline);
+}
+.mentor-box__kicker {
+  font-family: var(--serif);
+  font-size: 11.5px;
+  letter-spacing: .22em;
+  margin: 0 0 12px;
+}
+.mentor-box--teal .mentor-box__kicker { color: var(--teal); }
+.mentor-box--clay .mentor-box__kicker { color: var(--terracotta); }
+.mentor-box__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: rgba(26,54,93,.84);
+}
+
+/* 表單確認訊息 */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 40px 0;
+  font-family: var(--serif);
+  font-size: 18px;
+  letter-spacing: .08em;
+  color: var(--teal);
+  line-height: 1.8;
+}
+
+/* 報名表單包裝 */
+.form-wrap {
+  background: var(--paper-soft);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  padding: 36px 40px;
+}
+@media (max-width: 600px) { .form-wrap { padding: 26px 22px; } }
+
+.radio-group { display: grid; gap: 10px; }
+.radio-option {
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  padding: 12px 14px;
+  background: var(--paper);
+  font-size: 14.5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--navy);
+  transition: border-color .18s, background .18s;
+}
+.radio-option:hover { border-color: rgba(74,124,126,.4); background: var(--mist); }
+.radio-option input[type="radio"] { accent-color: var(--teal); flex: none; }
+
+.role-group { display: flex; gap: 10px; flex-wrap: wrap; }
+.role-option {
+  flex: 1;
+  min-width: 130px;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  padding: 11px 14px;
+  background: var(--paper);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--navy);
+  transition: border-color .18s, background .18s;
+}
+.role-option:hover { border-color: rgba(74,124,126,.4); background: var(--mist); }
+.role-option input[type="radio"] { accent-color: var(--teal); flex: none; }
+
+.form-note {
+  font-size: 13px;
+  line-height: 1.75;
+  color: rgba(26,54,93,.55);
+  font-style: italic;
+  text-align: center;
+  margin: 0;
+}
+
+/* 引文特別版（引孔子那段） */
+.lit-pullquote {
+  background: var(--paper-soft);
+  border-left: 2px solid var(--teal);
+  border-radius: 0 3px 3px 0;
+  padding: 22px 28px;
+  margin-top: 24px;
+}
+.lit-pullquote p {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.95;
+  color: var(--navy);
+  margin: 0 0 10px;
+}
+.lit-pullquote cite {
+  font-style: normal;
+  font-size: 13px;
+  letter-spacing: .12em;
+  color: var(--gold-dark);
+}
+</style>
+</head>
+<body data-page="event-workshop">
+
+<div id="site-header"></div>
+
+<!-- ==================== PAGE HEAD ==================== -->
+<header class="page-head ink-wash">
+  <div class="page-head__inner">
+    <p class="page-head__eyebrow">體驗活動 · 親子工作坊</p>
+    <h1 class="page-head__title">
+      月度三主題輪換<br>
+      <span class="accent-gold">在語言以外，找一條回家的路。</span>
+    </h1>
+    <p class="page-head__lead">
+      親子之間不必意見一致，但可以互相聽見。<br>
+      我們每個月辦一場工作坊，三主題輪換，您可以挑最相關的場次來。
+    </p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:30px;">
+      <span class="chip"><span class="dot-sm" style="background:var(--terracotta);"></span>每月一場 · 實體（新竹）</span>
+      <span class="chip"><span class="dot-sm" style="background:var(--teal);"></span>下一場 2026 / 6 / 22（日）19:00</span>
+      <span class="chip"><span class="dot-sm" style="background:var(--gold);"></span>每場 8–10 對親子</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== 三主題 ==================== -->
+<section class="section" id="themes">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">三主題輪換 · 每月一場</p>
+      <h2 class="section__title">三個主題，三種進入彼此的方式。</h2>
+      <p class="section__sub">您可以一年來一場，也可以三個主題都來一輪。我們不會推薦您「全包」。</p>
+    </div>
+
+    <div class="grid grid--3">
+
+      <!-- 主題一 -->
+      <article class="topic-card topic-card--teal reveal">
+        <div class="topic-card__head">
+          <p class="topic-card__kicker">主題一 · 60 分鐘</p>
+          <h3 class="topic-card__title">動身體 · 樂溝通</h3>
+          <p class="topic-card__sub">親子律動 / 鏡像模仿 / 盲走信任</p>
+        </div>
+        <div class="topic-card__body">
+          <p class="topic-card__text">青春期孩子拒絕被講道理，但身體比語言誠實。一小時的低密度律動，跟著鼓聲擺動、做鏡像、閉眼盲走——讓親子在不必說話的狀態下重建肢體記憶。</p>
+          <p class="topic-card__anchor-label">文本錨點</p>
+          <p class="topic-card__anchor-text">「身體記得，比腦袋更久。」— 林懷民</p>
+          <div class="topic-card__target">
+            <p class="topic-card__target-label">適合對象</p>
+            <p class="topic-card__target-val">國小高年級—國中親子</p>
+          </div>
+          <div class="topic-card__meta">
+            <span>NT$80 / 位</span>
+            <span>5 對起辦 · 10 對封頂</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 主題二 -->
+      <article class="topic-card topic-card--clay reveal">
+        <div class="topic-card__head">
+          <p class="topic-card__kicker">主題二 · 120 分鐘</p>
+          <h3 class="topic-card__title">文學戲劇 · 情境角色扮演</h3>
+          <p class="topic-card__sub">《背影》/《目送》/《孔乙己》三選一</p>
+        </div>
+        <div class="topic-card__body">
+          <p class="topic-card__text">把課文裡的父子離別、人情冷暖搬下紙面。家長與孩子刻意分到對立角色——家長演兒子、孩子演父親。透過角色的距離，您們可以說平常不會說的話。</p>
+          <p class="topic-card__anchor-label">文本錨點</p>
+          <p class="topic-card__anchor-text">「你今天演的角色，比你想像得更像你自己。」</p>
+          <div class="topic-card__target">
+            <p class="topic-card__target-label">適合對象</p>
+            <p class="topic-card__target-val">國二以上至高中親子</p>
+          </div>
+          <div class="topic-card__meta">
+            <span>NT$120 / 位</span>
+            <span>4 對起辦 · 8 對封頂</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 主題三 -->
+      <article class="topic-card topic-card--gold reveal">
+        <div class="topic-card__head">
+          <p class="topic-card__kicker">主題三 · 180 分鐘 · 年度旗艦</p>
+          <h3 class="topic-card__title">圍爐讀書會</h3>
+          <p class="topic-card__sub">慢讀 / 共食 / 立霖手寫書籤</p>
+        </div>
+        <div class="topic-card__body">
+          <p class="topic-card__text">冬至前後週日傍晚，圍著一張長桌、一鍋湯。立霖親自帶讀龍應台《目送》或同等書目，親子分桌坐、與其他家庭的人聊書。立霖會為每位學員親手寫一張書籤。</p>
+          <p class="topic-card__anchor-label">文本錨點</p>
+          <p class="topic-card__anchor-text">「人生到處知何似，應似飛鴻踏雪泥。」— 蘇軾</p>
+          <div class="topic-card__target">
+            <p class="topic-card__target-label">適合對象</p>
+            <p class="topic-card__target-val">國三—高三親子（年僅一場）</p>
+          </div>
+          <div class="topic-card__meta">
+            <span>NT$180 / 位</span>
+            <span>6 對起辦 · 8 對封頂</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 為什麼 ==================== -->
+<section class="section section--alt" id="why">
+  <div class="container container--narrow">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">為什麼立霖辦這三個工作坊</p>
+      <h2 class="section__title">親子之間缺的，常常不是時間，<br>是一個「不必演自己角色」的場景。</h2>
+    </div>
+    <p class="reveal" style="font-size:16.5px;line-height:1.95;color:rgba(26,54,93,.84);margin:0 0 18px;">在家裡，您是爸爸／媽媽，他是兒子／女兒。這個角色一旦戴上去，許多話就說不出口了。家長想說「我有時候也不知道該怎麼辦」，但這句話從爸爸口中講出來太重；孩子想說「我累」，但這句話從國二學生口中講出來會被解讀成偷懶。</p>
+    <p class="reveal" style="font-size:16.5px;line-height:1.95;color:rgba(26,54,93,.84);margin:0 0 18px;">三個工作坊都在處理同一件事——<strong style="color:var(--gold-dark);">把您和孩子暫時帶離原本的角色</strong>。律動工作坊讓您們做身體，不做角色；戲劇工作坊讓您們演別人，不演自己；讀書會讓您們當讀者，不當家長與孩子。一小時、兩小時、三小時，您們都不必是平常那個您。</p>
+    <p class="reveal" style="font-size:16.5px;line-height:1.95;color:rgba(26,54,93,.84);margin:0;">這比任何「親子溝通技巧課」都有效。因為技巧需要您先有力氣，而工作坊是先幫您把力氣補回來。</p>
+  </div>
+</section>
+
+<!-- ==================== 流程示意 ==================== -->
+<section class="section" id="flow">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">流程示意 · 以「動身體 · 樂溝通」為例</p>
+      <h2 class="section__title">60 分鐘，三幕時間。</h2>
+      <p class="section__sub">每一場工作坊都是「引 · 觸 · 留」三幕結構，留白比動作多。</p>
+    </div>
+
+    <div class="reveal">
+
+      <div class="phase">
+        <div>
+          <p class="phase__name">身體開機</p>
+          <p class="phase__when">第一幕 · 引 &nbsp;｜&nbsp; 19:00 – 19:10</p>
+        </div>
+        <ul class="phase__list">
+          <li>入場、脫鞋、穿襪套。教室裡放慢節奏的鼓樂。</li>
+          <li>立霖帶 5 分鐘呼吸加微微擺動。</li>
+          <li>第 6 到 10 分鐘，親子面對面站好，輪流舉左手、右手做鏡像模仿。不用整齊、不用對。慢慢來。</li>
+        </ul>
+      </div>
+
+      <div class="phase">
+        <div>
+          <p class="phase__name">三段律動</p>
+          <p class="phase__when">第二幕 · 觸 &nbsp;｜&nbsp; 19:10 – 19:45</p>
+        </div>
+        <ul class="phase__list">
+          <li><strong style="color:var(--gold-dark);">節奏拍打 15 分鐘</strong> — 親子相對坐地，導師示範拍手、拍腿、拍胸、指對方的四拍節奏。跟著做五輪，再互相設計新節奏接力。</li>
+          <li><strong style="color:var(--gold-dark);">盲走練習 15 分鐘</strong> — 兩人一組，一人閉眼，另一人用肩膀輕觸引導對方在教室慢慢走。三分鐘後交換。</li>
+          <li><strong style="color:var(--gold-dark);">共構動作 15 分鐘</strong> — 親子合作設計一個三秒鐘的動作組合，含「碰、轉、停」三元素。圍圈輪流展示，全場跟做一次。不評分、不評論。</li>
+        </ul>
+      </div>
+
+      <div class="phase">
+        <div>
+          <p class="phase__name">書寫散場</p>
+          <p class="phase__when">第三幕 · 留 &nbsp;｜&nbsp; 19:45 – 20:00</p>
+        </div>
+        <ul class="phase__list">
+          <li>全員席地圍坐。講義最後一頁寫一句「給今天那 5 分鐘的呼吸的我自己的話」。</li>
+          <li>寫完<strong style="color:var(--terracotta);">不交換、不分享</strong>，自己摺好帶走。</li>
+          <li>立霖站在門口默默微笑，學員可繼續坐在地板上 5 到 10 分鐘。</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 文學錨點 ==================== -->
+<section class="section section--alt ink-wash" id="literary">
+  <div class="container container--narrow text-center">
+    <p class="section__eyebrow reveal">文學錨點 · 系列共通</p>
+    <div class="pullquote reveal" style="max-width:28em;margin:20px auto 0;text-align:left;">
+      <p>君子和而不同，<br>小人同而不和。</p>
+      <cite>《論語 · 子路》</cite>
+    </div>
+    <div class="lit-pullquote reveal" style="margin-top:32px;text-align:left;">
+      <p>家裡常見的衝突，是大人想要「同」——孩子跟我想的一樣、做的一樣、選的一樣。孔子兩千多年前就講過了，要「同」不要「和」的，是小人關係；願意「不同」但仍能「和」的，才是君子之交。親子之間做得到嗎？我們相信做得到，但需要練。這三個工作坊，是練法。</p>
+      <cite>— 立霖</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 篩選（適合 / 不適合） ==================== -->
+<section class="section" id="fit">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">我們希望這些家庭來</p>
+      <h2 class="section__title">這個系列不適合所有人。</h2>
+      <p class="section__sub">先說清楚，比現場互相猜測好。</p>
+    </div>
+
+    <div class="grid grid--2">
+
+      <div class="filter-card filter-card--teal reveal">
+        <p class="filter-card__kicker">適合來</p>
+        <h3 class="filter-card__title">願意花一兩小時做身體動作的家庭</h3>
+        <ul class="filter-list">
+          <li>家長與孩子愈來愈少肢體接觸（擁抱、拍肩），覺得這件事可惜。</li>
+          <li>願意接受「做動作會有點尷尬」這件事。前 10 分鐘的尷尬是必經之路。</li>
+          <li>家長可以放下手機 1–3 小時。</li>
+          <li>對戲劇、律動、慢讀其中至少一項有興趣，或者好奇。</li>
+        </ul>
+      </div>
+
+      <div class="filter-card filter-card--clay reveal">
+        <p class="filter-card__kicker">本系列可能不適合</p>
+        <h3 class="filter-card__title">這樣的家庭，我們建議考慮自然輕觸之旅</h3>
+        <ul class="filter-list">
+          <li>主要動機是「看立霖老師會不會教我家小孩寫作文」。本場活動不涉及作文教學。</li>
+          <li>家長或孩子近期有身體傷病（律動坊）或重大家庭變故（戲劇坊《背影》主題）。</li>
+          <li>希望多帶其他親戚同行旁觀。本系列為小團體設計，旁觀者會干擾節奏。</li>
+          <li>當天無法準時抵達。本系列起頭 5 分鐘是儀式的關鍵。</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 導師角色 ==================== -->
+<section class="section section--alt" id="mentor-role">
+  <div class="container container--narrow">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">立霖在工作坊中的角色</p>
+      <h2 class="section__title">我是邀請您「跟著做」的人，<br>不是「教您怎麼做」的人。</h2>
+    </div>
+    <div class="mentor-grid reveal">
+      <div class="mentor-box mentor-box--teal">
+        <p class="mentor-box__kicker">立霖會做的事</p>
+        <ul class="mentor-box__list">
+          <li>示範動作 / 朗讀文本 / 帶領呼吸</li>
+          <li>留白給您和孩子的時間，多於自己講話的時間</li>
+          <li>在親子情緒湧現當下默默遞一張面紙</li>
+          <li>圍爐讀書會場，親手寫好您的書籤</li>
+        </ul>
+      </div>
+      <div class="mentor-box mentor-box--clay">
+        <p class="mentor-box__kicker">立霖不會做的事</p>
+        <ul class="mentor-box__list">
+          <li>不糾正您的動作「應該怎麼做」</li>
+          <li>不在親子衝突當下評論「誰對誰錯」</li>
+          <li>不在工作坊中或結束後三天內提及課程</li>
+          <li>不把您家當天的故事拿到社群上分享</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 無會員制承諾 ==================== -->
+<section class="section closing--ink" id="nodo">
+  <div class="container">
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow" style="color:var(--gold);">我們不做這四件事</p>
+      <h2 class="section__title" style="color:var(--paper);">這套工作坊系列<br>沒有任何「會員制」或「綁約制」。</h2>
+    </div>
+    <div class="nodo-grid reveal">
+      <div class="nodo-item">
+        <p class="nodo-item__title" style="color:var(--gold);">不簽長期約</p>
+        <p class="nodo-item__text" style="color:rgba(250,245,239,.85);">三個主題您可以挑一個來、可以挑三個都來、也可以三年只來一次。每場都是獨立的。</p>
+      </div>
+      <div class="nodo-item">
+        <p class="nodo-item__title" style="color:var(--gold);">不收訂金</p>
+        <p class="nodo-item__text" style="color:rgba(250,245,239,.85);">活動結束後付款。覺得當天進場 20 分鐘狀態不對，可以中途離場，不用付任何費用。</p>
+      </div>
+      <div class="nodo-item">
+        <p class="nodo-item__title" style="color:var(--gold);">可改期、可帶朋友</p>
+        <p class="nodo-item__text" style="color:rgba(250,245,239,.85);">本月不方便可換到下個月，免費。孩子想帶班上同學一起來，請那位同學的家長也同行加報就好。</p>
+      </div>
+      <div class="nodo-item">
+        <p class="nodo-item__title" style="color:var(--gold);">不問孩子成績</p>
+        <p class="nodo-item__text" style="color:rgba(250,245,239,.85);">工作坊當天及活動後追蹤期，立霖都不會主動問成績。您想聊成績，請您先開口。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 費用與名額 ==================== -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">費用與名額</p>
+      <h2 class="section__title">不同主題、不同名額、不同費用。</h2>
+      <p class="section__sub">填報名表時請選擇想參加的主題，48 小時內會接到立霖的確認電話。</p>
+    </div>
+
+    <div class="grid grid--2 reveal">
+      <div class="card">
+        <div class="card__top-rule" style="background:var(--teal);"></div>
+        <p class="card__kicker" style="color:var(--teal);">含什麼</p>
+        <ul class="incl-list incl-list--teal">
+          <li>場地、講義、教具（依主題不同）</li>
+          <li>茶水（戲劇坊、讀書會含簡餐）</li>
+          <li>公共意外責任險（每人身故 200 萬）</li>
+          <li>圍爐讀書會專屬：立霖親寫書籤一張</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card__top-rule" style="background:var(--terracotta);"></div>
+        <p class="card__kicker" style="color:var(--terracotta);">不含什麼</p>
+        <ul class="incl-list incl-list--clay">
+          <li>您家到教室的交通費</li>
+          <li>個人意外險加購（建議自備）</li>
+          <li>第三位以上同行親戚（本系列為小團體）</li>
+          <li>律動坊與戲劇坊的餐食（茶水以外）</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="refund-box reveal">
+      <p class="section__eyebrow" style="margin-bottom:8px;">退費政策</p>
+      <h3 style="font-family:var(--serif);font-size:19px;font-weight:600;color:var(--ink);margin:0 0 14px;letter-spacing:.06em;">由於不收訂金，原則上沒有「退費」這件事。</h3>
+      <p style="font-size:15px;line-height:1.85;color:rgba(26,54,93,.82);margin:0 0 12px;">特殊狀況若您已預付，依以下時間計算：</p>
+      <ul class="refund-list">
+        <li>活動 <strong>7 天前</strong>取消 — 全額退費</li>
+        <li>活動 <strong>5 天前</strong>取消 — 退 80%</li>
+        <li>活動 <strong>3 天前</strong>取消 — 退 50%</li>
+        <li>活動 <strong>3 天內</strong>取消 — 恕無法退費（場地與餐廳已下單）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 報名表 ==================== -->
+<section class="section section--alt" id="signup">
+  <div class="container container--narrow">
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">報名表單</p>
+      <h2 class="section__title">告訴我您想來哪一場，<br>立霖會親自回您電話。</h2>
+      <p class="section__sub">我們不用文字確認，因為文字看不出您是不是真的想來。</p>
+    </div>
+
+    <div class="form-wrap reveal">
+      <form id="workshopForm" novalidate>
+        <div style="display:grid;gap:22px;">
+
+          <div>
+            <label class="field-label" for="ws-name">姓名</label>
+            <input class="field-input" type="text" id="ws-name" name="name"
+              placeholder="您與孩子的姓氏即可（如「林家」）" autocomplete="name" required>
+          </div>
+
+          <div>
+            <label class="field-label" for="ws-phone">聯絡電話</label>
+            <input class="field-input" type="tel" id="ws-phone" name="phone"
+              placeholder="立霖會親自致電確認" autocomplete="tel" required>
+          </div>
+
+          <div>
+            <p class="field-label" style="margin-bottom:12px;">想參加的主題場次</p>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="topic" value="motion">
+                動身體 · 樂溝通（60 分鐘 · NT$80 / 位）
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="topic" value="drama">
+                文學戲劇 · 情境角色扮演（120 分鐘 · NT$120 / 位）
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="topic" value="reading">
+                圍爐讀書會（180 分鐘 · NT$180 / 位 · 年僅一場）
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="topic" value="unsure">
+                還不確定，電話裡再跟立霖聊
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <p class="field-label" style="margin-bottom:12px;">參加身份</p>
+            <div class="role-group">
+              <label class="role-option">
+                <input type="radio" name="role" value="parent"> 家長
+              </label>
+              <label class="role-option">
+                <input type="radio" name="role" value="student"> 學生
+              </label>
+              <label class="role-option">
+                <input type="radio" name="role" value="other"> 老師 / 其他
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="field-label" for="ws-msg">
+              想跟立霖老師說的話
+              <span style="font-family:var(--sans);font-weight:400;font-size:12px;letter-spacing:.04em;color:rgba(26,54,93,.5);"> — 可不填</span>
+            </label>
+            <textarea class="field-textarea" id="ws-msg" name="message" rows="4"
+              placeholder="例如：我跟孩子最近講話容易吵起來，想試試在不需要講話的場景裡跟他相處。"></textarea>
+          </div>
+
+          <div>
+            <button class="btn btn--solid" type="submit" style="width:100%;justify-content:center;">
+              送出，等您回覆我
+            </button>
+          </div>
+
+        </div>
+      </form>
+
+      <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+        <p class="form-success__title" style="font-family:var(--serif);font-size:20px;letter-spacing:.08em;color:var(--teal);margin:0 0 12px;">感謝您的填寫。</p>
+        <p class="form-success__body" style="font-size:15px;color:rgba(26,54,93,.72);font-family:var(--sans);margin:0;line-height:1.85;">立霖會在 48 小時內親自致電確認。<br>若兩天內沒有接到電話，請來信 hello@lilinguowen.com。</p>
+      </div>
+
+      <p class="form-note" style="margin-top:18px;">送出之後，48 小時內立霖會親自打電話確認。不催促，不推銷。我們先聽。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="section" id="faq">
+  <div class="container container--narrow">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">常見問題</p>
+      <h2 class="section__title">報名前您可能會想到的事。</h2>
+    </div>
+
+    <div class="accordion reveal">
+
+      <div class="accordion__item">
+        <button class="accordion__q" type="button">家裡只有一個孩子可以參加嗎？</button>
+        <div class="accordion__a">三場工作坊都以「1 大人 + 1 孩子」為基本配對，獨生子女家庭剛好。我們不會問「另一個孩子在哪」，活動中也不會做「家庭組成」相關的提問。</div>
+      </div>
+
+      <div class="accordion__item">
+        <button class="accordion__q" type="button">如果孩子說不想去，但我想去，怎麼辦？</button>
+        <div class="accordion__a">先告訴他三個主題的差別。多數一開始不想來的孩子，會挑「動身體」（覺得不必說話也不必演）或「圍爐讀書會」（覺得有飯吃）。如果他三個都不想，您可以單獨報名「家長共學日」（每季一場、不需要孩子陪同），等他自己有興趣的時候再回頭來。</div>
+      </div>
+
+      <div class="accordion__item">
+        <button class="accordion__q" type="button">沒上過立霖的課可以參加嗎？</button>
+        <div class="accordion__a">完全可以。每場工作坊都有大約一半的家庭是第一次接觸立霖。我們不會在現場介紹課程、不會在三天內傳業務訊息。您可以單純把工作坊當作一次親子體驗。</div>
+      </div>
+
+      <div class="accordion__item">
+        <button class="accordion__q" type="button">我比較不會跟陌生人互動，會被強迫互動嗎？</button>
+        <div class="accordion__a">不會。律動坊全程「跟得上就跟、跟不上就看」；戲劇坊允許您坐在原位口白演出，不必上中央演區；圍爐讀書會的輪讀以「能說則說、不說則跳」為原則。整個系列為內向型家庭設計。</div>
+      </div>
+
+      <div class="accordion__item">
+        <button class="accordion__q" type="button">我不知道三個主題我該選哪一個，怎麼辦？</button>
+        <div class="accordion__a">填報名表時，「想參加的主題」可以選「還不確定」。立霖會在確認電話裡跟您聊兩三句，依您家當下的狀態建議一個主題。如果聊完發現三個都不適合您家，立霖會直接告訴您「這次先不要」，沒關係的。</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CLOSING ==================== -->
+<section class="closing ink-wash" id="cta">
+  <div class="container">
+    <h2 class="closing__title">先填一張表，<br>其餘的，電話裡慢慢說。</h2>
+    <p class="closing__lead">每個家庭的故事都不一樣。我們先聽，再一起看看哪個主題最適合您。</p>
+    <div class="closing__actions">
+      <a class="btn btn--solid" href="#signup">填報名表</a>
+      <a class="btn btn--ghost" href="activities.html">回體驗活動總覽</a>
+    </div>
+    <p class="closing__note">不催促，不推銷。我們先聽。</p>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+
+<!-- 表單 submit 確認訊息（純 vanilla） -->
+<script>
+(function () {
+  var form = document.getElementById('workshopForm');
+  var success = document.getElementById('formSuccess');
+  if (!form || !success) return;
+
+  var successTitle = success.querySelector('.form-success__title');
+  var successBody = success.querySelector('.form-success__body');
+  var SENT_TITLE = successTitle ? successTitle.innerHTML : '';
+  var SENT_BODY = successBody ? successBody.innerHTML : '';
+  var QUEUED_TITLE = '收到了。';
+  var QUEUED_BODY = '線上表單目前整備中，請直接來信' +
+    '<a href="mailto:hello@lilinguowen.com" style="color:var(--teal);">hello@lilinguowen.com</a>' +
+    '，我們會在 24 小時內回覆。';
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var name  = form.querySelector('[name="name"]').value.trim();
+    var phone = form.querySelector('[name="phone"]').value.trim();
+    var topicEl = form.querySelector('input[name="topic"]:checked');
+    var roleEl  = form.querySelector('input[name="role"]:checked');
+    var message = form.querySelector('[name="message"]').value.trim();
+
+    if (!name || !phone) {
+      var missing = [];
+      if (!name)  missing.push('姓名');
+      if (!phone) missing.push('聯絡電話');
+      alert('請填寫：' + missing.join('、'));
+      return;
+    }
+
+    var data = {
+      name: name, phone: phone,
+      topic: topicEl ? topicEl.value : '', role: roleEl ? roleEl.value : '',
+      message: message
+    };
+
+    var btn = form.querySelector('button[type="submit"]');
+    if (btn) { btn.disabled = true; btn.textContent = '送出中…'; }
+
+    function done(result) {
+      var queued = result && result.status === 'queued';
+      if (successTitle) { successTitle.innerHTML = queued ? QUEUED_TITLE : SENT_TITLE; }
+      if (successBody) { successBody.innerHTML = queued ? QUEUED_BODY : SENT_BODY; }
+      success.setAttribute('data-form-status', queued ? 'queued' : 'sent');
+      form.style.display = 'none';
+      success.style.display = 'block';
+    }
+
+    if (window.SumiForms && window.SumiForms.submit) {
+      window.SumiForms.submit('event-workshop', data).then(done, done);
+    } else {
+      done();
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>家長入口｜立霖國文</title>
+<meta name="description" content="立霖國文家長入口 — 課堂觀察月報、親情橋樑服務。先收到第一份月報，再決定是否報名。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+  /* —— 月報示範卡（家長端，赤茶上線 + 朝陽底） —— */
+  .report-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(150deg, var(--sunrise), var(--clay));
+    border: 1px solid rgba(184, 106, 74, .22);
+    border-radius: 3px;
+    padding: 30px 28px;
+  }
+  .report-card__rule {
+    position: absolute;
+    top: 0; left: 28px;
+    width: 44px; height: 3px;
+    background: var(--terracotta);
+  }
+  .report-card__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 6px 0 18px;
+    font-family: var(--serif);
+    font-size: 12.5px;
+    letter-spacing: .12em;
+    color: var(--terracotta);
+  }
+  .report-card__meta time {
+    color: rgba(26, 54, 93, .55);
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: .06em;
+  }
+  .report-card__dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    margin-right: 7px;
+    vertical-align: middle;
+  }
+  .report-card__field {
+    font-size: 14.5px;
+    line-height: 1.85;
+    margin: 0 0 12px;
+    color: rgba(26, 54, 93, .88);
+  }
+  .report-card__field b {
+    font-family: var(--serif);
+    font-weight: 600;
+    color: var(--terracotta);
+  }
+  .report-card__note {
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: rgba(26, 54, 93, .72);
+    font-style: italic;
+    border-left: 2px solid var(--gold);
+    padding-left: 13px;
+    margin: 0;
+  }
+
+  /* —— 三步驟流程（橫排，家長端） —— */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .step {
+    padding: 36px 30px;
+    border-right: 1px solid var(--hairline);
+  }
+  .step:last-child { border-right: none; }
+  .step__num {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--clay);
+    line-height: 1;
+    margin: 0 0 14px;
+  }
+  .step__title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+  .step__desc {
+    font-size: 14.5px;
+    line-height: 1.9;
+    color: rgba(26, 54, 93, .72);
+    margin: 0;
+  }
+
+  @media (max-width: 860px) {
+    .steps { gap: 1px; border: none; }
+    .step {
+      border: 1px solid var(--hairline);
+      border-radius: 3px;
+      border-right: 1px solid var(--hairline);
+    }
+  }
+</style>
+</head>
+<body data-page="parents">
+
+<div id="site-header"></div>
+
+<!-- ================= 頁首 ================= -->
+<header class="page-head ink-wash ink-wash--parent">
+  <div class="page-head__inner">
+    <p class="page-head__eyebrow">家長入口 · PARENT TRACK</p>
+    <h1 class="page-head__title">
+      把焦慮放下，<br>
+      <span class="accent-terracotta">把對話請回家。</span>
+    </h1>
+    <p class="page-head__lead">
+      那些不知如何開口的關心，讓文學的溫柔替您說。<br>
+      我們是您和孩子之間，那道剛剛好的橋。
+    </p>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 課堂觀察月報 ================= -->
+<section class="section" id="report">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__eyebrow">親情橋樑服務</p>
+      <h2 class="section__title">一份真實的課堂觀察月報</h2>
+      <p class="section__sub">
+        不討論分數，只討論：今天，他在《紅樓夢》面前皺了眉、又笑了。<br>
+        每週教師記錄課堂，每月整理成一封給家長的信。
+      </p>
+    </div>
+
+    <div class="grid grid--2">
+      <article class="report-card reveal">
+        <div class="report-card__rule"></div>
+        <div class="report-card__meta">
+          <span><span class="report-card__dot"></span>親情橋樑 · 課堂觀察</span>
+          <time datetime="2026-05-12">2026 年 5 月 12 日</time>
+        </div>
+        <p class="report-card__field">
+          <b>今日課堂：</b>討論《紅樓夢》中角色面對家族衰敗的態度，孩子提出了一個讓老師意外的問題——「如果他們知道結局，還會那樣選擇嗎？」
+        </p>
+        <p class="report-card__note">
+          給家長的建議：今晚可與孩子聊聊她對未來挑戰的看法。不需要解答，只需要傾聽。
+        </p>
+      </article>
+
+      <article class="report-card reveal">
+        <div class="report-card__rule"></div>
+        <div class="report-card__meta">
+          <span><span class="report-card__dot"></span>親情橋樑 · 課堂觀察</span>
+          <time datetime="2026-05-10">2026 年 5 月 10 日</time>
+        </div>
+        <p class="report-card__field">
+          <b>今日課堂：</b>作文題目「我最想說但沒說出口的一句話」，孩子寫了 600 字給父親。文字很安靜，也很真實。
+        </p>
+        <p class="report-card__note">
+          給家長的建議：不需要追問內容。週末可一起做一件不講話的事，例如散步。
+        </p>
+      </article>
+    </div>
+
+    <div class="text-center" style="margin-top: 40px;">
+      <span class="chip"><span class="dot-sm" style="background:var(--terracotta);"></span>以上為示範樣張，實際月報依孩子課堂記錄生成</span>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-hr">
+
+<!-- ================= 三步驟：怎麼開始 ================= -->
+<section class="section section--alt" id="how">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__eyebrow">先試再決定</p>
+      <h2 class="section__title">先收到第一份月報，再決定要不要報名。</h2>
+      <p class="section__sub">
+        您不需要在諮詢的當下表態，也沒有人會催促您。
+        我們先讓您看孩子真實的課堂樣子，再一起討論接下來的事。
+      </p>
+    </div>
+
+    <div class="steps reveal">
+      <div class="step">
+        <p class="step__num">一</p>
+        <p class="step__title">預約家長諮詢</p>
+        <p class="step__desc">加 LINE 後，簡單告訴我們孩子的年級與學習狀況。不超過十分鐘，沒有表格要填。</p>
+      </div>
+      <div class="step">
+        <p class="step__num">二</p>
+        <p class="step__title">收到體驗月報</p>
+        <p class="step__desc">我們送出一份示範版課堂觀察月報，讓您親眼看到「月報長什麼樣子」再做判斷。</p>
+      </div>
+      <div class="step">
+        <p class="step__num">三</p>
+        <p class="step__title">您再決定</p>
+        <p class="step__desc">覺得合適，我們再聊課程安排。不合適，也沒有任何壓力——謝謝您花時間了解我們。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 品牌說明：我們能做什麼 ================= -->
+<section class="section" id="bridge">
+  <div class="container">
+    <div class="section__head">
+      <p class="section__eyebrow">親情橋樑的角色</p>
+      <h2 class="section__title">我們幫忙翻譯，不幫忙催促。</h2>
+      <p class="section__sub">
+        孩子學習卡關了，您不一定能從孩子口中問出來；
+        親子之間有些話說不清楚，不一定是關係出問題。
+        我們每個月把課堂裡看到的，用您讀得進去的語言寫給您。
+      </p>
+    </div>
+
+    <div class="grid grid--3">
+      <article class="card card--parent reveal">
+        <div class="card__top-rule"></div>
+        <p class="card__kicker">定期回報</p>
+        <h3 class="card__title">月報，不是成績單</h3>
+        <p class="card__text">記錄孩子在課堂的反應、提問、思考過程。您讀到的，是活生生的孩子，不是數字。</p>
+      </article>
+
+      <article class="card card--parent reveal">
+        <div class="card__top-rule"></div>
+        <p class="card__kicker">話語翻譯</p>
+        <h3 class="card__title">親子之間卡住的話</h3>
+        <p class="card__text">有時孩子有話想說，但說不出口；家長有擔心，但怕開口傷感情。我們幫忙搭那座橋。</p>
+      </article>
+
+      <article class="card card--parent reveal">
+        <div class="card__top-rule"></div>
+        <p class="card__kicker">角色減壓</p>
+        <h3 class="card__title">您不必再催促</h3>
+        <p class="card__text">學習督促的事，交給教師；您只需要做一件事——在孩子回家的時候，在那裡。</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 引文 ================= -->
+<section class="section section--alt">
+  <div class="container container--narrow">
+    <div class="pullquote reveal" style="margin: 0 auto;">
+      <p>給願意陪孩子重新讀世界的家長——</p>
+      <p>不討論分數，只討論：今天，他在文字面前，是什麼表情。</p>
+      <cite>立霖國文 · 親情橋樑</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" id="faq">
+  <div class="container container--narrow">
+    <div class="section__head section__head--center">
+      <p class="section__eyebrow">常見問題</p>
+      <h2 class="section__title">您可能想問的事</h2>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion__item">
+        <button class="accordion__q" aria-expanded="false">月報是每個月固定寄出嗎？</button>
+        <div class="accordion__a">
+          月報以每月一次為基準，在月底整理當月課堂紀錄後寄出。若孩子當月有特別值得紀錄的課堂時刻，可能附上一則簡短的即時觀察。
+        </div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__q" aria-expanded="false">月報的內容由誰撰寫？</button>
+        <div class="accordion__a">
+          由授課教師本人親自撰寫，不使用通用模板。每份月報對應一個孩子的課堂實況，不做複製貼上。
+        </div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__q" aria-expanded="false">孩子知道會有月報寄給家長嗎？</button>
+        <div class="accordion__a">
+          知道。我們在第一堂課就會讓孩子了解月報的存在，並且說清楚：月報的目的不是監視，而是讓家長也看到他真實的樣子。
+          我們尊重孩子的隱私——月報記錄的是課堂行為與思考，不是私下談話的內容。
+        </div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__q" aria-expanded="false">諮詢後一定要決定報名嗎？</button>
+        <div class="accordion__a">
+          不需要。諮詢是雙向了解，不是銷售流程。我們希望您在有充分資訊的情況下做判斷；若當下還沒想清楚，完全可以回家再想想，再回來找我們。
+        </div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__q" aria-expanded="false">孩子的學習狀況，會和其他人分享嗎？</button>
+        <div class="accordion__a">
+          不會。月報與課堂紀錄僅供該學生的家長閱覽，不對外揭露，也不用於任何行銷用途。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 見證 ================= -->
+<section class="section section--alt" id="voices">
+  <div class="container">
+    <div class="section__head section__head--center">
+      <p class="section__eyebrow">家長的話</p>
+      <h2 class="section__title">他們怎麼說。</h2>
+    </div>
+
+    <div class="grid grid--2">
+      <article class="quote-card quote-card--parent reveal">
+        <span class="quote-card__mark">"</span>
+        <p class="quote-card__body">
+          看到月報之前，我以為孩子在國文課上只是坐著。看完之後才發現，他其實一直在想事情，只是我們在家沒機會聊到。
+        </p>
+        <div class="quote-card__source">
+          <span>一位七年級孩子的家長</span>
+          <span>新竹 · 2025</span>
+        </div>
+      </article>
+
+      <article class="quote-card quote-card--parent reveal">
+        <span class="quote-card__mark">"</span>
+        <p class="quote-card__body">
+          我以前每次問孩子「今天上了什麼」，他都說「沒什麼」。現在月報幫我知道了，反而不需要問了，親子關係輕鬆不少。
+        </p>
+        <div class="quote-card__source">
+          <span>一位八年級孩子的家長</span>
+          <span>新竹 · 2025</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA 收束 ================= -->
+<section class="closing ink-wash ink-wash--parent" id="contact">
+  <div class="container">
+    <h2 class="closing__title">先收到一份月報，<br>再決定接下來的事。</h2>
+    <p class="closing__lead">
+      不催促，不推銷。<br>
+      預約家長諮詢後，我們先送出一份體驗月報，讓您看到孩子在課堂的真實樣子。
+    </p>
+    <div class="closing__actions">
+      <a class="btn btn--terracotta" data-line href="#">加 LINE 預約家長諮詢</a>
+      <a class="btn btn--ghost" href="index.html">回首頁了解更多</a>
+    </div>
+    <p class="closing__note">每位孩子的節奏都不一樣。我們先聽您說。</p>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+</body>
+</html>

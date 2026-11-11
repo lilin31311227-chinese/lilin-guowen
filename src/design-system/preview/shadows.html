@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Shadow System</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:28px 24px;font-size:12px}
+  .label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.6;font-weight:600;margin-bottom:18px}
+  .row{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;align-items:end}
+  .item{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .box{width:96px;height:64px;background:#fff;border-radius:14px}
+  .s1{box-shadow:0 2px 8px rgba(26,54,93,.08)}
+  .s2{box-shadow:0 4px 16px rgba(26,54,93,.10)}
+  .s3{box-shadow:0 8px 24px rgba(26,54,93,.12)}
+  .s4{box-shadow:0 12px 32px rgba(26,54,93,.15)}
+  .s5{box-shadow:0 8px 24px rgba(214,158,46,.30)}
+  .name{font-family:ui-monospace,Menlo,monospace;font-weight:600;color:#b7791f;font-size:11px}
+  .use{font-size:10.5px;color:#2c5282;text-align:center;opacity:.85}
+  .foot{margin-top:18px;font-size:11px;color:#2c5282;line-height:1.6;text-align:center}
+</style>
+</head>
+<body>
+  <div class="label">陰影系統 · 永遠 navy 基底，禁止純黑</div>
+  <div class="row">
+    <div class="item"><div class="box s1"></div><div class="name">sm</div><div class="use">輕微浮起</div></div>
+    <div class="item"><div class="box s2"></div><div class="name">md</div><div class="use">預設卡片</div></div>
+    <div class="item"><div class="box s3"></div><div class="name">lg</div><div class="use">hover</div></div>
+    <div class="item"><div class="box s4"></div><div class="name">xl</div><div class="use">大區塊 hover</div></div>
+    <div class="item"><div class="box s5" style="background:linear-gradient(90deg,#fbbf24,#f59e0b)"></div><div class="name">gold</div><div class="use">Primary CTA</div></div>
+  </div>
+  <div class="foot">基底色 <code>rgba(26, 54, 93, 0.08 – 0.15)</code>　 ·　 CTA 例外為 <code>rgba(214, 158, 46, 0.30)</code></div>
+</body>
+</html>

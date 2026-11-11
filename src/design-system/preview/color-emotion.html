@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Emotion Lexicon</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:13px}
+  .label{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.6;font-weight:600;margin-bottom:14px}
+  .row{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{display:inline-flex;align-items:center;gap:.45rem;padding:.5rem 1rem;border-radius:9999px;background:#fdfaf5;border:1px solid currentColor;font-size:14px;font-weight:500}
+  .chip::before{content:"";width:.5rem;height:.5rem;border-radius:9999px;background:currentColor;flex-shrink:0}
+  .chip .lbl{font-weight:700}
+  .chip .cl{font-size:11.5px;opacity:.75}
+  .joy{color:#e6b85c}
+  .calm{color:#8aa9b5}
+  .melancholy{color:#6b7a99}
+  .anger{color:#a8624a}
+  .anxiety{color:#b89968}
+  .grief{color:#5d6878}
+  .hope{color:#9ab87c}
+  .foot{margin-top:14px;font-size:11px;color:#2c5282;line-height:1.55;max-width:600px}
+</style>
+</head>
+<body>
+  <div class="label">述情詞彙色票 Emotion Lexicon · 7 色</div>
+  <div class="row">
+    <span class="chip joy"><span class="lbl">喜</span><span class="cl">· 欣然</span></span>
+    <span class="chip calm"><span class="lbl">安</span><span class="cl">· 從容</span></span>
+    <span class="chip melancholy"><span class="lbl">鬱</span><span class="cl">· 惆悵</span></span>
+    <span class="chip anger"><span class="lbl">慍</span><span class="cl">· 不平</span></span>
+    <span class="chip anxiety"><span class="lbl">焦</span><span class="cl">· 懸宕</span></span>
+    <span class="chip grief"><span class="lbl">哀</span><span class="cl">· 黯然</span></span>
+    <span class="chip hope"><span class="lbl">望</span><span class="cl">· 懷想</span></span>
+  </div>
+  <p class="foot">把「煩」翻譯成「惆悵」、「懸宕」、「不平」。文人色系，刻意避開鮮紅與螢光。</p>
+</body>
+</html>

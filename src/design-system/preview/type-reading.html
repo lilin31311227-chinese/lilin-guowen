@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Chinese Reading Type</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#fdfaf5;color:#1a365d;padding:24px}
+  .col{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+  .pane{padding:16px 18px;border-radius:12px;background:#faf5ef;border:1px solid rgba(26,54,93,.06)}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#b7791f;font-weight:600;margin-bottom:8px}
+  .longform{font-size:18px;line-height:1.85;color:#1a365d}
+  .reading{font-size:16px;line-height:1.75;color:#1a365d}
+  .spec{font-size:11px;font-family:ui-monospace,Menlo,monospace;color:#2c5282;opacity:.7;margin-top:10px}
+</style>
+</head>
+<body>
+  <div class="col">
+    <div class="pane">
+      <div class="lbl">心靈專欄長文 · Mentor Column</div>
+      <p class="longform">他不是不講話，只是不知道從哪句開始。「不爽」「煩」「不知道」剛好是世界上最容易引爆衝突的三個詞。</p>
+      <div class="spec">18px · 400 · line-height 1.85 · cream-soft</div>
+    </div>
+    <div class="pane">
+      <div class="lbl">內文段落 · Article Body</div>
+      <p class="reading">在現代社會中，我們經常面臨各種期待。你認為我們應該對誰展現最大的忠誠？如果是對自己，那意味著你必須承擔什麼樣的責任？</p>
+      <div class="spec">16px · 400 · line-height 1.75 · cream</div>
+    </div>
+  </div>
+</body>
+</html>

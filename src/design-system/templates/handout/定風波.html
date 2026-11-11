@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>立霖國文 · 授課講義範本</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:#1a365d; --navy-light:#2c5282; --navy-dark:#0f2744; --navy-hero:#0A1A35;
+    --gold:#d69e2e; --gold-light:#ecc94b; --gold-dark:#b7791f; --gold-glow:#fbbf24;
+    --cream:#faf5ef; --cream-dark:#f5e6d3; --cream-soft:#fdfaf5;
+    --mentor-terracotta:#b86a4a; --mentor-amber:#c98a3d; --mentor-clay:#e8d5c4; --mentor-sunrise:#f4e4d4;
+    --bridge-teal:#4a7c7e; --bridge-sage:#9cae8e; --bridge-mist:#e8eeec;
+    --emo-joy:#e6b85c; --emo-calm:#8aa9b5; --emo-melancholy:#6b7a99;
+    --emo-anger:#a8624a; --emo-anxiety:#b89968; --emo-grief:#5d6878; --emo-hope:#9ab87c;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body {
+    background:#3a3a3a;
+    font-family:'Noto Sans TC','PingFang TC',sans-serif;
+    color:var(--navy);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .doc {
+    padding:32px 0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:28px;
+  }
+  /* A4 portrait, 210 × 297 mm → 794 × 1123 px @ 96dpi */
+  .page {
+    width:794px;
+    height:1123px;
+    background:var(--cream);
+    box-shadow:0 8px 32px rgba(26,54,93,.35);
+    position:relative;
+    overflow:hidden;
+    page-break-after:always;
+  }
+  .page--soft { background:var(--cream-soft); }
+  .page__num {
+    position:absolute;
+    bottom:24px;
+    right:32px;
+    font-family:'Noto Serif TC',serif;
+    font-size:11px;
+    color:var(--navy-light);
+    letter-spacing:.15em;
+  }
+  .page__num b { color:var(--gold-dark); font-weight:600; }
+  .page__brand {
+    position:absolute;
+    bottom:24px;
+    left:32px;
+    font-size:10.5px;
+    letter-spacing:.15em;
+    color:var(--navy-light);
+    opacity:.65;
+    text-transform:uppercase;
+  }
+  .gold-hairline {
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(214,158,46,.6), transparent);
+    border:0;
+  }
+
+  /* ==================== PAGE 1 · COVER ==================== */
+  .cover {
+    background: var(--navy-hero);
+    color:var(--cream);
+    overflow:hidden;
+  }
+  .cover__bg {
+    position:absolute; inset:0;
+    background:linear-gradient(135deg,#0A1A35 0%,#0d2341 50%,#071428 100%);
+  }
+  .cover__glow1 {
+    position:absolute;
+    top:-200px; right:-180px;
+    width:540px; height:540px;
+    background:radial-gradient(circle, rgba(245,158,11,.25) 0%, rgba(251,191,36,.08) 50%, transparent 100%);
+    border-radius:9999px;
+    filter:blur(50px);
+  }
+  .cover__glow2 {
+    position:absolute;
+    bottom:-100px; left:-100px;
+    width:400px; height:400px;
+    background:radial-gradient(circle, rgba(74,124,126,.15) 0%, transparent 60%);
+    border-radius:9999px;
+    filter:blur(40px);
+  }
+  .cover__xiangyun {
+    position:absolute;
+    color:#fbbf24;
+    opacity:.18;
+  }
+  .cover__hdr {
+    position:absolute; top:48px; left:64px; right:64px;
+    display:flex; align-items:center; justify-content:space-between;
+    z-index:5;
+  }
+  .cover__hdr .logo { height:34px; filter:brightness(0) invert(1); opacity:.95; }
+  .cover__hdr .series {
+    font-size:11px; letter-spacing:.18em; color:#fcd34d; font-weight:500;
+    border:1px solid rgba(251,191,36,.4);
+    padding:6px 14px; border-radius:9999px;
+    background:rgba(251,191,36,.06); backdrop-filter:blur(4px);
+    white-space:nowrap;
+  }
+  .cover__center {
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    z-index:5;
+    width:88%;
+  }
+  .cover__eyebrow {
+    font-size:12px; letter-spacing:.4em; color:#fcd34d; font-weight:500;
+    margin-bottom:24px;
+  }
+  .cover__seal {
+    width:74px; height:74px;
+    margin:0 auto 22px;
+    border-radius:14px;
+    box-shadow:0 8px 30px rgba(214,158,46,.25);
+  }
+  .cover__title {
+    font-family:'Noto Serif TC',serif;
+    font-size:78px; font-weight:900;
+    line-height:1.1;
+    letter-spacing:.04em;
+    color:#fff;
+    margin-bottom:18px;
+  }
+  .cover__quote {
+    font-family:'Noto Serif TC',serif;
+    font-size:18px;
+    line-height:1.85;
+    color:#fde68a;
+    margin-bottom:8px;
+    letter-spacing:.04em;
+  }
+  .cover__poet {
+    font-size:14px; color:#cbd5e1; letter-spacing:.15em;
+  }
+  .cover__divider {
+    width:60px; height:1px;
+    background:linear-gradient(90deg,transparent,#fbbf24,transparent);
+    margin:34px auto;
+  }
+  .cover__sub {
+    font-size:15px; color:rgba(250,245,239,.78);
+    line-height:1.8;
+    max-width:420px; margin:0 auto;
+  }
+  .cover__foot {
+    position:absolute;
+    bottom:54px; left:64px; right:64px;
+    display:flex; justify-content:space-between; align-items:flex-end;
+    z-index:5;
+  }
+  .cover__meta {
+    font-size:11.5px;
+    letter-spacing:.03em;
+    color:rgba(250,245,239,.6);
+    line-height:1.8;
+    white-space:nowrap;
+  }
+  .cover__meta b { color:#fcd34d; font-weight:600; }
+  .cover__teacher {
+    text-align:right;
+  }
+  .cover__teacher .name {
+    font-family:'Noto Serif TC',serif;
+    font-size:17px; color:#fde68a; font-weight:700;
+    letter-spacing:.1em;
+  }
+  .cover__teacher .role {
+    font-size:11px; color:rgba(250,245,239,.55);
+    letter-spacing:.15em; margin-top:4px;
+  }
+
+  /* ==================== PAGE 2 · ANALYSIS ==================== */
+  .pg2 { padding:52px 60px 60px; }
+  .pg2__head {
+    display:flex; align-items:flex-end; justify-content:space-between;
+    border-bottom:1px solid rgba(26,54,93,.12);
+    padding-bottom:14px;
+    margin-bottom:22px;
+  }
+  .pg2__head .logo { height:30px; }
+  .pg2__head .crumbs {
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold-dark);
+    text-transform:uppercase;
+    font-weight:500;
+  }
+  .pg2__h1 {
+    font-family:'Noto Serif TC',serif;
+    font-size:30px; font-weight:700;
+    color:var(--navy);
+    letter-spacing:.02em;
+    margin-bottom:6px;
+  }
+  .pg2__h1 small {
+    font-size:14px;
+    color:var(--navy-light);
+    letter-spacing:.1em;
+    font-weight:400;
+    margin-left:10px;
+  }
+  .pg2__lead {
+    font-size:13.5px;
+    color:var(--navy-light);
+    line-height:1.75;
+    max-width:600px;
+    margin-bottom:20px;
+  }
+  .original {
+    background:#fff;
+    border:1px solid rgba(26,54,93,.08);
+    border-radius:14px;
+    padding:22px 30px;
+    margin-bottom:18px;
+    position:relative;
+  }
+  .original::before {
+    content:"";
+    position:absolute;
+    top:14px; left:14px;
+    width:38px; height:38px;
+    background:url('../../assets/lilin-icon.png') center/contain no-repeat;
+    opacity:.10;
+    border-radius:8px;
+  }
+  .original__label {
+    font-size:11px; letter-spacing:.25em;
+    color:var(--gold-dark); font-weight:600;
+    text-transform:uppercase;
+    margin-bottom:12px;
+    text-align:right;
+  }
+  .original__text {
+    font-family:'Noto Serif TC',serif;
+    font-size:15.5px;
+    line-height:1.95;
+    color:var(--navy-dark);
+    letter-spacing:.06em;
+    text-align:justify;
+  }
+  .original__text .pause {
+    color:var(--gold-dark);
+    margin:0 2px;
+  }
+  .original__attrib {
+    margin-top:12px;
+    text-align:right;
+    font-family:'Noto Serif TC',serif;
+    font-size:12.5px;
+    color:var(--mentor-terracotta);
+    letter-spacing:.1em;
+  }
+
+  .analysis-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:18px;
+  }
+  .anablock {
+    background:var(--cream-soft);
+    border-radius:12px;
+    padding:14px 18px;
+    border-left:3px solid var(--gold);
+  }
+  .anablock h4 {
+    font-size:10.5px; letter-spacing:.2em;
+    color:var(--gold-dark); font-weight:600;
+    margin-bottom:6px; text-transform:uppercase;
+  }
+  .anablock h3 {
+    font-size:14px; font-weight:700;
+    color:var(--navy);
+    margin-bottom:6px;
+  }
+  .anablock p {
+    font-size:12.5px; line-height:1.7;
+    color:var(--navy);
+  }
+
+  .keypoints {
+    background:#fff;
+    border-radius:12px;
+    padding:18px 24px 20px;
+    box-shadow:0 4px 16px rgba(26,54,93,.06);
+  }
+  .keypoints h4 {
+    font-size:10.5px; letter-spacing:.2em;
+    color:var(--mentor-terracotta); font-weight:600;
+    margin-bottom:10px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .keypoints h4::before {
+    content:""; width:18px; height:1px;
+    background:var(--mentor-terracotta);
+  }
+  .keypoints ol {
+    list-style:none; counter-reset:kp;
+    display:grid; gap:8px;
+  }
+  .keypoints li {
+    counter-increment:kp;
+    display:grid;
+    grid-template-columns:28px 1fr;
+    gap:12px;
+    align-items:start;
+    font-size:12.5px; line-height:1.65;
+    color:var(--navy);
+  }
+  .keypoints li::before {
+    content:counter(kp, decimal-leading-zero);
+    font-family:'Noto Serif TC',serif;
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--gold-dark);
+    border:1px solid var(--gold-dark);
+    border-radius:9999px;
+    width:24px; height:24px;
+    display:flex; align-items:center; justify-content:center;
+    letter-spacing:0;
+  }
+  .keypoints li b {
+    color:var(--mentor-terracotta);
+    font-weight:600;
+  }
+
+  /* ==================== PAGE 3 · MENTOR + EMOTION ==================== */
+  .pg3 { padding:60px 64px 80px; }
+  .pg3__head {
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin-bottom:24px;
+    padding-bottom:16px;
+    border-bottom:1px solid rgba(26,54,93,.10);
+  }
+  .pg3__h2 {
+    font-family:'Noto Serif TC',serif;
+    font-size:24px; font-weight:700;
+    color:var(--navy);
+    letter-spacing:.04em;
+  }
+  .pg3__h2 small {
+    font-size:11px; letter-spacing:.2em;
+    color:var(--gold-dark); display:block;
+    margin-bottom:4px;
+    font-family:'Noto Sans TC',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+  }
+
+  .mentor-voice {
+    position:relative;
+    background:linear-gradient(180deg, var(--mentor-sunrise) 0%, var(--mentor-clay) 100%);
+    border-left:3px solid var(--mentor-terracotta);
+    border-radius:0 14px 14px 0;
+    padding:26px 30px;
+    margin-bottom:28px;
+  }
+  .mentor-voice::before {
+    content:"「";
+    position:absolute;
+    top:8px; right:18px;
+    font-family:'Noto Serif TC',serif;
+    font-size:64px;
+    color:var(--mentor-terracotta);
+    opacity:.18;
+    line-height:1;
+  }
+  .mentor-voice .lbl {
+    font-size:11px; letter-spacing:.2em;
+    color:var(--mentor-terracotta);
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .mentor-voice .body {
+    font-family:'Noto Sans TC',sans-serif;
+    font-size:15px;
+    line-height:1.95;
+    color:var(--navy-dark);
+  }
+  .mentor-voice .body em {
+    font-style:normal;
+    color:var(--mentor-terracotta);
+    font-weight:600;
+  }
+  .mentor-voice .refline {
+    margin-top:16px;
+    padding-top:12px;
+    border-top:1px solid rgba(184,106,74,.22);
+    font-size:12px;
+    color:var(--navy-light);
+    letter-spacing:.05em;
+  }
+
+  .think-prompts {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin-bottom:32px;
+  }
+  .think-prompt {
+    background:#fff;
+    border-radius:10px;
+    padding:14px 18px;
+    border:1px solid rgba(184,106,74,.15);
+    font-size:12.5px;
+    line-height:1.75;
+    color:var(--navy);
+    position:relative;
+  }
+  .think-prompt::before {
+    content:"";
+    position:absolute;
+    top:18px; left:-1px;
+    width:3px; height:18px;
+    background:var(--mentor-terracotta);
+    opacity:.45;
+  }
+  .think-prompt b {
+    color:var(--mentor-terracotta);
+    display:block;
+    font-size:11px; letter-spacing:.1em;
+    margin-bottom:4px;
+    font-weight:600;
+  }
+
+  .emotion-section {
+    background:#fff;
+    border-radius:14px;
+    padding:22px 26px;
+    box-shadow:0 4px 16px rgba(26,54,93,.06);
+  }
+  .emotion-section h4 {
+    font-size:11px; letter-spacing:.2em;
+    color:var(--gold-dark); font-weight:600;
+    margin-bottom:14px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .emotion-section h4 span:last-child {
+    color:var(--navy-light); opacity:.65;
+    font-weight:400; letter-spacing:.08em;
+  }
+  .emotion-section .desc {
+    font-size:13px;
+    color:var(--navy-light);
+    line-height:1.8;
+    margin-bottom:16px;
+    max-width:580px;
+  }
+  .chips {
+    display:flex; flex-wrap:wrap; gap:9px;
+    margin-bottom:18px;
+  }
+  .chip {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:.4rem .9rem;
+    border-radius:9999px;
+    background:var(--cream-soft);
+    border:1px solid currentColor;
+    font-size:13.5px; font-weight:500;
+  }
+  .chip::before {
+    content:""; width:.5rem; height:.5rem;
+    border-radius:9999px;
+    background:currentColor;
+  }
+  .chip b { font-weight:700; }
+  .chip .cl { font-size:11.5px; opacity:.78; }
+  .joy{color:var(--emo-joy)} .calm{color:var(--emo-calm)} .melancholy{color:var(--emo-melancholy)}
+  .anger{color:var(--emo-anger)} .anxiety{color:var(--emo-anxiety)} .grief{color:var(--emo-grief)} .hope{color:var(--emo-hope)}
+
+  .emotion-exercise {
+    background:var(--cream-soft);
+    border-radius:10px;
+    padding:14px 18px;
+    border:1px dashed rgba(184,106,74,.4);
+  }
+  .emotion-exercise h5 {
+    font-size:12px; letter-spacing:.1em;
+    color:var(--mentor-terracotta);
+    font-weight:600; margin-bottom:6px;
+  }
+  .emotion-exercise p {
+    font-size:12.5px; line-height:1.8;
+    color:var(--navy);
+  }
+  .blank-line {
+    display:inline-block;
+    width:80px;
+    border-bottom:1px solid rgba(26,54,93,.3);
+    margin:0 4px;
+  }
+
+  /* ==================== PAGE 4 · DIALOGUE PROMPT ==================== */
+  .pg4 { padding:60px 64px 80px; position:relative; }
+  .pg4__head {
+    text-align:center;
+    margin-bottom:36px;
+  }
+  .pg4__eyebrow {
+    font-size:11px; letter-spacing:.3em;
+    color:var(--mentor-terracotta);
+    font-weight:600;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .pg4__title {
+    font-family:'Noto Serif TC',serif;
+    font-size:32px; font-weight:700;
+    color:var(--navy);
+    letter-spacing:.04em;
+  }
+  .pg4__divider {
+    width:60px; height:1px;
+    background:linear-gradient(90deg,transparent,var(--mentor-terracotta),transparent);
+    margin:18px auto 28px;
+  }
+  .dialogue {
+    background:var(--cream-soft);
+    border:1.5px dashed var(--mentor-terracotta);
+    border-radius:14px;
+    padding:32px 36px 30px;
+    margin-bottom:28px;
+    position:relative;
+  }
+  .dialogue::before {
+    content:"「";
+    position:absolute;
+    top:-12px; left:24px;
+    font-family:'Noto Serif TC',serif;
+    font-size:54px;
+    color:var(--mentor-terracotta);
+    line-height:1;
+    background:var(--cream);
+    padding:0 8px;
+  }
+  .dialogue .week {
+    font-size:11px; letter-spacing:.2em;
+    color:var(--mentor-terracotta);
+    font-weight:600;
+    margin-bottom:6px;
+  }
+  .dialogue .topic {
+    font-family:'Noto Serif TC',serif;
+    font-size:19px; font-weight:700;
+    color:var(--navy);
+    line-height:1.5;
+    margin-bottom:18px;
+  }
+  .dialogue .prompt-body {
+    font-size:14px; line-height:2;
+    color:var(--navy);
+    margin-bottom:18px;
+  }
+  .dialogue .prompt-body em {
+    font-style:normal;
+    color:var(--mentor-terracotta);
+    font-weight:600;
+  }
+  .dialogue .tip {
+    background:rgba(244,228,212,.65);
+    border-radius:8px;
+    padding:12px 16px;
+    font-size:12.5px;
+    color:var(--navy);
+    line-height:1.75;
+  }
+  .dialogue .tip b {
+    color:var(--mentor-terracotta);
+    font-weight:600;
+  }
+
+  /* observation log table */
+  .obs-table {
+    background:#fff;
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:0 4px 16px rgba(26,54,93,.06);
+    margin-bottom:24px;
+  }
+  .obs-table h4 {
+    background:linear-gradient(180deg, var(--bridge-mist) 0%, color-mix(in srgb, var(--bridge-mist) 80%, #fff) 100%);
+    padding:14px 22px;
+    font-size:13px; font-weight:600;
+    color:var(--bridge-teal);
+    letter-spacing:.05em;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .obs-table h4 small {
+    font-size:11px; opacity:.75; font-weight:500;
+    color:var(--navy-light);
+    letter-spacing:.08em;
+  }
+  .obs-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    border-top:1px solid rgba(26,54,93,.08);
+  }
+  .obs-cell {
+    padding:18px 22px;
+    border-right:1px dashed rgba(26,54,93,.10);
+    min-height:130px;
+  }
+  .obs-cell:last-child { border-right:0; }
+  .obs-cell .role {
+    font-size:11px; letter-spacing:.15em;
+    color:var(--gold-dark); font-weight:600;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .obs-cell .role.parent { color:var(--mentor-terracotta); }
+  .obs-cell .role.student { color:var(--bridge-teal); }
+  .obs-cell .write-lines {
+    margin-top:4px;
+  }
+  .obs-cell .write-lines > div {
+    height:18px;
+    border-bottom:1px solid rgba(26,54,93,.15);
+    margin-bottom:9px;
+  }
+  .obs-cell .write-lines > div:last-child {
+    border-bottom-style:dashed;
+    border-bottom-color:rgba(26,54,93,.2);
+  }
+
+  .signoff {
+    text-align:center;
+    margin-top:32px;
+    padding-top:28px;
+    border-top:1px solid rgba(26,54,93,.08);
+  }
+  .signoff blockquote {
+    font-family:'Noto Serif TC',serif;
+    font-size:17px;
+    color:var(--navy);
+    line-height:1.85;
+    letter-spacing:.04em;
+    margin-bottom:14px;
+  }
+  .signoff cite {
+    display:block;
+    font-size:12px;
+    color:var(--mentor-terracotta);
+    letter-spacing:.15em;
+    font-style:normal;
+  }
+  .signoff .seal-line {
+    margin-top:24px;
+    display:flex; align-items:center; justify-content:center; gap:14px;
+  }
+  .signoff .seal-line .hr {
+    flex:0 1 80px;
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(214,158,46,.6));
+  }
+  .signoff .seal-line .hr.r {
+    background:linear-gradient(90deg,rgba(214,158,46,.6),transparent);
+  }
+  .signoff .seal-line img {
+    height:30px;
+  }
+
+  /* corner motif for page 4 */
+  .pg4__corner {
+    position:absolute;
+    top:36px; right:36px;
+    width:80px; height:80px;
+    opacity:.06;
+    color:var(--mentor-terracotta);
+  }
+
+  /* print */
+  @media print {
+    html, body { background:#fff; }
+    .doc { padding:0; gap:0; }
+    .page { box-shadow:none; margin:0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc" data-screen-label="01 講義範本">
+
+  <!-- ============== PAGE 1 · COVER ============== -->
+  <div class="page cover" data-screen-label="01 封面">
+    <div class="cover__bg"></div>
+    <div class="cover__glow1"></div>
+    <div class="cover__glow2"></div>
+
+    <!-- xiangyun decoration -->
+    <svg class="cover__xiangyun" style="top:120px; left:40px; width:160px;" viewBox="0 0 160 80" fill="none">
+      <path d="M20 60C20 60 30 30 55 40C80 50 75 60 100 55C125 50 130 35 145 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M10 70C10 70 25 50 50 55C75 60 85 45 115 50" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".7"/>
+    </svg>
+    <svg class="cover__xiangyun" style="bottom:140px; right:40px; width:160px;" viewBox="0 0 160 80" fill="none">
+      <path d="M20 50C40 50 50 20 80 35C110 50 120 25 145 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+
+    <header class="cover__hdr">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="立霖國文">
+      <span class="series">素養閱讀 · 第 三 冊</span>
+    </header>
+
+    <div class="cover__center">
+      <img class="cover__seal" src="../../assets/lilin-icon.png" alt="立霖印章">
+      <div class="cover__eyebrow">第 七 講 · LESSON 07</div>
+      <h1 class="cover__title">定風波</h1>
+      <p class="cover__quote">「莫聽穿林打葉聲，<br>何妨吟嘯且徐行。」</p>
+      <p class="cover__poet">—— 蘇軾 ， 黃州 . 一〇八二</p>
+      <div class="cover__divider"></div>
+      <p class="cover__sub">
+        被生活打過的人，<br>
+        才知道怎麼陪別人走過下一場雨。
+      </p>
+    </div>
+
+    <footer class="cover__foot">
+      <div class="cover__meta">
+        授課對象 ／ <b>國三 · 高一</b><br>
+        建議課時 ／ <b>2 堂 × 50 分鐘</b><br>
+        發行日期 ／ 2026 . 05 . 13
+      </div>
+      <div class="cover__teacher">
+        <div class="name">立霖 老師</div>
+        <div class="role">人生導師 · 親情橋樑</div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ============== PAGE 2 · MAIN ANALYSIS ============== -->
+  <div class="page pg2" data-screen-label="02 文本與解析">
+    <header class="pg2__head">
+      <img class="logo" src="../../assets/lilin-logo.png" alt="">
+      <div class="crumbs">第七講 · 主文本解析 · p.02</div>
+    </header>
+
+    <h2 class="pg2__h1">定風波<small>蘇軾 · 詞牌</small></h2>
+    <p class="pg2__lead">
+      宋神宗元豐五年（1082）三月七日，蘇軾被貶黃州第三年。同行者皆狼狽，唯獨他「徐行」。這首詞表面寫風雨，骨子裡寫的是一個被生活打過的人，重新找回自己的姿態。
+    </p>
+
+    <div class="ix ix-warmup">
+      <div class="ix__lbl">開始前 · 喚醒</div>
+      <div class="ix__q">先別看課文：遇到突如其來的「壞天氣」——段考搞砸、和朋友鬧彆扭、計畫全亂——<em>你的第一反應通常是什麼</em>？先寫下來，讀完再看蘇軾怎麼回應。</div>
+      <div class="ix__line"></div>
+    </div>
+
+    <div class="original">
+      <div class="original__label">原文 · ORIGINAL TEXT</div>
+      <p class="original__text">
+        莫聽穿林打葉聲<span class="pause">，</span>何妨吟嘯且徐行<span class="pause">。</span>竹杖芒鞋輕勝馬<span class="pause">，</span>誰怕<span class="pause">？</span>一蓑煙雨任平生<span class="pause">。</span><br><br>
+        料峭春風吹酒醒<span class="pause">，</span>微冷<span class="pause">，</span>山頭斜照卻相迎<span class="pause">。</span>回首向來蕭瑟處<span class="pause">，</span>歸去<span class="pause">，</span>也無風雨也無晴<span class="pause">。</span>
+      </p>
+      <p class="original__attrib">—— 蘇軾《定風波 · 莫聽穿林打葉聲》</p>
+    </div>
+
+    <div class="analysis-grid">
+      <div class="anablock">
+        <h4>FRAME 01</h4>
+        <h3>表層 · 山中遇雨</h3>
+        <p>三月七日途中遇雨，雨具先去。同行皆狼狽，蘇軾用「徐行」回應。一句「莫聽」，把被外境拉走的注意力收回。</p>
+      </div>
+      <div class="anablock">
+        <h4>FRAME 02</h4>
+        <h3>裡層 · 人生風雨</h3>
+        <p>「一蓑煙雨任平生」—— 不是抱怨，也不是悲壯，是接受。被貶謫到黃州的第三年，他學會的是「不否認，也不擴大」。</p>
+      </div>
+      <div class="anablock">
+        <h4>FRAME 03</h4>
+        <h3>轉折 · 山頭斜照</h3>
+        <p>「料峭春風」吹醒酒意，他冷了一下。但下一句「卻相迎」—— 一束斜陽從山頭照下來。風雨之後，自然會有光。</p>
+      </div>
+      <div class="anablock">
+        <h4>FRAME 04</h4>
+        <h3>升華 · 也無風雨也無晴</h3>
+        <p>回首來時的「蕭瑟處」，已經不必再分風雨或晴朗 ——「也無」不是麻木，是不再被天氣決定自己。</p>
+      </div>
+    </div>
+
+    <div class="keypoints">
+      <h4>閱破劍法 · 三連斬</h4>
+      <ol>
+        <li><span><b>刪除：</b>剔除「莫聽 / 何妨 / 誰怕」這類干擾性疑問詞，本詞核心動詞只有兩個——「徐行」與「歸去」。一切都圍繞這兩個動作展開。</span></li>
+        <li><span><b>歸納：</b>全詞分三段—— ① 雨中的姿態（徐行）→ ② 雨後的清醒（斜照）→ ③ 回首的釋然（歸去）。是「外境→自己→世界」的三層收斂。</span></li>
+        <li><span><b>關鍵句：</b>「<em>也無風雨也無晴</em>」。理解這句，必須回到上闋的「一蓑煙雨任平生」對讀 —— 一個是「接受」，一個是「超越」。</span></li>
+      </ol>
+    </div>
+
+    <div class="page__brand">立霖國文 · LILIN GUOWEN</div>
+    <div class="page__num"><b>02</b> · 04</div>
+  </div>
+
+  <!-- ============== PAGE 3 · MENTOR + EMOTION ============== -->
+  <div class="page pg3" data-screen-label="03 導師旁白與情緒詞彙">
+    <header class="pg3__head">
+      <h2 class="pg3__h2"><small>Mentor Voice · 03</small>導師的旁白</h2>
+      <div class="crumbs" style="font-size:11px; letter-spacing:.18em; color:var(--gold-dark); text-transform:uppercase; font-weight:500;">第七講 · 反思與述情 · p.03</div>
+    </header>
+
+    <aside class="mentor-voice">
+      <div class="lbl">人生導師 · LIFE MENTOR</div>
+      <p class="body">
+        蘇軾被貶黃州那年，他兒子蘇邁正讀高中年紀。<br>
+        我們今天看到的這首詞，是父親寫給自己——也是寫給某個還在風雨裡奔跑、不肯放慢腳步的少年。<br><br>
+        現代社會給你的「雨」，可能是<em>段考成績</em>、<em>家人的期待</em>、<em>某個朋友的疏遠</em>。<br>
+        但蘇軾沒有告訴你「不要在意」，他只說了一件事：<em>把姿態放慢</em>。<br><br>
+        我想問你的是 ——
+      </p>
+      <div class="refline">—— 對讀文本 ／ 蘇軾《定風波》（西元 1082 年）</div>
+    </aside>
+
+    <div class="think-prompts">
+      <div class="think-prompt">
+        <b>提問 一</b>
+        如果今天有一個「不需要爭分數」的下午，你最想用「徐行」的姿態去做哪一件事？
+      </div>
+      <div class="think-prompt">
+        <b>提問 二</b>
+        在你最近一次「雨中奔跑」的時刻，如果可以重來，你會選擇什麼樣的「一蓑」披在身上？
+      </div>
+    </div>
+
+    <div class="ix ix-explain">
+      <div class="ix__lbl">我來說說看 · 同儕</div>
+      <div class="ix__q">轉頭向旁邊的同學，用<em>一句話</em>說明：「也無風雨也無晴」不是說什麼都無所謂——那它真正的意思是什麼？（先自己想 30 秒，再說給對方聽。）</div>
+    </div>
+
+    <div class="emotion-section">
+      <h4><span>述情詞彙擴充 · Emotion Lexicon</span><span>本講練習 7 / 7</span></h4>
+      <p class="desc">
+        把「煩」「不爽」「不知道」翻譯成更精確的詞。當你能說出「我現在的感覺其實是<b>懸宕</b>，不是煩」，你就把情緒從一團迷霧拆成了可被理解的形狀。
+      </p>
+      <div class="chips">
+        <span class="chip joy"><b>喜</b><span class="cl">· 欣然</span></span>
+        <span class="chip calm"><b>安</b><span class="cl">· 從容</span></span>
+        <span class="chip melancholy"><b>鬱</b><span class="cl">· 惆悵</span></span>
+        <span class="chip anger"><b>慍</b><span class="cl">· 不平</span></span>
+        <span class="chip anxiety"><b>焦</b><span class="cl">· 懸宕</span></span>
+        <span class="chip grief"><b>哀</b><span class="cl">· 黯然</span></span>
+        <span class="chip hope"><b>望</b><span class="cl">· 懷想</span></span>
+      </div>
+      <div class="emotion-exercise">
+        <h5>本講課後練習 · 替換造句</h5>
+        <p>
+          請從上方七個詞中，挑兩個替換「煩」這個字，造一個與這週生活有關的句子：<br>
+          1. 我今天覺得很<span class="blank-line"></span>，因為<span class="blank-line"></span>。<br>
+          2. 上週發生<span class="blank-line"></span>，讓我陷入一種<span class="blank-line"></span>的狀態。
+        </p>
+      </div>
+    </div>
+
+    <div class="ix ix-think" style="margin-top:14px;">
+      <div class="ix__lbl">先自測 · 提取</div>
+      <div class="ix__q">挑戰：<em>先遮住下方詞彙釋義</em>，自己默想「料峭、蕭瑟、吟嘯」三詞的意思，再想蘇軾被貶黃州第幾年寫下此詞、全詞的曠達主旨是什麼——回想得越用力，記得越牢。</div>
+    </div>
+
+    <div class="page__brand">立霖國文 · LILIN GUOWEN</div>
+    <div class="page__num"><b>03</b> · 04</div>
+  </div>
+
+  <!-- ============== PAGE 4 · DIALOGUE PROMPT ============== -->
+  <div class="page page--soft pg4" data-screen-label="04 親子討論題">
+    <svg class="pg4__corner" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="50" r="44" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M20 50 H80 M50 20 V80" stroke="currentColor" stroke-width="1" opacity=".5"/>
+      <path d="M30 30 Q50 50 70 30 Q50 50 70 70 Q50 50 30 70 Q50 50 30 30" stroke="currentColor" stroke-width=".75" opacity=".4"/>
+    </svg>
+
+    <div class="pg4__head">
+      <div class="pg4__eyebrow">封底 · 親情橋樑 · FAMILY BRIDGE</div>
+      <h2 class="pg4__title">把課堂的反思<br>帶回飯桌的對話</h2>
+      <div class="pg4__divider"></div>
+    </div>
+
+    <div class="dialogue">
+      <div class="week">本週親子討論題 · WEEK 07</div>
+      <h3 class="topic">蘇軾《定風波》—— 你也有「一蓑煙雨任平生」的時刻嗎？</h3>
+      <p class="prompt-body">
+        在接下來的三天內，請<em>家長與孩子各自</em>回想 ——<br>
+        「<em>那一年，我也走過自己的黃州。</em>」<br><br>
+        家長：請寫下您 20 歲前曾經被誤解、被擱置、不被理解的某個時刻，當時用什麼姿態走過？<br>
+        孩子：請寫下你最近三個月中，曾經想用「徐行」回應、但最後沒做到的某個情境。
+      </p>
+      <div class="tip">
+        <b>引導提示：</b>不評論、不糾正、不解答。週末用 15 分鐘，各自唸出自己寫的，唸完後對方只能說一句：「我聽到了。」
+      </div>
+    </div>
+
+    <div class="obs-table">
+      <h4>觀察日誌 · Observation Log<small>請於下次上課前完成</small></h4>
+      <div class="obs-grid">
+        <div class="obs-cell">
+          <div class="role parent">家 長 端 · PARENT</div>
+          <div class="write-lines">
+            <div></div><div></div><div></div><div></div><div></div>
+          </div>
+        </div>
+        <div class="obs-cell">
+          <div class="role student">孩 子 端 · STUDENT</div>
+          <div class="write-lines">
+            <div></div><div></div><div></div><div></div><div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ix-metacog">
+      <span class="mc-title">學完自評</span>
+      <span class="mc lv1">我能教別人這一課</span>
+      <span class="mc lv2">我大致懂了</span>
+      <span class="mc lv3">我想再看一次</span>
+    </div>
+
+    <div class="signoff">
+      <blockquote>
+        「歸去 ， 也無風雨也無晴。」<br>
+        願這一週，你也走得回家。
+      </blockquote>
+      <cite>—— 立霖老師 寫於 2026 春</cite>
+      <div class="seal-line">
+        <span class="hr"></span>
+        <img src="../../assets/lilin-icon.png" alt="立霖印章">
+        <span class="hr r"></span>
+      </div>
+    </div>
+
+    <div class="page__brand">立霖國文 · LILIN GUOWEN</div>
+    <div class="page__num"><b>04</b> · 04 · 封底</div>
+  </div>
+
+</div>
+
+</body>
+</html>

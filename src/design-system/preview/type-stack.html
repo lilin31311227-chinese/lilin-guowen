@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Font Stack</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:13px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .pane{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 8px rgba(26,54,93,.08)}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#b7791f;font-weight:600;margin-bottom:10px}
+  .row{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px dashed rgba(26,54,93,.1)}
+  .row:last-child{border-bottom:0}
+  .label{font-size:12px;color:#2c5282}
+  .weight{font-size:18px}
+  .w400{font-weight:400}.w500{font-weight:500}.w600{font-weight:600}.w700{font-weight:700}
+  .stack{font-size:11.5px;font-family:ui-monospace,Menlo,monospace;color:#2c5282;line-height:1.7;margin-top:8px}
+  .calli{display:flex;align-items:center;gap:14px;padding-top:10px;margin-top:6px;border-top:1px dashed rgba(26,54,93,.1)}
+  .calli img{height:36px;width:auto}
+  .calli .desc{font-size:11.5px;color:#2c5282;line-height:1.5}
+</style>
+</head>
+<body>
+  <div class="grid">
+    <div class="pane">
+      <div class="lbl">Noto Sans TC · 4 weights</div>
+      <div class="row"><span class="label">Regular 400</span><span class="weight w400">立霖國文</span></div>
+      <div class="row"><span class="label">Medium 500</span><span class="weight w500">立霖國文</span></div>
+      <div class="row"><span class="label">SemiBold 600</span><span class="weight w600">立霖國文</span></div>
+      <div class="row"><span class="label">Bold 700</span><span class="weight w700">立霖國文</span></div>
+    </div>
+    <div class="pane">
+      <div class="lbl">Font stack</div>
+      <div class="stack">'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', system-ui, Arial, sans-serif</div>
+      <div class="calli">
+        <img src="../assets/lilin-logo.png" alt="lilin calligraphy">
+        <div class="desc"><b>書法字</b> 一律以圖片資產 <code>lilin-logo.png</code> 取代，不另尋字型。</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

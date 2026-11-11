@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:12px}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.55;font-weight:600;margin-bottom:12px}
+  .row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 16px rgba(26,54,93,.1)}
+  .icnbox{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .icnbox svg{width:28px;height:28px}
+  .c1{background:rgba(26,54,93,.08);color:#1a365d}
+  .c2{background:rgba(214,158,46,.15);color:#b7791f}
+  .c3{background:rgba(74,124,126,.12);color:#4a7c7e}
+  .ttl{font-size:18px;font-weight:700;color:#1a365d;margin-bottom:6px}
+  .desc{font-size:13px;color:#2c5282;line-height:1.65}
+</style>
+</head>
+<body>
+  <div class="lbl">基本卡片 Card · padding 24/32 · radius 16 · shadow md</div>
+  <div class="row">
+    <div class="card">
+      <div class="icnbox c1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
+      <div class="ttl">閱破劍法</div>
+      <div class="desc">邏輯化閱讀理解系統，把文章拆給你看。</div>
+    </div>
+    <div class="card">
+      <div class="icnbox c2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></div>
+      <div class="ttl">情緒詞彙</div>
+      <div class="desc">把「煩」翻譯成「惆悵」、「懸宕」、「不平」。</div>
+    </div>
+    <div class="card">
+      <div class="icnbox c3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      <div class="ttl">親子橋樑</div>
+      <div class="desc">把課堂的反思，帶回飯桌上的對話。</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>閱破劍法｜立霖國文</title>
+<meta name="description" content="閱破劍法 · 四式 — 立霖國文獨家閱讀方法論。觀其結構、析其關係、證其根據、寫其結論。學會這四式，拆解任何文章。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+  /* —— methodology 頁專屬：劍式大字、題型對應表 —— */
+
+  /* 劍式字符水印 */
+  .sword-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--paper-soft);
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    padding: 36px 34px 30px;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .sword-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 38px rgba(15, 39, 68, .1);
+  }
+  .sword-card__watermark {
+    position: absolute;
+    top: -12px; right: 6px;
+    font-family: var(--serif);
+    font-size: 130px;
+    line-height: 1;
+    font-weight: 700;
+    opacity: .07;
+    user-select: none;
+    pointer-events: none;
+  }
+  .sword-card__top-rule {
+    position: absolute;
+    top: 0; left: 34px;
+    width: 44px; height: 3px;
+  }
+  .sword-card__stance {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .sword-card__char {
+    font-family: var(--serif);
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1;
+    flex: none;
+  }
+  .sword-card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .sword-card__kicker {
+    font-family: var(--serif);
+    font-size: 11.5px;
+    letter-spacing: .26em;
+  }
+  .sword-card__name {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .sword-card__desc {
+    font-size: 14.5px;
+    line-height: 2;
+    color: rgba(26, 54, 93, .78);
+    margin: 0 0 18px;
+    position: relative;
+    z-index: 1;
+  }
+  .sword-card__demo {
+    border-radius: 3px;
+    padding: 14px 16px;
+    margin-top: 4px;
+  }
+  .sword-card__demo-label {
+    font-family: var(--serif);
+    font-size: 11px;
+    letter-spacing: .2em;
+    margin: 0 0 8px;
+  }
+  .sword-card__demo-q {
+    font-size: 14px;
+    color: var(--navy);
+    margin: 0 0 8px;
+    line-height: 1.8;
+  }
+  .sword-card__demo-a {
+    font-family: var(--serif);
+    font-size: 13.5px;
+    color: rgba(26, 54, 93, .72);
+    margin: 0;
+    line-height: 1.8;
+    border-left: 2px solid var(--gold);
+    padding-left: 12px;
+  }
+
+  /* 題型對應表 */
+  .method-table-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid var(--hairline);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .method-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14.5px;
+  }
+  .method-table thead {
+    background: var(--paper-dark);
+  }
+  .method-table th {
+    padding: 14px 18px;
+    text-align: left;
+    font-family: var(--serif);
+    font-size: 13px;
+    letter-spacing: .16em;
+    color: var(--gold-dark);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .method-table tbody tr {
+    border-top: 1px solid var(--hairline-soft);
+    background: var(--paper-soft);
+    transition: background .18s;
+  }
+  .method-table tbody tr:hover {
+    background: var(--paper);
+  }
+  .method-table td {
+    padding: 16px 18px;
+    vertical-align: top;
+    color: rgba(26, 54, 93, .8);
+    line-height: 1.75;
+  }
+  .method-table .sword-char-cell {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gold-dark);
+    white-space: nowrap;
+    line-height: 1;
+    padding-top: 18px;
+  }
+  .method-table .action-cell {
+    font-family: var(--serif);
+    font-size: 13.5px;
+    color: rgba(26, 54, 93, .65);
+    font-style: italic;
+  }
+  .method-table .year-cell {
+    font-size: 13px;
+    color: rgba(26, 54, 93, .55);
+  }
+
+  /* 色彩：各式對應色 */
+  .sword--teal  .sword-card__top-rule { background: var(--teal); }
+  .sword--teal  .sword-card__watermark { color: var(--teal); }
+  .sword--teal  .sword-card__char { color: var(--teal); }
+  .sword--teal  .sword-card__kicker { color: var(--teal); }
+  .sword--teal  .sword-card__demo { background: rgba(74, 124, 126, .07); }
+  .sword--teal  .sword-card__demo-label { color: var(--teal); }
+
+  .sword--terracotta .sword-card__top-rule { background: var(--terracotta); }
+  .sword--terracotta .sword-card__watermark { color: var(--terracotta); }
+  .sword--terracotta .sword-card__char { color: var(--terracotta); }
+  .sword--terracotta .sword-card__kicker { color: var(--terracotta); }
+  .sword--terracotta .sword-card__demo { background: rgba(184, 106, 74, .07); }
+  .sword--terracotta .sword-card__demo-label { color: var(--terracotta); }
+
+  .sword--gold .sword-card__top-rule { background: var(--gold); }
+  .sword--gold .sword-card__watermark { color: var(--gold-dark); }
+  .sword--gold .sword-card__char { color: var(--gold-dark); }
+  .sword--gold .sword-card__kicker { color: var(--gold-dark); }
+  .sword--gold .sword-card__demo { background: rgba(214, 158, 46, .08); }
+  .sword--gold .sword-card__demo-label { color: var(--gold-dark); }
+
+  .sword--navy .sword-card__top-rule { background: var(--navy); }
+  .sword--navy .sword-card__watermark { color: var(--navy); }
+  .sword--navy .sword-card__char { color: var(--navy); }
+  .sword--navy .sword-card__kicker { color: var(--navy-light); }
+  .sword--navy .sword-card__demo { background: rgba(26, 54, 93, .06); }
+  .sword--navy .sword-card__demo-label { color: var(--navy-light); }
+
+  /* 響應式 */
+  @media (max-width: 700px) {
+    .method-table th:nth-child(3),
+    .method-table td:nth-child(3) { display: none; }
+  }
+  @media (max-width: 500px) {
+    .sword-card__char { font-size: 40px; }
+    .sword-card { padding: 28px 22px 24px; }
+  }
+</style>
+</head>
+<body data-page="methodology">
+
+<div id="site-header"></div>
+
+<!-- ===== 頁首 ===== -->
+<header class="page-head ink-wash">
+  <div class="page-head__inner">
+    <p class="page-head__eyebrow">獨家方法論 · 閱破劍法</p>
+    <h1 class="page-head__title">
+      邏輯化閱讀，<br>
+      給你拆解文字的<span class="accent-gold">劍</span>。
+    </h1>
+    <p class="page-head__lead">
+      文章不該是迷霧，而是地圖。我們把閱讀拆解成四個動作——
+      <strong>觀其結構、析其關係、證其根據、寫其結論</strong>。
+      學會這四式，你就能讀懂任何一篇你今天還沒看過的文章。
+    </p>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== 01 · 四式總覽（引言） ===== -->
+<section class="section ink-wash" id="overview">
+  <div class="container container--narrow">
+    <div class="pullquote reveal">
+      <p>古之學者必有師</p>
+      <cite>——韓愈〈師說〉· 閱破劍法「觀」式示範文本</cite>
+    </div>
+    <p class="section__sub reveal" style="max-width:100%;">
+      我們不背題型——我們把題型還原成四個基本動作。
+      會出新題型，但動作永遠是這四個。
+      從讀不懂，到讀得透，一招一式有來歷。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 02 · 閱破劍法 · 四式 ===== -->
+<section class="section section--alt" id="four-stances">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__eyebrow">閱破劍法 · 四式</p>
+      <h2 class="section__title">從讀不懂，到讀得透。</h2>
+      <p class="section__sub">一招一式有來歷，每式對應一個你在考場真正需要的動作。</p>
+    </div>
+
+    <!-- 四式：使用 field-row 展示序號 + 式名 + 說明，再下方接卡片示範 -->
+    <div style="margin-bottom: 56px;">
+      <div class="field-row reveal">
+        <span class="field-row__num">第一式</span>
+        <span class="field-row__name" style="color: var(--teal);">觀</span>
+        <span class="field-row__desc">文本結構觀察。不急著讀內容，先看文章的骨架——是「起承轉合」、「總分總」，還是「設問—鋪陳—翻轉」？看懂骨架，才不會在細節裡迷路。</span>
+      </div>
+      <div class="field-row reveal">
+        <span class="field-row__num">第二式</span>
+        <span class="field-row__name" style="color: var(--terracotta);">析</span>
+        <span class="field-row__desc">關係析離。把段落之間的「邏輯接點」拉出來——轉折？因果？並列？讓段與段的關係明朗，而不是感覺上通順就跳過去。</span>
+      </div>
+      <div class="field-row reveal">
+        <span class="field-row__num">第三式</span>
+        <span class="field-row__name" style="color: var(--gold-dark);">證</span>
+        <span class="field-row__desc">證據回扣。每一個結論，必須從文本「裡面」找到對應的句子。沒有出處，就不是答案；感覺對，也不算。</span>
+      </div>
+      <div class="field-row reveal">
+        <span class="field-row__num">第四式</span>
+        <span class="field-row__name" style="color: var(--navy);">寫</span>
+        <span class="field-row__desc">結論統整。把四式收尾。一句話講清楚作者要說什麼，並用自己的話「翻譯」一遍——不是照抄，是真的讀懂了。</span>
+      </div>
+    </div>
+
+    <!-- 四式展開卡片：含古文示範題 -->
+    <div class="grid grid--2">
+
+      <!-- 第一式：觀 -->
+      <article class="sword-card sword--teal reveal">
+        <div class="sword-card__top-rule"></div>
+        <div class="sword-card__watermark" aria-hidden="true">觀</div>
+        <div class="sword-card__stance">
+          <span class="sword-card__char">觀</span>
+          <div class="sword-card__meta">
+            <span class="sword-card__kicker">第一式 · GUĀN</span>
+            <h3 class="sword-card__name">文本結構觀察</h3>
+          </div>
+        </div>
+        <p class="sword-card__desc">
+          不急著讀內容，先看文章的骨架。
+          它是「起承轉合」、「總分總」，還是「設問—鋪陳—翻轉」？
+          看懂骨架，才不會在細節裡迷路。
+        </p>
+        <div class="sword-card__demo">
+          <p class="sword-card__demo-label">示範題</p>
+          <p class="sword-card__demo-q">〈師說〉開頭：「古之學者必有師。」這句在全文扮演什麼角色？</p>
+          <p class="sword-card__demo-a">不是內容問題，是結構問題——這是「立論的錨」。</p>
+        </div>
+      </article>
+
+      <!-- 第二式：析 -->
+      <article class="sword-card sword--terracotta reveal">
+        <div class="sword-card__top-rule"></div>
+        <div class="sword-card__watermark" aria-hidden="true">析</div>
+        <div class="sword-card__stance">
+          <span class="sword-card__char">析</span>
+          <div class="sword-card__meta">
+            <span class="sword-card__kicker">第二式 · XĪ</span>
+            <h3 class="sword-card__name">關係析離</h3>
+          </div>
+        </div>
+        <p class="sword-card__desc">
+          把段落之間的「邏輯接點」拉出來。
+          轉折？因果？並列？讓段與段的關係明朗，
+          不因感覺通順就跳過去。
+        </p>
+        <div class="sword-card__demo">
+          <p class="sword-card__demo-label">示範題</p>
+          <p class="sword-card__demo-q">《赤壁賦》從「客有吹洞簫者」到「蘇子曰」——這個轉折是反駁，還是接續？</p>
+          <p class="sword-card__demo-a">看「主客問答」其實是蘇軾的自我對話，這是「以客託情」的章法。</p>
+        </div>
+      </article>
+
+      <!-- 第三式：證 -->
+      <article class="sword-card sword--gold reveal">
+        <div class="sword-card__top-rule"></div>
+        <div class="sword-card__watermark" aria-hidden="true">證</div>
+        <div class="sword-card__stance">
+          <span class="sword-card__char">證</span>
+          <div class="sword-card__meta">
+            <span class="sword-card__kicker">第三式 · ZHÈNG</span>
+            <h3 class="sword-card__name">證據回扣</h3>
+          </div>
+        </div>
+        <p class="sword-card__desc">
+          每一個結論，必須從文本「裡面」找到對應的句子。
+          沒有出處，就不是答案——感覺對，也不算。
+        </p>
+        <div class="sword-card__demo">
+          <p class="sword-card__demo-label">示範題</p>
+          <p class="sword-card__demo-q">為什麼說〈岳陽樓記〉的范仲淹「不以物喜，不以己悲」？</p>
+          <p class="sword-card__demo-a">要回到「先天下之憂而憂」那句——這是他的價值觀證據，不是讀者腦補。</p>
+        </div>
+      </article>
+
+      <!-- 第四式：寫 -->
+      <article class="sword-card sword--navy reveal">
+        <div class="sword-card__top-rule"></div>
+        <div class="sword-card__watermark" aria-hidden="true">寫</div>
+        <div class="sword-card__stance">
+          <span class="sword-card__char">寫</span>
+          <div class="sword-card__meta">
+            <span class="sword-card__kicker">第四式 · XIĚ</span>
+            <h3 class="sword-card__name">結論統整</h3>
+          </div>
+        </div>
+        <p class="sword-card__desc">
+          把四式收尾。一句話講清楚作者要說什麼，
+          並用自己的話「翻譯」一遍——不是照抄，是真的讀懂了。
+        </p>
+        <div class="sword-card__demo">
+          <p class="sword-card__demo-label">示範題</p>
+          <p class="sword-card__demo-q">請用 30 字總結〈出師表〉。</p>
+          <p class="sword-card__demo-a">「諸葛亮很忠心」是表面結論。要看到：一個臨終託付者，把家國未竟之志，交予一個並不夠強的孩子。</p>
+        </div>
+      </article>
+
+    </div><!-- /grid--2 -->
+  </div>
+</section>
+
+<!-- ===== 03 · 引文點綴 ===== -->
+<section class="section section--paper-soft" id="anchor">
+  <div class="container container--narrow text-center">
+    <div class="pullquote reveal" style="margin: 0 auto; max-width: 32em; border-left: none; padding-left: 0; text-align: center; border-top: 1px solid rgba(214,158,46,.4); border-bottom: 1px solid rgba(214,158,46,.4); padding: 28px 0;">
+      <p style="font-size: 19px; letter-spacing: .12em;">先天下之憂而憂，後天下之樂而樂。</p>
+      <cite>——范仲淹〈岳陽樓記〉· 閱破劍法「證」式標準示範</cite>
+    </div>
+    <p class="section__sub reveal" style="margin: 36px auto 0; max-width: 38em;">
+      我們不教你記住這句話，
+      我們教你在考場上辨認：這是「作者的核心立場」，
+      而不只是一句漂亮的排比。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 04 · 四式 × 會考題型對應 ===== -->
+<section class="section" id="exam-mapping">
+  <div class="container">
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">實戰對應</p>
+      <h2 class="section__title">四式 × 會考題型對應</h2>
+      <p class="section__sub">不是抽象方法，每一式都對應到考試裡的真實題型。</p>
+    </div>
+
+    <div class="method-table-wrap reveal">
+      <table class="method-table">
+        <thead>
+          <tr>
+            <th>劍式</th>
+            <th>對應題型</th>
+            <th>常見命題</th>
+            <th>破題動作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="sword-char-cell" style="color: var(--teal);">觀</td>
+            <td>篇章結構題、文意統整題</td>
+            <td class="year-cell">會考連續七年必考</td>
+            <td class="action-cell">先畫骨架，再讀內容</td>
+          </tr>
+          <tr>
+            <td class="sword-char-cell" style="color: var(--terracotta);">析</td>
+            <td>文意關聯、段落銜接、轉折判讀</td>
+            <td class="year-cell">學測常見壓軸</td>
+            <td class="action-cell">圈出轉折詞，標出邏輯接點</td>
+          </tr>
+          <tr>
+            <td class="sword-char-cell" style="color: var(--gold-dark);">證</td>
+            <td>作者觀點、文意推論、選項回扣</td>
+            <td class="year-cell">會考與學測共通主力題</td>
+            <td class="action-cell">每個選項回找原文，沒對應就刪</td>
+          </tr>
+          <tr>
+            <td class="sword-char-cell" style="color: var(--navy);">寫</td>
+            <td>非選擇題、引導寫作、知性題組</td>
+            <td class="year-cell">學測國寫第一題</td>
+            <td class="action-cell">先寫一句話結論，再展開</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="text-center reveal" style="margin: 32px auto 0; max-width: 38em; font-size: 15px; color: rgba(26,54,93,.65); line-height: 1.9;">
+      我們不背題型——我們把題型還原成四個基本動作。
+      會出新題型，但動作永遠是這四個。
+    </p>
+  </div>
+</section>
+
+<!-- ===== 05 · closing CTA ===== -->
+<section class="closing ink-wash" id="cta">
+  <div class="container">
+    <h2 class="closing__title">這把劍，<br><span class="accent-gold">交到你手上。</span></h2>
+    <p class="closing__lead">
+      先來一次學習診斷，帶著你最不確定的那篇文章。
+      我們用四式當場拆給你看——你會發現它沒有那麼難。
+    </p>
+    <div class="closing__actions">
+      <a class="btn btn--teal" href="diagnosis.html">先做一次學習診斷</a>
+      <a class="btn btn--line" href="#">加 LINE 聊聊</a>
+    </div>
+    <p class="closing__note">不催促，不推銷。我們先聽。</p>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+</body>
+</html>

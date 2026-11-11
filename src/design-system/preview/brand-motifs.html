@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Oriental Motifs</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#0A1A35;color:#faf5ef;padding:24px;font-size:12px}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#fbbf24;opacity:.85;font-weight:600;margin-bottom:18px}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .item{background:linear-gradient(135deg,#0d2341,#071428);border:1px solid rgba(251,191,36,.15);border-radius:14px;padding:18px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;height:170px}
+  .stage{flex:1;width:100%;display:flex;align-items:center;justify-content:center;color:#fbbf24}
+  .name{font-size:12px;font-weight:700;color:#fde68a}
+  .desc{font-size:10.5px;color:#94a3b8;text-align:center;line-height:1.5}
+  @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+  .spin{animation:spin 60s linear infinite;transform-origin:center}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  .float{animation:float 6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
+  .pulse{animation:pulse 3s ease-in-out infinite}
+</style>
+</head>
+<body>
+  <div class="lbl">東方裝飾元素 · Oriental Motifs</div>
+  <div class="grid">
+    <div class="item">
+      <div class="stage">
+        <svg width="80" height="60" viewBox="0 0 120 80" fill="none">
+          <path d="M20 60C20 60 25 40 45 40C65 40 60 55 80 55C100 55 100 35 100 35" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M10 70C10 70 20 50 40 55C60 60 70 45 90 50" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity=".6"/>
+        </svg>
+      </div>
+      <div class="name">祥雲紋 Xiangyun</div>
+      <div class="desc">線描曲線 · opacity .15-.25</div>
+    </div>
+    <div class="item">
+      <div class="stage float">
+        <svg width="44" height="52" viewBox="0 0 60 50" fill="none">
+          <path d="M5 10L30 5L55 10V45L30 40L5 45V10Z" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M30 5V40" stroke="currentColor" stroke-width="1"/>
+          <path d="M12 15H25M12 20H22M35 15H48M35 20H45" stroke="currentColor" stroke-width=".75" opacity=".6"/>
+        </svg>
+      </div>
+      <div class="name">古籍 Ancient Book</div>
+      <div class="desc">浮動 8s · 點綴 hero 角落</div>
+    </div>
+    <div class="item">
+      <div class="stage">
+        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" class="spin">
+          <ellipse cx="50" cy="50" rx="45" ry="45" stroke="currentColor" stroke-width="1.2" opacity=".7"/>
+          <ellipse cx="50" cy="50" rx="40" ry="18" stroke="currentColor" stroke-width="1.5" transform="rotate(-25 50 50)" opacity=".9"/>
+          <ellipse cx="50" cy="50" rx="32" ry="14" stroke="currentColor" stroke-width="1.5" transform="rotate(40 50 50)" opacity=".85"/>
+          <ellipse cx="50" cy="50" rx="5" ry="40" stroke="currentColor" stroke-width="1" opacity=".5"/>
+        </svg>
+      </div>
+      <div class="name">渾天儀 Armillary</div>
+      <div class="desc">三層橢圓環旋轉 · hero 中心</div>
+    </div>
+    <div class="item">
+      <div class="stage" style="position:relative;width:100%">
+        <span class="pulse" style="position:absolute;top:18px;left:30%;width:8px;height:8px;background:#fbbf24;border-radius:9999px;filter:blur(.5px)"></span>
+        <span class="pulse" style="position:absolute;top:48px;left:55%;width:6px;height:6px;background:#fcd34d;border-radius:9999px;filter:blur(.5px);animation-delay:.5s"></span>
+        <span class="pulse" style="position:absolute;top:30px;left:75%;width:10px;height:10px;background:#f59e0b;border-radius:9999px;filter:blur(1px);animation-delay:1s"></span>
+        <span class="pulse" style="position:absolute;top:62px;left:18%;width:5px;height:5px;background:#fbbf24;border-radius:9999px;animation-delay:.2s"></span>
+      </div>
+      <div class="name">金色粒子 Particles</div>
+      <div class="desc">4-10px · blur .5-1px · pulse 3-4s</div>
+    </div>
+  </div>
+</body>
+</html>

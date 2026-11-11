@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>家長與學生見證｜立霖國文</title>
+<meta name="description" content="立霖國文 — 我們不收集分數見證，收集對話的開始。六則家長與學生的真實話語，關於飯桌、房門、與那個一直找不到的字。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+  /* ── testimonials.html 頁面專屬 ── */
+
+  /* 頁首大引號裝飾（淡墨，非互動） */
+  .page-head--testimonials {
+    padding-bottom: 100px;
+  }
+  .page-head--testimonials .page-head__deco {
+    position: absolute;
+    top: 32px; right: 48px;
+    font-family: var(--serif);
+    font-size: 220px;
+    line-height: 1;
+    color: var(--navy);
+    opacity: .035;
+    user-select: none;
+    pointer-events: none;
+    letter-spacing: -.04em;
+  }
+
+  /* 說明三欄（為什麼沒有分數 / 匿名 / 情緒標籤） */
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 32px;
+  }
+  .meta-item__label {
+    font-family: var(--serif);
+    font-size: 12px;
+    letter-spacing: .36em;
+    text-indent: .36em;
+    color: var(--gold-dark);
+    margin: 0 0 10px;
+  }
+  .meta-item__q {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+  .meta-item__p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: rgba(26, 54, 93, .72);
+    margin: 0;
+  }
+
+  /* 見證卡情緒小標 */
+  .quote-card__mood {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--serif);
+    font-size: 12px;
+    letter-spacing: .2em;
+    color: var(--gold-dark);
+    margin-bottom: 20px;
+  }
+  .quote-card__mood::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .quote-card--student .quote-card__mood { color: var(--teal); }
+  .quote-card--parent  .quote-card__mood { color: var(--terracotta); }
+
+  /* 每則見證的小斜體句（場景補充） */
+  .quote-card__aside {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-style: italic;
+    letter-spacing: .04em;
+    color: rgba(26, 54, 93, .56);
+    margin: -10px 0 16px;
+    line-height: 1.7;
+  }
+
+  /* source 加強：家長 terracotta / 學生 teal */
+  .quote-card--parent  .quote-card__source { border-top-color: rgba(184, 106, 74, .35); }
+  .quote-card--student .quote-card__source { border-top-color: rgba(74, 124, 126, .30); }
+
+  .quote-card__role {
+    font-family: var(--serif);
+    font-size: 12px;
+    color: rgba(26, 54, 93, .5);
+  }
+
+  @media (max-width: 860px) {
+    .page-head--testimonials .page-head__deco { font-size: 130px; right: 16px; top: 20px; }
+    .meta-grid { gap: 22px; }
+  }
+</style>
+</head>
+<body data-page="testimonials">
+
+<div id="site-header"></div>
+
+<!-- ── 頁首 ── -->
+<header class="page-head page-head--testimonials ink-wash">
+  <div class="page-head__inner" style="position:relative;">
+    <span class="page-head__deco" aria-hidden="true">「</span>
+    <p class="page-head__eyebrow">家長與學生見證 · TESTIMONIALS</p>
+    <h1 class="page-head__title">
+      我們不收集<br>
+      <span class="accent-terracotta">分數見證</span>。<br>
+      我們收集，<br>
+      <span class="accent-teal">對話的開始</span>。
+    </h1>
+    <p class="page-head__lead">
+      分數會結束，關係不會。這頁不會告訴你「誰從某個分數進步到另一個分數」——那是別人寫的故事。
+      我們收集的，是某一天的飯桌上多了一句話、是房門打開的那個瞬間、是孩子終於說出那個一直找不到的字。
+    </p>
+  </div>
+</header>
+
+<main>
+
+<!-- ── 說明欄 ── -->
+<section class="section section--paper-soft">
+  <div class="container">
+    <div class="meta-grid reveal">
+      <div class="meta-item">
+        <p class="meta-item__label">關於這頁</p>
+        <h2 class="meta-item__q">為什麼沒有分數？</h2>
+        <p class="meta-item__p">因為分數是表面結果，不是因。我們在乎的是孩子成為了一個怎樣的閱讀者、家長成為了一個怎樣的傾聽者——這些變了，分數通常也跟著變。但反過來不會。</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item__label">關於匿名</p>
+        <h2 class="meta-item__q">為什麼用代號？</h2>
+        <p class="meta-item__p">因為這些對話涉及很私密的家庭時刻。我們得到他們的書面同意刊出文字，但姓名一律匿名化，避免「被看見的代價」。真實的，是文字裡的細節。</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item__label">關於情緒詞彙</p>
+        <h2 class="meta-item__q">那些小標籤是什麼？</h2>
+        <p class="meta-item__p">「喜」「安」「望」「哀」——這些是我們課堂上教的情緒詞彙。每一則見證標上的，不是評分，是這位家長或孩子在說這段話時的心情。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gold-hr">
+
+<!-- ── 六則見證 ── -->
+<section class="section" id="voices">
+  <div class="container">
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">六則對話的開始</p>
+      <h2 class="section__title">家長與學生，同一個家庭裡的兩個視角。</h2>
+      <p class="section__sub">交錯出現，因為孩子的改變與家長的鬆動，從來都不是單獨發生的。</p>
+    </div>
+
+    <div class="grid grid--2">
+
+      <!-- 1 · 家長 · 喜 -->
+      <article class="quote-card quote-card--parent reveal">
+        <span class="quote-card__mark" aria-hidden="true">「</span>
+        <p class="quote-card__mood">喜 · 欣然</p>
+        <blockquote class="quote-card__body">
+          「他開始主動傳訊息給我。」
+          <br><br>
+          以前飯桌上問他「今天怎樣」，他回「還好」就結束了。上立霖老師三個月後，有一天他在學校傳訊息給我，說他今天在課堂上想到一個論語的句子。我看著那則訊息，看了很久。他不需要每次都這樣，但他願意傳這一次，我就知道有什麼改變了。
+        </blockquote>
+        <p class="quote-card__aside">——本來只是想找個國文老師，沒想到我們家的客廳變了。</p>
+        <div class="quote-card__source">
+          <span style="font-family:var(--serif);font-weight:600;color:var(--terracotta);">L 媽 · 新竹</span>
+          <span class="quote-card__role">高二學生母親 · 陪讀第 7 個月</span>
+        </div>
+      </article>
+
+      <!-- 2 · 學生 · 安 -->
+      <article class="quote-card quote-card--student reveal">
+        <span class="quote-card__mark" aria-hidden="true">「</span>
+        <p class="quote-card__mood">安 · 從容</p>
+        <blockquote class="quote-card__body">
+          「我終於不用裝懂蘇軾了。」
+          <br><br>
+          之前讀蘇軾我都假裝自己被感動，因為大家都說很美。直到立霖老師說「你不一定要喜歡他」，我整個人鬆下來。後來我反而真的想讀完《赤壁賦》，因為我可以選擇怎麼讀他。被允許不喜歡這件事，比被要求喜歡，更讓我願意靠近。
+        </blockquote>
+        <p class="quote-card__aside">——原來國文課可以是一個能說真話的地方。</p>
+        <div class="quote-card__source">
+          <span style="font-family:var(--serif);font-weight:600;color:var(--teal);">C · 國三</span>
+          <span class="quote-card__role">國三生 · 上課第 5 個月</span>
+        </div>
+      </article>
+
+      <!-- 3 · 家長 · 望 -->
+      <article class="quote-card quote-card--parent reveal">
+        <span class="quote-card__mark" aria-hidden="true">「</span>
+        <p class="quote-card__mood">望 · 懷想</p>
+        <blockquote class="quote-card__body">
+          「我和他開始能聊到第三句。」
+          <br><br>
+          我以前跟兒子的對話一定是兩句結束：「功課做了沒？」「做了。」立霖老師每週寄來的家長月報，會告訴我這週課堂上他寫了什麼、注意到他的什麼。我開始有東西可以問了。上週我們聊到第三句——是〈背影〉裡那個父親翻爬月台。我才知道，他想我也想了很久。
+        </blockquote>
+        <p class="quote-card__aside">——我不是不愛他，是我以前不知道從哪裡開始說。</p>
+        <div class="quote-card__source">
+          <span style="font-family:var(--serif);font-weight:600;color:var(--terracotta);">W 爸 · 線上學員</span>
+          <span class="quote-card__role">國二學生父親 · 陪讀第 4 個月</span>
+        </div>
+      </article>
+
+      <!-- 4 · 學生 · 望 -->
+      <article class="quote-card quote-card--student reveal">
+        <span class="quote-card__mark" aria-hidden="true">「</span>
+        <p class="quote-card__mood">望 · 懷想</p>
+        <blockquote class="quote-card__body">
+          「我把「煩」這個字戒掉了。」
+          <br><br>
+          老師上課拆過一次「煩」——其實裡面有「焦」「鬱」「慍」好幾種。後來我發現我用「煩」打發我媽好幾年了。我開始試著說「我今天很焦慮」或「我有點哀」。我媽一開始嚇到，但她開始問細節。原來我這幾年不是不想說話，是我沒有正確的字。
+        </blockquote>
+        <p class="quote-card__aside">——一個字的精準，可以救回一段關係。</p>
+        <div class="quote-card__source">
+          <span style="font-family:var(--serif);font-weight:600;color:var(--teal);">Y · 高一</span>
+          <span class="quote-card__role">高一生 · 上課第 1 年</span>
+        </div>
+      </article>
+
+      <!-- 5 · 家長 · 鬱 -->
+      <article class="quote-card quote-card--parent reveal">
+        <span class="quote-card__mark" aria-hidden="true">「</span>
+        <p class="quote-card__mood">鬱 · 惆悵</p>
+        <blockquote class="quote-card__body">
+          「我終於沒有在學測前一晚問她「準備好了嗎」。」
+          <br><br>
+          我練習了很久才做到的。立霖老師那篇〈考前一日流程〉專欄我讀了三次。學測前一晚我幫她準備了一碗粥，我們聊了一個小時關於她最喜歡的歌——完全沒提考試。她睡前抱了我一下，說「謝謝媽」。那是她國中之後第一次抱我。那個擁抱，我記得。
+        </blockquote>
+        <p class="quote-card__aside">——焦慮的版本是我，不是她。先治好我，孩子就鬆了。</p>
+        <div class="quote-card__source">
+          <span style="font-family:var(--serif);font-weight:600;color:var(--terracotta);">S 媽 · 新竹</span>
+          <span class="quote-card__role">高三學生母親 · 陪讀第 2 年</span>
+        </div>
+      </article>
+
+      <!-- 6 · 學生 · 安 -->
+      <article class="quote-card quote-card--student reveal">
+        <span class="quote-card__mark" aria-hidden="true">「</span>
+        <p class="quote-card__mood">安 · 從容</p>
+        <blockquote class="quote-card__body">
+          「考完那天，我沒哭也沒崩潰，只是回家睡了一覺。」
+          <br><br>
+          我同學考完都瘋掉了，不是哭就是大笑。我反而很安靜——不是冷漠，是我覺得我有努力過，所以不需要證明什麼了。老師曾經說「在分數抵達之前，先抵達自己」，我那天回家洗完澡才懂這句。我抵達了。分數再說。
+        </blockquote>
+        <p class="quote-card__aside">——所謂的成熟，是知道什麼該在乎。不在乎只是表面的姿態。</p>
+        <div class="quote-card__source">
+          <span style="font-family:var(--serif);font-weight:600;color:var(--teal);">A · 應屆</span>
+          <span class="quote-card__role">會考剛結束的國三生 · 上課第 2 年</span>
+        </div>
+      </article>
+
+    </div><!-- /grid -->
+  </div>
+</section>
+
+<hr class="gold-hr">
+
+<!-- ── 收束 CTA ── -->
+<section class="closing ink-wash" id="connect">
+  <div class="container container--narrow">
+    <p class="section__eyebrow" style="display:block;text-align:center;margin-bottom:20px;">如果這些文字有打到您</p>
+    <h2 class="closing__title">
+      我們不承諾分數，<br>
+      但我們陪你<span style="color:var(--teal)">把話接回來</span>。
+    </h2>
+    <p class="closing__lead">
+      先收一份月報、先讀一篇專欄、先預約一場對話——報名與否，留到那之後再說。
+    </p>
+    <div class="closing__actions">
+      <a class="btn btn--terracotta" href="parents.html">我是家長，想了解更多</a>
+      <a class="btn btn--teal" href="students.html">我是學生，想聊聊</a>
+    </div>
+    <p class="closing__note">不催促，不推銷。我們先聽。</p>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+</body>
+</html>

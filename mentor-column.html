@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>導師心靈專欄｜立霖國文</title>
+<meta name="description" content="立霖國文導師心靈專欄 — 每週一篇，給你和孩子之間的橋。一篇散文、一段經典、一個今晚就能試試看的小動作。">
+<link rel="icon" href="src/design-system/assets/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/sumi-site.css">
+<style>
+/* ── 本頁專屬：精選文章卡片（情緒色標頂線） ── */
+.article-card {
+  position: relative;
+  background: var(--paper-soft);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+}
+.article-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 38px rgba(15, 39, 68, .10);
+}
+.article-card__emo-bar {
+  height: 3px;
+  background: var(--emo-color, var(--gold));
+}
+.article-card__body {
+  padding: 26px 28px 22px;
+}
+.article-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.article-card__topic {
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: .18em;
+  color: rgba(26, 54, 93, .55);
+}
+.article-card__title {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: .04em;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.article-card__excerpt {
+  font-size: 14.5px;
+  line-height: 1.9;
+  letter-spacing: .03em;
+  color: rgba(26, 54, 93, .72);
+  margin: 0 0 20px;
+}
+.article-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--hairline-soft);
+  font-size: 12.5px;
+  color: rgba(26, 54, 93, .5);
+  letter-spacing: .06em;
+}
+.article-card__read {
+  font-family: var(--serif);
+  font-size: 13.5px;
+  color: var(--emo-color, var(--navy));
+  text-decoration: none;
+  letter-spacing: .1em;
+  transition: opacity .18s;
+}
+.article-card__read:hover { opacity: .68; }
+
+/* 精選主文章（hero card） */
+.hero-article {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--paper-soft);
+}
+@media (max-width: 760px) {
+  .hero-article { grid-template-columns: 1fr; }
+}
+.hero-article__visual {
+  position: relative;
+  min-height: 300px;
+  background: linear-gradient(150deg, var(--navy-deep) 0%, var(--navy) 60%, color-mix(in srgb, var(--emo-melancholy-bg, #6b7a99) 40%, var(--navy)) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px 34px;
+  overflow: hidden;
+}
+.hero-article__visual::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 70% at 80% 80%, rgba(107, 122, 153, .28), transparent 72%);
+  pointer-events: none;
+}
+.hero-article__badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .15);
+  backdrop-filter: blur(4px);
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: .16em;
+  color: var(--paper-soft);
+}
+.hero-article__badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 999px;
+  background: var(--gold);
+  flex: none;
+}
+.hero-article__pullquote {
+  position: relative;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.9;
+  letter-spacing: .04em;
+  color: rgba(250, 245, 239, .92);
+}
+.hero-article__pullquote mark {
+  font-size: 48px;
+  line-height: 0;
+  margin-right: 3px;
+  opacity: .45;
+  color: var(--gold);
+  font-family: serif;
+  background: transparent;
+  vertical-align: bottom;
+}
+.hero-article__pullquote cite {
+  display: block;
+  margin-top: 14px;
+  font-style: normal;
+  font-size: 12.5px;
+  letter-spacing: .12em;
+  color: rgba(230, 184, 92, .85);
+}
+.hero-article__info {
+  padding: 34px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.hero-article__title {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .05em;
+  color: var(--ink);
+  margin: 16px 0 14px;
+}
+.hero-article__text {
+  font-size: 15px;
+  line-height: 1.95;
+  letter-spacing: .03em;
+  color: rgba(26, 54, 93, .78);
+  margin: 0 0 24px;
+  flex: 1;
+}
+.hero-article__byline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid rgba(214, 158, 46, .3);
+  font-size: 12.5px;
+  color: rgba(26, 54, 93, .52);
+  letter-spacing: .06em;
+}
+
+/* 三大主題卡片 */
+.theme-card {
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  padding: 30px 28px;
+  transition: transform .25s, box-shadow .25s;
+}
+.theme-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 38px rgba(15, 39, 68, .10);
+}
+.theme-card--adolescence {
+  background: linear-gradient(150deg, var(--mist), color-mix(in srgb, var(--teal) 8%, var(--paper-soft)));
+  border-color: rgba(74, 124, 126, .28);
+}
+.theme-card--classic {
+  background: linear-gradient(150deg, color-mix(in srgb, var(--gold) 10%, var(--paper-soft)), var(--paper-soft));
+  border-color: rgba(214, 158, 46, .28);
+}
+.theme-card--repair {
+  background: linear-gradient(150deg, var(--sunrise), var(--clay));
+  border-color: rgba(184, 106, 74, .24);
+}
+.theme-card__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.theme-card__name {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: var(--ink);
+  margin: 0;
+}
+.theme-card__count {
+  font-family: var(--serif);
+  font-size: 13px;
+  letter-spacing: .1em;
+}
+.theme-card--adolescence .theme-card__count { color: var(--teal); }
+.theme-card--classic    .theme-card__count { color: var(--gold-dark); }
+.theme-card--repair     .theme-card__count { color: var(--terracotta); }
+.theme-card__desc {
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: rgba(26, 54, 93, .74);
+  margin: 0 0 16px;
+}
+.theme-card__samples {
+  font-size: 12px;
+  letter-spacing: .04em;
+  line-height: 1.85;
+  color: rgba(26, 54, 93, .55);
+  margin: 0 0 18px;
+}
+.theme-card__link {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-decoration: none;
+  transition: opacity .18s;
+}
+.theme-card--adolescence .theme-card__link { color: var(--teal); }
+.theme-card--classic    .theme-card__link { color: var(--gold-dark); }
+.theme-card--repair     .theme-card__link { color: var(--terracotta); }
+.theme-card__link:hover { opacity: .7; }
+
+/* emo-chip 色票覆寫（搭配 data-emo 選取） */
+.emo-chip[data-emo="鬱"] { color: var(--emo-melancholy); border-color: rgba(107,122,153,.38); background: rgba(107,122,153,.08); }
+.emo-chip[data-emo="焦"] { color: var(--emo-anxiety);    border-color: rgba(184,153,104,.38); background: rgba(184,153,104,.08); }
+.emo-chip[data-emo="望"] { color: var(--emo-hope);       border-color: rgba(154,184,124,.38); background: rgba(154,184,124,.08); }
+.emo-chip[data-emo="哀"] { color: var(--emo-grief);      border-color: rgba(93,104,120,.38);  background: rgba(93,104,120,.08); }
+.emo-chip[data-emo="安"] { color: var(--emo-calm);       border-color: rgba(138,169,181,.38); background: rgba(138,169,181,.08); }
+.emo-chip[data-emo="慍"] { color: var(--emo-anger);      border-color: rgba(168,98,74,.38);   background: rgba(168,98,74,.08); }
+.emo-chip[data-emo="喜"] { color: var(--emo-joy);        border-color: rgba(230,184,92,.38);  background: rgba(230,184,92,.08); }
+
+@media (max-width: 860px) {
+  .hero-article__visual { min-height: 240px; padding: 26px 24px; }
+  .hero-article__info   { padding: 26px 24px; }
+  .hero-article__title  { font-size: 20px; }
+}
+</style>
+</head>
+<body data-page="mentor-column">
+
+<div id="site-header"></div>
+
+<!-- ================= 頁首 ================= -->
+<header class="page-head ink-wash ink-wash--parent">
+  <div class="page-head__inner">
+    <p class="page-head__eyebrow">導師心靈專欄 · MENTOR COLUMN</p>
+    <h1 class="page-head__title">每週一篇，<br><span class="accent-terracotta">給你和孩子之間的橋。</span></h1>
+    <p class="page-head__lead">
+      一篇散文、一段經典、一個今晚就能試試看的小動作。<br>
+      不是教養指南，是和你一起想事情的人。
+    </p>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 本週精選（hero）================= -->
+<section class="section" id="latest">
+  <div class="container">
+
+    <div class="section__head reveal">
+      <p class="section__eyebrow">本週一篇</p>
+      <h2 class="section__title">最新文章</h2>
+    </div>
+
+    <article class="hero-article reveal" aria-label="最新專欄文章">
+      <!-- 左側視覺 -->
+      <div class="hero-article__visual">
+        <span class="hero-article__badge">
+          <span class="hero-article__badge-dot"></span>
+          最新一篇 · 心理健康 · MENTAL HEALTH
+        </span>
+        <blockquote class="hero-article__pullquote">
+          <mark>「</mark>孩子需要的，與其說是一個能解決問題的人，
+          不如說是一個願意先聽完問題的人。
+          <cite>—— 引自〈孩子不說，不代表沒事〉</cite>
+        </blockquote>
+      </div>
+      <!-- 右側資訊 -->
+      <div class="hero-article__info">
+        <div>
+          <div class="article-card__meta">
+            <span class="chip emo-chip" data-emo="鬱"><span class="dot-sm"></span>鬱 · 惆悵</span>
+          </div>
+          <h2 class="hero-article__title">
+            孩子不說，不代表沒事——<br>當沉默成為求助的開始
+          </h2>
+          <p class="hero-article__text">
+            他把鉛筆轉了一圈又一圈，最後只說「老師，沒事，
+            我只是想多坐一下」。孩子的沉默，很少是真正的沒事——
+            只是還沒準備好被接住。
+          </p>
+        </div>
+        <footer class="hero-article__byline">
+          <span>立霖 · 2026 · 05 · 14 · 6 分鐘</span>
+          <a class="btn btn--ghost" href="articles/when-teens-stay-silent-help-seeking.html" style="font-size:14px;padding:10px 20px;">閱讀全文 →</a>
+        </footer>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<hr class="gold-hr">
+
+<!-- ================= 本月精選（情緒色標卡片）================= -->
+<section class="section section--paper-soft" id="featured">
+  <div class="container">
+
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">本月精選</p>
+      <h2 class="section__title">情緒色標</h2>
+      <p class="section__sub">讓你一眼看見今天的自己，需要哪一篇。</p>
+    </div>
+
+    <div class="grid grid--3 reveal">
+
+      <!-- 焦 -->
+      <article class="article-card" style="--emo-color: var(--emo-anxiety);">
+        <div class="article-card__emo-bar"></div>
+        <div class="article-card__body">
+          <div class="article-card__meta">
+            <span class="chip emo-chip" data-emo="焦"><span class="dot-sm"></span>焦 · 懸宕</span>
+            <span class="article-card__topic">親子教養</span>
+          </div>
+          <h3 class="article-card__title">為什麼孩子在外面笑容滿面，回家臉就垮下來</h3>
+          <p class="article-card__excerpt">
+            孩子在外面笑、回家垮，不是你做錯了，
+            是你做對了一件你不知道自己做對了的事。
+          </p>
+          <footer class="article-card__footer">
+            <span>05 · 10 · 5 分鐘</span>
+            <a class="article-card__read" href="articles/door-true-self.html">閱讀 →</a>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 望 -->
+      <article class="article-card" style="--emo-color: var(--emo-hope);">
+        <div class="article-card__emo-bar"></div>
+        <div class="article-card__body">
+          <div class="article-card__meta">
+            <span class="chip emo-chip" data-emo="望"><span class="dot-sm"></span>望 · 懷想</span>
+            <span class="article-card__topic">經典與母語</span>
+          </div>
+          <h3 class="article-card__title">屈原其實不姓屈：端午節，和孩子聊一個失意者的選擇</h3>
+          <p class="article-card__excerpt">
+            從幾個少有人知的小知識出發，重新認識這位
+            在失意裡仍誠實面對自己的詩人。
+          </p>
+          <footer class="article-card__footer">
+            <span>05 · 07 · 7 分鐘</span>
+            <a class="article-card__read" href="articles/duanwu-quyuan-resilience.html">閱讀 →</a>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 哀 -->
+      <article class="article-card" style="--emo-color: var(--emo-grief);">
+        <div class="article-card__emo-bar"></div>
+        <div class="article-card__body">
+          <div class="article-card__meta">
+            <span class="chip emo-chip" data-emo="哀"><span class="dot-sm"></span>哀 · 黯然</span>
+            <span class="article-card__topic">親子教養</span>
+          </div>
+          <h3 class="article-card__title">累壞的父母也還是愛孩子：認識親職倦怠，以及如何先把自己接住</h3>
+          <p class="article-card__excerpt">
+            對孩子失去耐性、事後又自責，問題往往不在
+            你不夠愛孩子，而在親職倦怠悄悄來了。
+          </p>
+          <footer class="article-card__footer">
+            <span>05 · 03 · 6 分鐘</span>
+            <a class="article-card__read" href="articles/parental-burnout-refilling-the-parent-first.html">閱讀 →</a>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 安 -->
+      <article class="article-card" style="--emo-color: var(--emo-calm);">
+        <div class="article-card__emo-bar"></div>
+        <div class="article-card__body">
+          <div class="article-card__meta">
+            <span class="chip emo-chip" data-emo="安"><span class="dot-sm"></span>安 · 從容</span>
+            <span class="article-card__topic">親子教養</span>
+          </div>
+          <h3 class="article-card__title">成績單上的面子：東亞「成就即孝順」的文化，如何悄悄改寫親子對話</h3>
+          <p class="article-card__excerpt">
+            東亞「成就即孝順」的文化，讓成績悄悄變成
+            全家的面子，也讓對話悄悄變了調。
+          </p>
+          <footer class="article-card__footer">
+            <span>04 · 28 · 5 分鐘</span>
+            <a class="article-card__read" href="articles/face-achievement-confucian-culture-reshaping-dialogue.html">閱讀 →</a>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 慍 -->
+      <article class="article-card" style="--emo-color: var(--emo-anger);">
+        <div class="article-card__emo-bar"></div>
+        <div class="article-card__body">
+          <div class="article-card__meta">
+            <span class="chip emo-chip" data-emo="慍"><span class="dot-sm"></span>慍 · 不平</span>
+            <span class="article-card__topic">寫作表達</span>
+          </div>
+          <h3 class="article-card__title">把一件難過的事寫下來——敘事力如何幫青少年認識自己、安頓情緒</h3>
+          <p class="article-card__excerpt">
+            孩子寫作文只會寫「奶奶對我很好」，卻說不出細節？
+            問題往往不在文筆，而在他還沒練習看見自己的感受。
+          </p>
+          <footer class="article-card__footer">
+            <span>04 · 22 · 4 分鐘</span>
+            <a class="article-card__read" href="articles/narrative-writing-adolescent-identity.html">閱讀 →</a>
+          </footer>
+        </div>
+      </article>
+
+      <!-- 喜 -->
+      <article class="article-card" style="--emo-color: var(--emo-joy);">
+        <div class="article-card__emo-bar"></div>
+        <div class="article-card__body">
+          <div class="article-card__meta">
+            <span class="chip emo-chip" data-emo="喜"><span class="dot-sm"></span>喜 · 欣然</span>
+            <span class="article-card__topic">親子教養</span>
+          </div>
+          <h3 class="article-card__title">行事曆塞滿之後：當孩子的每一小時都被安排，自主與好奇從哪裡長出來</h3>
+          <p class="article-card__excerpt">
+            當孩子的每一小時都被才藝、補習、安親填滿，
+            「充實」會不會反而擠掉了好奇與自主？
+          </p>
+          <footer class="article-card__footer">
+            <span>04 · 15 · 5 分鐘</span>
+            <a class="article-card__read" href="articles/over-scheduling-room-for-autonomy-and-curiosity.html">閱讀 →</a>
+          </footer>
+        </div>
+      </article>
+
+    </div><!-- /grid -->
+
+    <p style="text-align:center;margin-top:36px;">
+      <a class="theme-card__link" href="articles/index.html">更多文章 →</a>
+    </p>
+  </div>
+</section>
+
+<hr class="gold-hr">
+
+<!-- ================= 三大主題 ================= -->
+<section class="section" id="themes">
+  <div class="container">
+
+    <div class="section__head section__head--center reveal">
+      <p class="section__eyebrow">三大主題</p>
+      <h2 class="section__title">挑一個今天最貼近你的，<br>從那裡開始讀。</h2>
+    </div>
+
+    <div class="grid grid--3 reveal">
+
+      <div class="theme-card theme-card--adolescence">
+        <div class="theme-card__header">
+          <h3 class="theme-card__name">青春期</h3>
+          <span class="theme-card__count">7 篇</span>
+        </div>
+        <p class="theme-card__desc">
+          不評論的陪伴，把焦慮翻譯成情緒詞彙——
+          讓他願意說、你願意聽。
+        </p>
+        <hr class="gold-hr" style="margin: 0 0 12px;">
+        <p class="theme-card__samples">
+          〈孩子不說，不代表沒事〉、〈手機把童年偷走了嗎〉、
+          〈為什麼睡前那支手機悄悄影響情緒〉
+        </p>
+        <a class="theme-card__link" href="articles/index.html">讀全部 →</a>
+      </div>
+
+      <div class="theme-card theme-card--classic">
+        <div class="theme-card__header">
+          <h3 class="theme-card__name">古典文學的現代映照</h3>
+          <span class="theme-card__count">8 篇</span>
+        </div>
+        <p class="theme-card__desc">
+          經典從來不只是考題——
+          它們是被反覆驗證過的人生答案。
+        </p>
+        <hr class="gold-hr" style="margin: 0 0 12px;">
+        <p class="theme-card__samples">
+          〈屈原其實不姓屈〉、〈為什麼還要讀古文〉、
+          〈古文留下幾篇，吵了二十年〉
+        </p>
+        <a class="theme-card__link" href="articles/index.html">讀全部 →</a>
+      </div>
+
+      <div class="theme-card theme-card--repair">
+        <div class="theme-card__header">
+          <h3 class="theme-card__name">親子修復</h3>
+          <span class="theme-card__count">7 篇</span>
+        </div>
+        <p class="theme-card__desc">
+          不教你說什麼，而是給你一個今晚就能試試看的、
+          小小的動作。
+        </p>
+        <hr class="gold-hr" style="margin: 0 0 12px;">
+        <p class="theme-card__samples">
+          〈行事曆塞滿之後〉、〈累壞的父母也還是愛孩子〉、
+          〈成績單上的面子〉
+        </p>
+        <a class="theme-card__link" href="articles/index.html">讀全部 →</a>
+      </div>
+
+    </div><!-- /grid -->
+  </div>
+</section>
+
+<!-- ================= 訂閱收束 ================= -->
+<section class="closing ink-wash ink-wash--parent" id="subscribe">
+  <div class="container container--narrow">
+    <p class="section__eyebrow" style="margin-bottom: 18px;">訂閱專欄 · SUBSCRIBE</p>
+    <h2 class="closing__title">
+      每週四晚上，<br>
+      <span style="color: var(--terracotta);">寄一封到您的 LINE。</span>
+    </h2>
+    <p class="closing__lead">
+      一篇文章、一句經典、一個今晚就能試試看的小動作。<br>
+      不轉發、不推銷、不傳早安圖——只寄這一件事。
+    </p>
+    <div class="closing__actions">
+      <a class="btn btn--line" href="#">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 10.3c0-5.4-5.4-9.7-12-9.7S0 5 0 10.3c0 4.8 4.3 8.8 10 9.6.4.1.9.3 1.1.6.1.3.1.8.1 1.1l-.2 1c0 .3-.2 1.2 1 .6 1.3-.5 7-4.1 9.4-7C23.2 14.4 24 12.5 24 10.3z"/></svg>
+        加入 LINE，接收每週陪伴訊息
+      </a>
+      <a class="btn btn--ghost" href="mailto:hello@lilinguowen.com">改用 Email 接收也可以</a>
+    </div>
+    <p class="closing__note">隨時可退訂。從不轉售名單。</p>
+  </div>
+</section>
+
+<!-- ================= 親情橋樑月報 ================= -->
+<section class="section section--paper-soft" id="parent-newsletter" data-newsletter>
+  <div class="container container--narrow text-center">
+    <p class="section__eyebrow">親情橋樑月報</p>
+    <h2 class="section__title" style="font-size:22px;">每月一封，給家長的陪伴筆記與教材更新。</h2>
+    <p class="section__sub" style="margin:0 auto 22px;max-width:38em;">
+      不轉發、不推銷。一封信，整理這個月我們在陪伴路上的觀察，與教材的最新進度。
+    </p>
+    <a class="btn btn--terracotta" data-newsletter-link href="#" target="_blank" rel="noopener">訂閱親情橋樑月報</a>
+  </div>
+</section>
+
+</main>
+
+<div id="site-footer"></div>
+
+<script src="assets/sumi-site.js"></script>
+</body>
+</html>

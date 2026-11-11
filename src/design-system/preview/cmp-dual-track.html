@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<title>Dual Track Entry</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC',system-ui,sans-serif;background:#faf5ef;color:#1a365d;padding:24px;font-size:13px}
+  .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#1a365d;opacity:.55;font-weight:600;margin-bottom:14px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .tk{border-radius:20px;padding:24px;overflow:hidden;position:relative}
+  .student{background:linear-gradient(135deg,#e8eeec 0%,#dde9e8 100%);border:1px solid rgba(74,124,126,.3)}
+  .parent{background:linear-gradient(135deg,#f4e4d4 0%,#e8d5c4 100%);border:1px solid rgba(184,106,74,.25)}
+  .pill{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .75rem;border-radius:9999px;background:rgba(255,255,255,.65);backdrop-filter:blur(4px);font-size:11px;font-weight:600;letter-spacing:.05em;margin-bottom:14px}
+  .pill::before{content:"";width:.45rem;height:.45rem;border-radius:9999px}
+  .s .pill{color:#4a7c7e}.s .pill::before{background:#4a7c7e}
+  .p .pill{color:#b86a4a}.p .pill::before{background:#b86a4a}
+  .ttl{font-size:22px;font-weight:700;color:#1a365d;margin-bottom:10px}
+  .sub{font-size:13px;line-height:1.75;color:#2c5282;margin-bottom:14px}
+  ul{list-style:none;font-size:12.5px;display:grid;gap:6px}
+  li{display:flex;gap:6px;align-items:center}
+  .s li::before{content:"→";color:#4a7c7e}
+  .p li::before{content:"→";color:#b86a4a}
+  .cta{margin-top:14px;font-size:13px;font-weight:600}
+  .s .cta{color:#4a7c7e}.p .cta{color:#b86a4a}
+</style>
+</head>
+<body>
+  <div class="lbl">雙軌動線入口 · DualTrackEntry</div>
+  <div class="grid">
+    <div class="tk student s">
+      <span class="pill">學生入口</span>
+      <h3 class="ttl">探索 · 陪伴 · 解惑</h3>
+      <p class="sub">分數只是檢驗知識的過程，你擁有什麼樣的人生才是最終的目的。</p>
+      <ul><li>文學故事的現代改寫</li><li>學長姐升學壓力真實心聲</li><li>高度隱私的匿名心事信箱</li></ul>
+      <div class="cta">進入學生專區 ›</div>
+    </div>
+    <div class="tk parent p">
+      <span class="pill">家長入口</span>
+      <h3 class="ttl">理解 · 支持 · 教養</h3>
+      <p class="sub">那些不知如何開口的關心，讓文學的溫柔替您說。</p>
+      <ul><li>青春期發展心理學文章</li><li>非暴力溝通技巧解析</li><li>課堂觀察與情緒反饋</li></ul>
+      <div class="cta">進入家長專區 ›</div>
+    </div>
+  </div>
+</body>
+</html>
